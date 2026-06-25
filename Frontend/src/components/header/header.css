@@ -1,0 +1,53 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 8dvh;
+  background-color: rgb(18, 34, 53);
+  color: white;
+  display: grid;
+  grid-template-columns: 15% 85%;
+  grid-template-rows: 100%;
+  align-items: center;
+}
+.header > h1 {
+  font-size: 20px;
+  text-align: center;
+}
+.others {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 30px;
+  align-items: center;
+  background-color: rgb(23, 42, 66);
+  height: 100%;
+}
+.others > p {
+  font-size: 18px;
+}
+#dp {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  background-color: white;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(https://www.gravatar.com/avatar/0000000…?d=mp&f=y);
+}
+#online {
+  height: 15px;
+  width: 15px;
+  background-color: rgb(53, 247, 79);
+  border: solid 1px white;
+  border-radius: 50%;
+  display: flex;
+}
+.dropdown {
+  position: absolute;
+  top: 110%;
+}
