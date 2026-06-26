@@ -30,6 +30,7 @@
   height: 50px;
   width: 50px;
   border-radius: 50%;
+  cursor: pointer;
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
@@ -51,14 +52,14 @@
   position: absolute;
   top: 8%;
   right: 0;
+  padding: 10px 20px;
   background-color: rgb(23, 42, 66);
   color: white;
   z-index: 1000;
-  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  max-height: 100px;
+  max-height: 90px;
   height: 100%;
 }
 .dropdown > a {
@@ -69,6 +70,7 @@
   flex-direction: row;
   gap: 10px;
   align-items: center;
+  text-align: center;
 }
 .dropdown > a:hover {
   color: rgb(233, 54, 54);

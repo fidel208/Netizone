@@ -18,7 +18,7 @@ const Header = () => {
         {isOpen && (
           <span className="dropdown">
             <a href="#">
-              <i class="fa-solid fa-user"></i>Account settings
+              <i class="fa-solid fa-user"></i>Account Settings
             </a>
             <a href="/login">
               {" "}

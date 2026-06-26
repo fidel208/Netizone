@@ -4,3 +4,47 @@
   background-color: rgb(18, 34, 53);
   color: white;
 }
+nav {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0 10px;
+}
+nav a {
+  color: white;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  text-decoration: none;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  padding: 20px 10px;
+  border-radius: 18px;
+}
+nav a:hover {
+  background-color: rgb(28, 53, 83);
+  font-weight: bold;
+}
+.a-active {
+  background-color: rgb(28, 53, 83);
+  font-weight: bold;
+}
+.left {
+  display: flex;
+  flex: row;
+  gap: 10px;
+}
+.fa-solid {
+  display: flex;
+  align-self: flex-end;
+}
+.with {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+nav > div > a {
+  font-size: 15px;
+  height: 40px;
+}
