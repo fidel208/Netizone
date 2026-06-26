@@ -9,7 +9,7 @@ const Header = () => {
   };
   return (
     <div className="header">
-      <h1>MWITIX NET</h1>
+      <h1>FIDEL NET</h1>
       <div className="others">
         <p>Hello Fidel</p>
         <span id="dp" onClick={toggleDropdown}>

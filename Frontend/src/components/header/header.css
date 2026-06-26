@@ -61,6 +61,7 @@
   justify-content: space-between;
   max-height: 90px;
   height: 100%;
+  border-bottom-left-radius: 5px;
 }
 .dropdown > a {
   color: white;

@@ -11,10 +11,23 @@ const Aside = () => {
     }
   };
 
+  const [active, setActive] = useState(null);
+  const toggleActive = (navName) => {
+    if (active === navName) {
+      setActive(null);
+    } else {
+      setActive(navName);
+    }
+  };
   return (
     <div className="aside">
       <nav>
-        <a href="" className="a-active">
+        <a
+          href=""
+          onClick={(e) => {
+            e.preventDefault();
+          }}
+        >
           <span class="material-symbols-outlined">dashboard</span>My Dashboard
         </a>
         <a
@@ -28,14 +41,32 @@ const Aside = () => {
           <span className="left">
             <span class="material-symbols-outlined">groups</span>Clients
           </span>
-          <i class="fa-solid fa-angle-left"></i>
+          <i
+            class="fa-solid fa-angle-left"
+            id={openMenu === "clients" ? "i-active" : ""}
+          ></i>
         </a>
-        {openMenu === "clients" && (
-          <div id="clients-dropdown">
-            <a href="">Online clients</a>
-            <a href="">Hotspot clients</a>
-          </div>
-        )}
+        <div
+          id="clients-dropdown"
+          className={openMenu === "clients" ? "open" : ""}
+        >
+          <a
+            href=""
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+          >
+            Online clients
+          </a>
+          <a
+            href=""
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+          >
+            Hotspot clients
+          </a>
+        </div>
         <a
           href=""
           className="with"
@@ -48,14 +79,32 @@ const Aside = () => {
             <span class="material-symbols-outlined">confirmation_number</span>My
             Services
           </span>
-          <i class="fa-solid fa-angle-left"></i>
+          <i
+            class="fa-solid fa-angle-left"
+            id={openMenu === "services" ? "i-active" : ""}
+          ></i>
         </a>
-        {openMenu === "services" && (
-          <div id="services-dropdown">
-            <a href="">Recharge Client</a>
-            <a href="">Refill Client</a>
-          </div>
-        )}
+        <div
+          id="services-dropdown"
+          className={openMenu === "services" ? "open" : ""}
+        >
+          <a
+            href=""
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+          >
+            Recharge Client
+          </a>
+          <a
+            href=""
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+          >
+            Refill Client
+          </a>
+        </div>
         <a
           href=""
           className="with"
@@ -68,14 +117,34 @@ const Aside = () => {
             <span class="material-symbols-outlined">deployed_code</span>My
             Packages
           </span>
-          <i class="fa-solid fa-angle-left"></i>
+          <i
+            class="fa-solid fa-angle-left"
+            id={openMenu === "packages" ? "i-active" : ""}
+          ></i>
         </a>
-        {openMenu === "packages" && (
-          <div id="packages-dropdown">
-            <a href="">Hotspot</a>
-            <a href="">PPPOE</a>
-          </div>
-        )}
+
+        <div
+          id="packages-dropdown"
+          className={openMenu === "packages" ? "open" : ""}
+        >
+          <a
+            href=""
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+          >
+            Hotspot
+          </a>
+          <a
+            href=""
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+          >
+            PPPOE
+          </a>
+        </div>
+
         <a
           href=""
           className="with"
@@ -87,14 +156,34 @@ const Aside = () => {
           <span className="left">
             <span class="material-symbols-outlined">airplay</span>Broadcast
           </span>
-          <i class="fa-solid fa-angle-left"></i>
+          <i
+            class="fa-solid fa-angle-left"
+            id={openMenu === "broadcast" ? "i-active" : ""}
+          ></i>
         </a>
-        {openMenu === "broadcast" && (
-          <div id="broadcast-dropdown">
-            <a href="">Single Client</a>
-            <a href="">Bulk Clients</a>
-          </div>
-        )}
+
+        <div
+          id="broadcast-dropdown"
+          className={openMenu === "broadcast" ? "open" : ""}
+        >
+          <a
+            href=""
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+          >
+            Single Client
+          </a>
+          <a
+            href=""
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+          >
+            Bulk Clients
+          </a>
+        </div>
+
         <a
           href=""
           className="with"
@@ -106,14 +195,33 @@ const Aside = () => {
           <span className="left">
             <span class="material-symbols-outlined">analytics</span>Statements
           </span>
-          <i class="fa-solid fa-angle-left"></i>
+          <i
+            class="fa-solid fa-angle-left"
+            id={openMenu === "statements" ? "i-active" : ""}
+          ></i>
         </a>
-        {openMenu === "statements" && (
-          <div id="statements-dropdown">
-            <a href="">Daily Report</a>
-            <a href="">Period Report</a>
-          </div>
-        )}
+        <div
+          id="statements-dropdown"
+          className={openMenu === "statements" ? "open" : ""}
+        >
+          <a
+            href=""
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+          >
+            Daily Report
+          </a>
+          <a
+            href=""
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+          >
+            Period Report
+          </a>
+        </div>
+
         <a
           href=""
           onClick={(e) => {
@@ -133,14 +241,33 @@ const Aside = () => {
           <span className="left">
             <span class="material-symbols-outlined">network_manage</span>Network
           </span>
-          <i class="fa-solid fa-angle-left"></i>
+          <i
+            class="fa-solid fa-angle-left"
+            id={openMenu === "network" ? "i-active" : ""}
+          ></i>
         </a>
-        {openMenu === "network" && (
-          <div id="network-dropdown">
-            <a href="">Routers</a>
-            <a href="">IP Pool</a>
-          </div>
-        )}
+
+        <div
+          id="network-dropdown"
+          className={openMenu === "network" ? "open" : ""}
+        >
+          <a
+            href=""
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+          >
+            Routers
+          </a>
+          <a
+            href=""
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+          >
+            IP Pool
+          </a>
+        </div>
         <a
           href=""
           className="with"
@@ -152,17 +279,57 @@ const Aside = () => {
           <span className="left">
             <span class="material-symbols-outlined">settings</span>Settings
           </span>
-          <i class="fa-solid fa-angle-left"></i>
+          <i
+            class="fa-solid fa-angle-left"
+            id={openMenu === "settings" ? "i-active" : ""}
+          ></i>
         </a>
-        {openMenu === "settings" && (
-          <div id="settings-dropdown">
-            <a href="">General Settings</a>
-            <a href="">Maintenance Mode</a>
-            <a href="">User Alerts</a>
-            <a href="">Backup/Restore</a>
-            <a href="">Clear Cache</a>
-          </div>
-        )}
+
+        <div
+          id="settings-dropdown"
+          className={openMenu === "settings" ? "open" : ""}
+        >
+          <a
+            href=""
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+          >
+            General Settings
+          </a>
+          <a
+            href=""
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+          >
+            Maintenance Mode
+          </a>
+          <a
+            href=""
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+          >
+            User Alerts
+          </a>
+          <a
+            href=""
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+          >
+            Backup/Restore
+          </a>
+          <a
+            href=""
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+          >
+            Clear Cache
+          </a>
+        </div>
       </nav>
     </div>
   );
