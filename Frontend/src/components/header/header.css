@@ -49,5 +49,27 @@
 }
 .dropdown {
   position: absolute;
-  top: 110%;
+  top: 8%;
+  right: 0;
+  background-color: rgb(23, 42, 66);
+  color: white;
+  z-index: 1000;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-height: 100px;
+  height: 100%;
+}
+.dropdown > a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+.dropdown > a:hover {
+  color: rgb(233, 54, 54);
 }
