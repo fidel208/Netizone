@@ -1,0 +1,200 @@
+.account {
+  display: grid;
+  grid-template-columns: 45% 45%;
+  grid-template-rows: 100%;
+  padding: 0 50px;
+  height: 90%;
+  gap: 50px;
+}
+.account-payment {
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+}
+.account-payment > p {
+  font-size: 20px;
+}
+#active-state {
+  color: green;
+}
+.plan {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+#plan-title {
+  max-width: 150px;
+  max-height: 28px;
+  text-align: center;
+  background-color: rgb(8, 172, 123);
+  color: white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  margin-left: 50px;
+}
+.plan-box {
+  display: grid;
+  grid-template-columns: 45% 45%;
+  justify-content: space-between;
+  grid-template-rows: 100%;
+  width: 100%;
+  max-width: 500px;
+  height: 250px;
+  border: solid 1px gray;
+  border-radius: 12px;
+  padding: 20px;
+}
+.amounts {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+#amount {
+  font-size: 30px;
+  font-weight: bold;
+  gap: 0;
+}
+sup,
+sub {
+  color: rgb(80, 78, 78);
+  font-size: 15px;
+  font-weight: normal;
+}
+#decimal {
+  font-weight: normal;
+  color: rgb(160, 157, 157);
+}
+#for {
+  font-size: 15px;
+  color: rgb(80, 78, 78);
+}
+#pay-btn {
+  height: 40px;
+  border: none;
+  outline: none;
+  background-color: rgb(8, 172, 123);
+  color: white;
+  border-radius: 12px;
+  font-size: 20px;
+  max-width: 60%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+#pay-btn:hover {
+  background-color: rgb(11, 92, 68);
+}
+.details {
+  border-left: solid 1px rgb(233, 226, 226);
+  display: flex;
+  justify-content: center;
+}
+.details > ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100%;
+}
+.details > ul > li {
+  font-size: 18px;
+  color: rgb(80, 78, 78);
+}
+.payment-box {
+  margin-top: 50px;
+  transition: opacity 1s ease;
+  opacity: 0.3;
+  pointer-events: none;
+}
+#open-pay-box {
+  transition: opacity 1s ease;
+  opacity: 1;
+  pointer-events: auto;
+}
+.pay-box {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+}
+.pay-box > p {
+  color: black;
+  font-size: 20px;
+}
+.choices > span {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+.choices input {
+  width: 20px;
+  height: 20px;
+}
+.choices label {
+  font-size: 20px;
+  color: black;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.pay-for {
+  width: 600px;
+  margin-top: 40px;
+}
+.pay-for > form {
+  gap: 8px;
+}
+.pay-for > form > label {
+  color: black;
+}
+.pay-for > form > input {
+  border: solid 1px gray;
+  padding: 10px;
+  border-radius: 12px;
+}
+#init {
+  background-color: rgb(48, 48, 185);
+  width: 100%;
+  margin-top: 10px;
+}
+#init:hover {
+  background-color: rgb(21, 21, 83);
+}
+.edit-details {
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  justify-content: center;
+}
+.edit-details > form {
+  gap: 10px;
+}
+.edit-details > form p {
+  font-size: 20px;
+}
+.edit-details > form label {
+  color: black;
+}
+.edit-details > form input {
+  border: solid 1px gray;
+  padding: 10px;
+  border-radius: 12px;
+}
+#edit-form > button {
+  width: 50%;
+  align-self: flex-end;
+  background-color: rgb(32, 59, 92);
+}
+#edit-form > button:hover {
+  background-color: rgb(17, 31, 48);
+}
+#change-form > button {
+  background-color: rgb(32, 59, 92);
+}
+#change-form > button:hover {
+  background-color: rgb(17, 31, 48);
+}

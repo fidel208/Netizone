@@ -1,4 +1,12 @@
 .dashboard {
   height: 100dvh;
   width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+aside {
+  width: 15%;
+}
+main {
+  width: 85%;
 }

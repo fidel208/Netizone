@@ -101,7 +101,7 @@ input {
   color: rgb(34, 121, 235);
   font-size: 20px;
 }
-button {
+form button {
   height: 50px;
   border-radius: 12px;
   font-size: 20px;

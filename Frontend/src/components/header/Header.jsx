@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./header.css";
 import "bootstrap/dist/css/bootstrap.css";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,21 +10,19 @@ const Header = () => {
   };
   return (
     <div className="header">
-      <h1>FIDEL NET</h1>
       <div className="others">
-        <p>Hello Fidel</p>
+        <p>Hello Username</p>
         <span id="dp" onClick={toggleDropdown}>
           <span id="online"></span>
         </span>
         {isOpen && (
           <span className="dropdown">
-            <a href="#">
+            <Link to="/dashboard/account-settings">
               <i class="fa-solid fa-user"></i>Account Settings
-            </a>
-            <a href="/login">
-              {" "}
+            </Link>
+            <Link to="/login">
               <i class="fa-solid fa-arrow-right-from-bracket"></i>Log out
-            </a>
+            </Link>
           </span>
         )}
       </div>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./aside.css";
+import { Link } from "react-router-dom";
 
 const Aside = () => {
   const [openMenu, setOpenMenu] = useState(null);
@@ -21,15 +22,11 @@ const Aside = () => {
   };
   return (
     <div className="aside">
+      <h1>INTERNET NAME</h1>
       <nav>
-        <a
-          href=""
-          onClick={(e) => {
-            e.preventDefault();
-          }}
-        >
+        <Link to={"/dashboard/my-dashboard"}>
           <span class="material-symbols-outlined">dashboard</span>My Dashboard
-        </a>
+        </Link>
         <a
           href=""
           className="with"
