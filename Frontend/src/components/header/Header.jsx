@@ -18,10 +18,10 @@ const Header = () => {
         {isOpen && (
           <span className="dropdown">
             <Link to="/dashboard/account-settings">
-              <i class="fa-solid fa-user"></i>Account Settings
+              <i className="fa-solid fa-user"></i>Account Settings
             </Link>
             <Link to="/login">
-              <i class="fa-solid fa-arrow-right-from-bracket"></i>Log out
+              <i className="fa-solid fa-arrow-right-from-bracket"></i>Log out
             </Link>
           </span>
         )}

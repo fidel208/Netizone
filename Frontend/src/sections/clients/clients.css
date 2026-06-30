@@ -1,0 +1,151 @@
+.online-clients {
+  background-color: white;
+  height: 90%;
+  padding: 10px 30px;
+  border-radius: 12px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+#online-clients-top {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+#online-clients-top > p {
+  font-size: 20px;
+}
+#online-clients-top > button {
+  height: 30px;
+  outline: none;
+  border: none;
+  color: white;
+  background-color: rgb(8, 172, 123);
+  border-radius: 8px;
+  width: 120px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+#online-clients-top > button:hover {
+  background-color: rgb(7, 110, 79);
+}
+.online-clients-table {
+  width: 100%;
+}
+#online-clients-table {
+  width: 100%;
+  max-height: 100%;
+}
+#online-clients-table th {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  padding: 15px;
+}
+#online-clients-table td {
+  padding: 15px;
+  border-bottom: 1px solid #ccd1d6;
+  color: rgb(97, 95, 95);
+}
+
+.hotspot-clients {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 30px;
+  background-color: white;
+  height: 90%;
+  border-radius: 12px;
+}
+.hotspot-clients > p {
+  font-size: 20px;
+}
+.hotspot-user-search {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.hotspot-user-search > button {
+  outline: none;
+  border: none;
+  background-color: rgb(48, 48, 185);
+  color: white;
+  border-radius: 12px;
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.hotspot-user-search > button:hover {
+  background-color: rgb(30, 30, 114);
+}
+#search-div {
+  display: flex;
+  flex-direction: row;
+  border: solid 1px gray;
+  border-radius: 12px;
+  width: 65%;
+  max-height: 40px;
+}
+#search-div input {
+  font-size: 15px;
+}
+#search-div > form {
+  width: 100%;
+  height: 100%;
+}
+#search-div > form > span {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding-left: 10px;
+}
+#search-div button {
+  font-size: 18px;
+  height: 40px;
+  color: white;
+  width: 150px;
+  border-radius: 0;
+  background-color: rgb(8, 172, 123);
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+.hotspot-clients-table {
+  width: 100%;
+  margin-top: 10px;
+}
+#hotspot-table {
+  width: 100%;
+  max-height: 100%;
+}
+
+#hotspot-table th {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  padding: 15px;
+}
+#hotspot-table td {
+  padding: 15px;
+  border-bottom: 1px solid #ccd1d6;
+  color: rgb(97, 95, 95);
+}
+.pagination-controls {
+  width: 100%;
+  margin-top: 10px;
+}
+.page-btn {
+  outline: none;
+  border: none;
+  color: rgb(48, 48, 185);
+  border-radius: 5px;
+  gap: 10px;
+  max-width: 150px;
+}
+.page-btn:hover {
+  color: rgb(30, 30, 114);
+}

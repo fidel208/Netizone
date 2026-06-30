@@ -47,7 +47,7 @@ function Login() {
                 <span>
                   <label htmlFor="login-name">Username</label>
                   <span id="input-span">
-                    <i class="fa-solid fa-user"></i>
+                    <i className="fa-solid fa-user"></i>
                     <input
                       type="login-text"
                       name="login-name"
@@ -58,7 +58,7 @@ function Login() {
                 <span>
                   <label htmlFor="signup-password">Password</label>
                   <span id="input-span">
-                    <i class="fa-solid fa-lock"></i>
+                    <i className="fa-solid fa-lock"></i>
                     <input
                       type="password"
                       name="signup-password"
@@ -108,7 +108,7 @@ function Login() {
                 <span>
                   <label htmlFor="email">Email Address</label>
                   <span id="input-span">
-                    <i class="fa-solid fa-envelope"></i>
+                    <i className="fa-solid fa-envelope"></i>
                     <input type="email" name="email" id="email" />
                   </span>
                 </span>
@@ -116,14 +116,14 @@ function Login() {
                   <span>
                     <label htmlFor="number">Phone Number</label>
                     <span id="input-span">
-                      <i class="fa-solid fa-phone"></i>
+                      <i className="fa-solid fa-phone"></i>
                       <input type="tel" name="number" id="number" />
                     </span>
                   </span>
                   <span>
                     <label htmlFor="signup-name">Username</label>
                     <span id="input-span">
-                      <i class="fa-solid fa-user"></i>
+                      <i className="fa-solid fa-user"></i>
                       <input type="text" name="signup-namer" id="signup-name" />
                     </span>
                   </span>
@@ -132,7 +132,7 @@ function Login() {
                   <span>
                     <label htmlFor="signup-pass">Password</label>
                     <span id="input-span">
-                      <i class="fa-solid fa-lock"></i>
+                      <i className="fa-solid fa-lock"></i>
                       <input
                         type="password"
                         name="signup-pass"
@@ -143,7 +143,7 @@ function Login() {
                   <span>
                     <label htmlFor="confirm-pass">Confirm Password</label>
                     <span id="input-span">
-                      <i class="fa-solid fa-unlock"></i>
+                      <i className="fa-solid fa-unlock"></i>
                       <input
                         type="password"
                         name="confirm-pass"

@@ -25,7 +25,8 @@ const Aside = () => {
       <h1>INTERNET NAME</h1>
       <nav>
         <Link to={"/dashboard/my-dashboard"}>
-          <span class="material-symbols-outlined">dashboard</span>My Dashboard
+          <span className="material-symbols-outlined">dashboard</span>My
+          Dashboard
         </Link>
         <a
           href=""
@@ -36,10 +37,10 @@ const Aside = () => {
           }}
         >
           <span className="left">
-            <span class="material-symbols-outlined">groups</span>Clients
+            <span className="material-symbols-outlined">groups</span>Clients
           </span>
           <i
-            class="fa-solid fa-angle-left"
+            className="fa-solid fa-angle-left"
             id={openMenu === "clients" ? "i-active" : ""}
           ></i>
         </a>
@@ -59,11 +60,13 @@ const Aside = () => {
           }}
         >
           <span className="left">
-            <span class="material-symbols-outlined">confirmation_number</span>My
-            Services
+            <span className="material-symbols-outlined">
+              confirmation_number
+            </span>
+            My Services
           </span>
           <i
-            class="fa-solid fa-angle-left"
+            className="fa-solid fa-angle-left"
             id={openMenu === "services" ? "i-active" : ""}
           ></i>
         </a>
@@ -97,11 +100,11 @@ const Aside = () => {
           }}
         >
           <span className="left">
-            <span class="material-symbols-outlined">deployed_code</span>My
+            <span className="material-symbols-outlined">deployed_code</span>My
             Packages
           </span>
           <i
-            class="fa-solid fa-angle-left"
+            className="fa-solid fa-angle-left"
             id={openMenu === "packages" ? "i-active" : ""}
           ></i>
         </a>
@@ -137,10 +140,10 @@ const Aside = () => {
           }}
         >
           <span className="left">
-            <span class="material-symbols-outlined">airplay</span>Broadcast
+            <span className="material-symbols-outlined">airplay</span>Broadcast
           </span>
           <i
-            class="fa-solid fa-angle-left"
+            className="fa-solid fa-angle-left"
             id={openMenu === "broadcast" ? "i-active" : ""}
           ></i>
         </a>
@@ -176,10 +179,11 @@ const Aside = () => {
           }}
         >
           <span className="left">
-            <span class="material-symbols-outlined">analytics</span>Statements
+            <span className="material-symbols-outlined">analytics</span>
+            Statements
           </span>
           <i
-            class="fa-solid fa-angle-left"
+            className="fa-solid fa-angle-left"
             id={openMenu === "statements" ? "i-active" : ""}
           ></i>
         </a>
@@ -211,7 +215,8 @@ const Aside = () => {
             e.preventDefault();
           }}
         >
-          <span class="material-symbols-outlined">payments</span>Payment Method
+          <span className="material-symbols-outlined">payments</span>Payment
+          Method
         </a>
         <a
           href=""
@@ -222,10 +227,11 @@ const Aside = () => {
           }}
         >
           <span className="left">
-            <span class="material-symbols-outlined">network_manage</span>Network
+            <span className="material-symbols-outlined">network_manage</span>
+            Network
           </span>
           <i
-            class="fa-solid fa-angle-left"
+            className="fa-solid fa-angle-left"
             id={openMenu === "network" ? "i-active" : ""}
           ></i>
         </a>
@@ -260,10 +266,10 @@ const Aside = () => {
           }}
         >
           <span className="left">
-            <span class="material-symbols-outlined">settings</span>Settings
+            <span className="material-symbols-outlined">settings</span>Settings
           </span>
           <i
-            class="fa-solid fa-angle-left"
+            className="fa-solid fa-angle-left"
             id={openMenu === "settings" ? "i-active" : ""}
           ></i>
         </a>

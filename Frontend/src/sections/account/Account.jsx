@@ -26,7 +26,7 @@ function Account() {
               </p>
               <p id="for">For personal and business use.</p>
               <button id="pay-btn" onClick={triggerOpenBox}>
-                Pay Now <i class="fa-solid fa-angle-right"></i>
+                Pay Now <i className="fa-solid fa-angle-right"></i>
               </button>
             </span>
             <span className="details">
@@ -52,7 +52,7 @@ function Account() {
                   onChange={() => setPaymentMethod("mobile")}
                 />
                 <label htmlFor="mobile">
-                  <i class="fa-solid fa-wallet"></i>Mobile Money
+                  <i className="fa-solid fa-wallet"></i>Mobile Money
                 </label>
               </span>
               <span>
@@ -64,7 +64,7 @@ function Account() {
                   onChange={() => setPaymentMethod("card")}
                 />
                 <label htmlFor="card">
-                  <i class="fa-regular fa-credit-card"></i>Card
+                  <i className="fa-regular fa-credit-card"></i>Card
                 </label>
               </span>
             </div>

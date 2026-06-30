@@ -84,7 +84,7 @@ const UserTable = () => {
 
 function MyDash() {
   const data = [
-    { name: "Jan", amount: 2000 },
+    { name: "Jan", amount: 6000 },
     { name: "Feb", amount: 3000 },
     { name: "Mar", amount: 2500 },
     { name: "Apr", amount: 5000 },
@@ -109,7 +109,7 @@ function MyDash() {
               </p>
             </span>
             <span id="month-sales">
-              <i class="fa-solid fa-chart-line"></i>
+              <i className="fa-solid fa-chart-line"></i>
               <span>
                 <p id="month-amount">
                   <sup>Kes. </sup>12000
@@ -122,7 +122,7 @@ function MyDash() {
             <span>
               <span id="small-dash-box">
                 <p id="small-number">5</p>
-                <i class="fa-solid fa-user"></i>
+                <i className="fa-solid fa-user"></i>
               </span>
               <p id="desc-words">Online Users</p>
               <hr />
@@ -130,7 +130,7 @@ function MyDash() {
             <span>
               <span id="small-dash-box">
                 <p id="small-number">500</p>
-                <i class="fa-solid fa-users"></i>
+                <i className="fa-solid fa-users"></i>
               </span>
               <p id="desc-words">Total Users</p>
               <hr />
@@ -140,7 +140,7 @@ function MyDash() {
             <span>
               <span id="small-dash-box">
                 <p id="small-number">13</p>
-                <i class="fa-solid fa-user-check"></i>
+                <i className="fa-solid fa-user-check"></i>
               </span>
               <p>Active accounts</p>
               <hr />
@@ -148,7 +148,7 @@ function MyDash() {
             <span>
               <span id="small-dash-box">
                 <p id="small-number">5GB</p>
-                <i class="fa-solid fa-signal"></i>
+                <i className="fa-solid fa-signal"></i>
               </span>
               <p>Data usage</p>
               <hr />
