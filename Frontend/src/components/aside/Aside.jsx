@@ -47,22 +47,8 @@ const Aside = () => {
           id="clients-dropdown"
           className={openMenu === "clients" ? "open" : ""}
         >
-          <a
-            href=""
-            onClick={(e) => {
-              e.preventDefault();
-            }}
-          >
-            Online clients
-          </a>
-          <a
-            href=""
-            onClick={(e) => {
-              e.preventDefault();
-            }}
-          >
-            Hotspot clients
-          </a>
+          <Link to={"/dashboard/online-clients"}>Online Clients</Link>
+          <Link to={"/dashboard/hotspot-clients"}>Hotspot Clients</Link>
         </div>
         <a
           href=""

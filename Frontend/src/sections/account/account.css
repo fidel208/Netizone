@@ -5,6 +5,7 @@
   padding: 0 50px;
   height: 90%;
   gap: 50px;
+  background-color: white;
 }
 .account-payment {
   display: flex;

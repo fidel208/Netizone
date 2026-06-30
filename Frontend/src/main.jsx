@@ -6,8 +6,10 @@ import { createBrowserRouter, Router, RouterProvider } from "react-router-dom";
 import Login from "./pages/login/Login";
 import Home from "./pages/home/Home";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
-import Account from "./components/account/Account";
-import Dash from "./components/dash/Dash";
+import Account from "./sections/account/Account";
+import MyDash from "./sections/dash/MyDash";
+import OnlineClients from "./sections/clients/OnlineClients";
+import HotspotClients from "./sections/clients/HotspotClients";
 
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
@@ -18,9 +20,14 @@ const router = createBrowserRouter([
     children: [
       {
         path: "my-dashboard",
-        element: <Dash />,
+        element: <MyDash />,
       },
       { path: "account-settings", element: <Account /> },
+      { path: "online-clients", element: <OnlineClients /> },
+      {
+        path: "hotspot-clients",
+        element: <HotspotClients />,
+      },
     ],
   },
   { path: "*", element: <NotFoundPage /> },

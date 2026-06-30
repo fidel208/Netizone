@@ -1,0 +1,170 @@
+.my-dashboard {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 45% 53%;
+  gap: 15px;
+  height: 92%;
+  padding: 10px 20px;
+}
+.my-dash-top {
+  display: grid;
+  grid-template-columns: 40% 29% 29%;
+  justify-content: space-between;
+}
+.sales {
+  background: linear-gradient(
+    to right,
+    rgb(8, 172, 123),
+    rgb(48, 48, 185),
+    rgb(32, 59, 92)
+  );
+  border-radius: 12px;
+  padding: 30px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.sales:hover {
+  transform: translateY(-5px);
+}
+.sales sup {
+  color: white;
+}
+#sales-today {
+  border-bottom: solid 1px white;
+  padding: 10px;
+}
+#day-amount {
+  font-size: 35px;
+  font-weight: bold;
+}
+#day-amount > sup {
+  font-size: 25px;
+}
+#month-sales {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  padding: 10px;
+  align-items: center;
+}
+#month-sales > i {
+  font-size: 60px;
+}
+#month-amount {
+  font-size: 35px;
+  font-weight: bold;
+}
+#month-amount > sup {
+  font-size: 25px;
+}
+#month-sales > span {
+  gap: 0;
+}
+#month-sales > span > h4 {
+  font-size: 20px;
+}
+.dash-users {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 48% 48%;
+  gap: 15px;
+}
+.dash-users > span {
+  background-color: white;
+  border-radius: 12px;
+  padding: 30px 40px;
+  box-shadow: 0 0 1px rgb(226, 223, 223);
+}
+.dash-users > span > hr {
+  opacity: 1;
+  border: solid 2px rgb(243, 40, 40);
+}
+.data-usage > span > hr {
+  opacity: 1;
+  border: solid 2px rgb(243, 40, 40);
+}
+#small-dash-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+#small-dash-box > i {
+  font-size: 40px;
+  margin-top: 20px;
+  color: rgb(243, 40, 40);
+}
+#small-number {
+  font-size: 30px;
+  font-weight: bold;
+  gap: 0;
+  margin: 0;
+}
+#desc-words {
+  font-size: 15px;
+}
+.data-usage {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 48% 48%;
+  gap: 15px;
+}
+.data-usage > span {
+  background-color: white;
+  border-radius: 12px;
+  padding: 30px;
+}
+.dash-users > span:hover,
+.data-usage > span:hover {
+  transform: translateY(-5px);
+}
+.my-dash-bottom {
+  display: grid;
+  grid-template-columns: 54% 45%;
+  grid-template-rows: 100%;
+  justify-content: space-between;
+  background-color: white;
+  border-radius: 12px;
+}
+.graph {
+  padding: 20px 0;
+}
+.day-users {
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.day-users > p {
+  font-size: 20px;
+  margin: 0;
+}
+.graph {
+  height: 100%;
+  padding: 20px;
+  border-radius: 12px;
+}
+.table-wrapper {
+  max-height: 350px;
+  width: 100%;
+  overflow-y: auto;
+  border-radius: 8px;
+}
+#day-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+#day-table th {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  padding: 15px;
+}
+
+#day-table td {
+  padding: 15px;
+  border-bottom: 1px solid #ccd1d6;
+  color: rgb(97, 95, 95);
+}

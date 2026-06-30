@@ -77,7 +77,7 @@ function Login() {
                 </span>
                 <button
                   onClick={() => {
-                    window.location.href = "./dashboard";
+                    window.location.href = "/dashboard/my-dashboard";
                   }}
                 >
                   Login
