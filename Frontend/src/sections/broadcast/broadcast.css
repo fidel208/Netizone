@@ -1,0 +1,77 @@
+.single-sms,
+.bulk-sms {
+  height: 90%;
+  background-color: white;
+  border-radius: 12px;
+  padding: 10px 30px;
+}
+.single-sms > p,
+.bulk-sms > p {
+  font-size: 20px;
+}
+.single-sms form,
+.bulk-sms form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 30px;
+}
+.single-sms form > span,
+.bulk-sms form > span {
+  display: flex;
+  flex-direction: row;
+}
+.single-sms select,
+.bulk-sms select {
+  width: 50%;
+  height: 30px;
+  border: solid 1px gray;
+  outline: none;
+  font-size: 15px;
+  padding: 5px;
+}
+.single-sms select:focus,
+.single-sms textarea:focus {
+  border: solid 1px green;
+}
+.bulk-sms select:focus,
+.bulk-sms textarea:focus {
+  border: solid 1px green;
+}
+.single-sms textarea,
+.bulk-sms textarea {
+  width: 50%;
+  outline: none;
+  border: solid 1px gray;
+  height: 120px;
+  padding: 5px;
+  font-size: 15px;
+  border-radius: 5px;
+}
+.single-message-btns,
+.bulk-message-btns {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-left: 140px;
+}
+.single-message-btns button,
+.bulk-message-btns button {
+  height: 35px;
+  font-size: 15px;
+  border-radius: 8px;
+  max-width: 150px;
+  width: 100%;
+}
+#send-single-sms,
+#send-bulk-sms {
+  background-color: rgb(8, 172, 123);
+}
+#send-single-sms:hover,
+#send-bulk-sms:hover {
+  background-color: rgb(6, 97, 70);
+}
+#cancel-single-sms:hover,
+#cancel-bulk-sms:hover {
+  background-color: rgb(139, 22, 22);
+}

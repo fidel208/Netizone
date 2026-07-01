@@ -1,0 +1,27 @@
+.not-found {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100dvh;
+}
+.not-found h1 {
+  font-size: 30px;
+}
+.not-found a {
+  max-width: 150px;
+  width: 100%;
+}
+.not-found button {
+  color: white;
+  border: none;
+  outline: none;
+  width: 100%;
+  background-color: rgb(48, 48, 185);
+  height: 40px;
+  border-radius: 8px;
+  font-size: 20px;
+}
+.not-found button:hover {
+  background-color: rgb(26, 26, 102);
+}

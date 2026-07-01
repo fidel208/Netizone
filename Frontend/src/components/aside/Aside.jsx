@@ -99,22 +99,8 @@ const Aside = () => {
           id="packages-dropdown"
           className={openMenu === "packages" ? "open" : ""}
         >
-          <a
-            href=""
-            onClick={(e) => {
-              e.preventDefault();
-            }}
-          >
-            Hotspot
-          </a>
-          <a
-            href=""
-            onClick={(e) => {
-              e.preventDefault();
-            }}
-          >
-            PPPOE
-          </a>
+          <Link to={"/dashboard/hotspot-packages"}>Hotspot</Link>
+          <Link to={"/dashboard/pppoe-packages"}>PPPOE</Link>
         </div>
 
         <a
@@ -138,22 +124,8 @@ const Aside = () => {
           id="broadcast-dropdown"
           className={openMenu === "broadcast" ? "open" : ""}
         >
-          <a
-            href=""
-            onClick={(e) => {
-              e.preventDefault();
-            }}
-          >
-            Single Client
-          </a>
-          <a
-            href=""
-            onClick={(e) => {
-              e.preventDefault();
-            }}
-          >
-            Bulk Clients
-          </a>
+          <Link to={"/dashboard/broadcast-single-sms"}>Single Client</Link>
+          <Link to={"/dashboard/broadcast-bulk-sms"}>Bulk Clients</Link>
         </div>
 
         <a

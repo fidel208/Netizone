@@ -12,6 +12,10 @@ import OnlineClients from "./sections/clients/OnlineClients";
 import HotspotClients from "./sections/clients/HotspotClients";
 import Recharge from "./sections/recharge/Recharge";
 import Refill from "./sections/recharge/Refill";
+import Hotspot from "./sections/packages/Hotspot";
+import Pppoe from "./sections/packages/Pppoe";
+import SingleSms from "./sections/broadcast/SingleSms";
+import BulkSms from "./sections/broadcast/BulkSms";
 
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
@@ -37,6 +41,22 @@ const router = createBrowserRouter([
       {
         path: "refill-client",
         element: <Refill />,
+      },
+      {
+        path: "hotspot-packages",
+        element: <Hotspot />,
+      },
+      {
+        path: "pppoe-packages",
+        element: <Pppoe />,
+      },
+      {
+        path: "broadcast-single-sms",
+        element: <SingleSms />,
+      },
+      {
+        path: "broadcast-bulk-sms",
+        element: <BulkSms />,
       },
     ],
   },
