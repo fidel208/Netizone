@@ -74,22 +74,8 @@ const Aside = () => {
           id="services-dropdown"
           className={openMenu === "services" ? "open" : ""}
         >
-          <a
-            href=""
-            onClick={(e) => {
-              e.preventDefault();
-            }}
-          >
-            Recharge Client
-          </a>
-          <a
-            href=""
-            onClick={(e) => {
-              e.preventDefault();
-            }}
-          >
-            Refill Client
-          </a>
+          <Link to={"/dashboard/recharge-client"}>Recharge Client</Link>
+          <Link to={"/dashboard/refill-client"}>Refill Client</Link>
         </div>
         <a
           href=""

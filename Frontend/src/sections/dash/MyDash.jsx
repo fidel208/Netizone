@@ -157,6 +157,7 @@ function MyDash() {
         </div>
         <div className="my-dash-bottom">
           <div className="graph">
+            <p>Total Monthly Sales</p>
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={data} margin={{ top: 5, right: 30, left: 0 }}>
                 <XAxis dataKey="name" />

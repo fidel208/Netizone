@@ -10,6 +10,8 @@ import Account from "./sections/account/Account";
 import MyDash from "./sections/dash/MyDash";
 import OnlineClients from "./sections/clients/OnlineClients";
 import HotspotClients from "./sections/clients/HotspotClients";
+import Recharge from "./sections/recharge/Recharge";
+import Refill from "./sections/recharge/Refill";
 
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
@@ -27,6 +29,14 @@ const router = createBrowserRouter([
       {
         path: "hotspot-clients",
         element: <HotspotClients />,
+      },
+      {
+        path: "recharge-client",
+        element: <Recharge />,
+      },
+      {
+        path: "refill-client",
+        element: <Refill />,
       },
     ],
   },

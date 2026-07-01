@@ -1,0 +1,95 @@
+.recharge-client,
+.refill-client {
+  background-color: white;
+  height: 90%;
+  border-radius: 12px;
+  padding: 10px 30px;
+}
+.recharge-client > p,
+.refill-client > p {
+  font-size: 20px;
+}
+.recharge-client > form,
+.refill-client > form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 30px;
+}
+.recharge-client form > span,
+.refill-client form > span {
+  display: flex;
+  flex-direction: row;
+}
+.recharge-client select,
+.refill-client select {
+  width: 70%;
+  height: 30px;
+  border: solid 1px gray;
+  outline: none;
+  font-size: 15px;
+  padding: 5px;
+}
+.recharge-client select:focus,
+.refill-client select:focus {
+  border: solid 1px green;
+}
+#radio-item {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+#radio-item label {
+  color: black;
+  font-size: 15px;
+}
+.recharge-btns,
+.refill-btns {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-left: 140px;
+}
+.recharge-btns button,
+.refill-btns button {
+  height: 30px;
+  font-size: 15px;
+  border-radius: 8px;
+  max-width: 120px;
+  width: 100%;
+}
+#recharge-btn,
+#refill-btn {
+  background-color: rgb(8, 172, 123);
+}
+#recharge-btn:hover,
+#refill-btn:hover {
+  background-color: rgb(6, 97, 70);
+}
+#cancel-recharge-btn:hover,
+#cancel-refill-btn:hover {
+  background-color: rgb(139, 22, 22);
+}
+.form-row > label:first-child {
+  width: 140px;
+  font-size: 15px;
+  font-weight: bold;
+  min-width: 140px;
+  color: black;
+  margin-bottom: 0;
+  text-align: center;
+}
+.form-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px;
+}
+.refill-client input {
+  border: solid 1px gray;
+  width: 70%;
+  padding: 5px;
+  font-size: 15px;
+}
+.refill-client input:focus {
+  border: solid 1px green;
+}
