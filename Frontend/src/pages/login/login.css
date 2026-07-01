@@ -1,151 +1,87 @@
-section {
-  background-image: url(../../assets/two.jpg);
+.login {
+  background-color: rgb(194, 228, 252);
   height: 100dvh;
   width: 100%;
-  background-position: center;
-  background-size: cover;
   display: flex;
-  flex-direction: row;
-}
-#left {
-  width: 55%;
-  display: flex;
-  flex-direction: column;
   justify-content: center;
-  gap: 400px;
-  padding-left: 120px;
-}
-#left > h1 {
-  color: white;
-}
-.words {
-  color: white;
-}
-.words > h2 {
-  font-size: 50px;
-}
-.words > p {
-  font-size: 25px;
-  margin: 0;
-  color: rgb(199, 192, 192);
-  max-width: 70%;
-}
-#auth {
-  width: 45%;
-  background: rgba(58, 57, 57, 0.1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  color: white;
-  display: flex;
   align-items: center;
 }
-.login {
-  display: flex;
-  flex-direction: column;
-  gap: 80px;
-  width: 100%;
-  padding-left: 120px;
-}
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 80%;
-}
-form > span {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-label {
-  font-size: 20px;
-  color: rgb(199, 192, 192);
-}
-#input-span {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
+.login-box {
   background-color: white;
-  color: rgb(37, 27, 27);
+  height: 50%;
+  width: 500px;
+  border-radius: 10px;
   padding: 10px;
-  padding-left: 15px;
-  border-radius: 12px;
-}
-#input-span > i {
-  font-size: 20px;
-  color: rgb(37, 27, 27);
-}
-input {
-  border: none;
-  outline: none;
-  padding-left: 5px;
-  font-size: 18px;
-  width: 100%;
-}
-#check {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
 }
-#check > span {
+#internet-name {
+  font-size: 30px;
+  text-align: center;
+}
+.login form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 10px 20px;
+}
+.login-form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.login-form-row label {
+  font-size: 20px;
+}
+#login-icon-span {
   display: flex;
   flex-direction: row;
   gap: 5px;
-}
-#check > span > input {
-  width: 18px;
-}
-#forgot {
-  text-decoration: none;
-  color: rgb(34, 121, 235);
-  font-size: 20px;
-}
-form button {
-  height: 50px;
+  padding: 5px 10px;
+  align-items: center;
+  border: solid 1px gray;
   border-radius: 12px;
-  font-size: 20px;
-  cursor: pointer;
-  color: white;
-  background-color: rgb(243, 40, 40);
+}
+#login-icon-span:hover {
+  border: solid 1px green;
+}
+#login-icon-span input {
   border: none;
   outline: none;
-}
-#shift {
-  margin-top: 30px;
-  font-size: 20px;
-  color: rgb(199, 192, 192);
-}
-#shift > a {
-  color: white;
-}
-.signup {
-  display: flex;
-  flex-direction: column;
-  gap: 80px;
+  padding: 5px;
+  font-size: 18px;
+  height: 100%;
   width: 100%;
-  padding-left: 120px;
 }
-#two {
-  display: grid;
-  grid-template-rows: 100%;
-  grid-template-columns: 45% 45%;
+#remember-forgot {
+  width: 100%;
+  display: flex;
   justify-content: space-between;
 }
-#two > span {
+#remember-forgot span {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  gap: 5px;
 }
-#agree {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
+#remember-forgot input {
+  width: 15px;
 }
-#agree > input {
-  width: 18px;
+#remember-forgot a {
+  text-decoration: none;
 }
-#password-text {
-  margin: 0;
-  font-size: 15px;
+.login-box button {
+  border: none;
+  outline: none;
+  color: white;
+  background-color: rgb(243, 40, 40);
+  height: 45px;
+  border-radius: 8px;
+  font-size: 20px;
+}
+.login-box button:hover {
+  background-color: rgb(146, 28, 28);
+}
+#register-link {
+  margin-top: 10px;
+  padding: 0 20px;
+  font-size: 18px;
 }

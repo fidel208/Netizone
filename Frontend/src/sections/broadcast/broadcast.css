@@ -20,6 +20,7 @@
 .bulk-sms form > span {
   display: flex;
   flex-direction: row;
+  gap: 10px;
 }
 .single-sms select,
 .bulk-sms select {
@@ -62,6 +63,9 @@
   border-radius: 8px;
   max-width: 150px;
   width: 100%;
+  border: none;
+  outline: none;
+  color: white;
 }
 #send-single-sms,
 #send-bulk-sms {
@@ -70,6 +74,10 @@
 #send-single-sms:hover,
 #send-bulk-sms:hover {
   background-color: rgb(6, 97, 70);
+}
+#cancel-single-sms,
+#cancel-bulk-sms {
+  background-color: rgb(243, 40, 40);
 }
 #cancel-single-sms:hover,
 #cancel-bulk-sms:hover {

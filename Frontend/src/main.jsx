@@ -16,10 +16,15 @@ import Hotspot from "./sections/packages/Hotspot";
 import Pppoe from "./sections/packages/Pppoe";
 import SingleSms from "./sections/broadcast/SingleSms";
 import BulkSms from "./sections/broadcast/BulkSms";
+import Register from "./pages/register/Register";
 
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
   { path: "/login", element: <Login /> },
+  {
+    path: "/register",
+    element: <Register />,
+  },
   {
     path: "/dashboard",
     element: <Dashboard />,

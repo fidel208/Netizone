@@ -20,6 +20,7 @@
 .refill-client form > span {
   display: flex;
   flex-direction: row;
+  gap: 10px;
 }
 .recharge-client select,
 .refill-client select {
@@ -57,6 +58,9 @@
   border-radius: 8px;
   max-width: 120px;
   width: 100%;
+  border: none;
+  outline: none;
+  color: white;
 }
 #recharge-btn,
 #refill-btn {
@@ -65,6 +69,10 @@
 #recharge-btn:hover,
 #refill-btn:hover {
   background-color: rgb(6, 97, 70);
+}
+#cancel-recharge-btn,
+#cancel-refill-btn {
+  background-color: rgb(243, 40, 40);
 }
 #cancel-recharge-btn:hover,
 #cancel-refill-btn:hover {
