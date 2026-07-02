@@ -1,5 +1,10 @@
 .login {
-  background-color: rgb(194, 228, 252);
+  background: linear-gradient(
+    to right,
+    rgb(22, 129, 97),
+    rgb(48, 48, 185),
+    rgb(32, 59, 92)
+  );
   height: 100dvh;
   width: 100%;
   display: flex;

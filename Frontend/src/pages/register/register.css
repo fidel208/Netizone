@@ -1,0 +1,133 @@
+.register {
+  background: linear-gradient(
+    to right,
+    rgb(22, 129, 97),
+    rgb(48, 48, 185),
+    rgb(32, 59, 92)
+  );
+  height: 100dvh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.registration-box {
+  width: 70%;
+  height: 80%;
+  background-color: white;
+  border-radius: 12px;
+  display: grid;
+  grid-template-columns: 45% 50%;
+  justify-content: space-between;
+  padding: 10px 30px;
+}
+.registration-words {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 0;
+}
+.registration-words h1 {
+  font-size: 35px;
+}
+.registration-words p {
+  font-size: 20px;
+  margin: 0;
+  text-align: center;
+}
+.registration-form {
+  padding: 15px 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.registration-form h2 {
+  font-size: 30px;
+  text-align: center;
+}
+.registration-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.reg-row {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.registration-form label {
+  font-size: 18px;
+}
+.registration-form label > span {
+  color: #dc3545;
+}
+.registration-form input {
+  padding: 5px 8px;
+  border: solid 1px gray;
+  outline: none;
+  font-size: 18px;
+  border-radius: 10px;
+}
+.registration-form input:focus {
+  border: solid 1px green;
+}
+#valid-pass {
+  margin: 0;
+  font-size: 15px;
+}
+.agree-box {
+  display: flex;
+  gap: 5px;
+}
+.agree-box input {
+  width: 15px;
+}
+.registration-form button {
+  border: none;
+  outline: none;
+  background-color: rgb(243, 40, 40);
+  color: white;
+  height: 45px;
+  border-radius: 8px;
+  font-size: 20px;
+  margin-top: 10px;
+}
+.registration-form button:hover {
+  background-color: rgb(146, 28, 28);
+}
+.custom-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background-color: rgb(238, 245, 250);
+  padding: 16px 24px;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  z-index: 2000;
+}
+.toast-content {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  color: black;
+  font-size: 14px;
+  font-weight: 500;
+  max-width: 300px;
+}
+.toast-icon {
+  color: rgb(8, 172, 123);
+  font-size: 18px;
+}
+.animate-slide-in {
+  animation: slideInTransform 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideInTransform {
+  from {
+    transform: translateX(120%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}

@@ -18,6 +18,7 @@ function Login() {
                   name="login-name"
                   id="login-name"
                   placeholder="Enter your username"
+                  required
                 />
               </span>
             </div>
@@ -30,6 +31,7 @@ function Login() {
                   name="login-pass"
                   id="login-pass"
                   placeholder="Enter your password"
+                  required
                 />
               </span>
             </div>
