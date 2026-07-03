@@ -4,7 +4,6 @@ import "./index.css";
 import Dashboard from "./pages/dashboard/Dashboard";
 import { createBrowserRouter, Router, RouterProvider } from "react-router-dom";
 import Login from "./pages/login/Login";
-import Home from "./pages/home/Home";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import Account from "./sections/account/Account";
 import MyDash from "./sections/dash/MyDash";
@@ -17,10 +16,11 @@ import Pppoe from "./sections/packages/Pppoe";
 import SingleSms from "./sections/broadcast/SingleSms";
 import BulkSms from "./sections/broadcast/BulkSms";
 import Register from "./pages/register/Register";
+import DailyStatement from "./sections/statements/DailyStatement";
+import PeriodStatement from "./sections/statements/PeriodStatement";
 
 const router = createBrowserRouter([
-  { path: "/", element: <Home /> },
-  { path: "/login", element: <Login /> },
+  { path: "/", element: <Login /> },
   {
     path: "/register",
     element: <Register />,
@@ -62,6 +62,14 @@ const router = createBrowserRouter([
       {
         path: "broadcast-bulk-sms",
         element: <BulkSms />,
+      },
+      {
+        path: "daily-statement",
+        element: <DailyStatement />,
+      },
+      {
+        path: "period-statement",
+        element: <PeriodStatement />,
       },
     ],
   },

@@ -149,22 +149,8 @@ const Aside = () => {
           id="statements-dropdown"
           className={openMenu === "statements" ? "open" : ""}
         >
-          <a
-            href=""
-            onClick={(e) => {
-              e.preventDefault();
-            }}
-          >
-            Daily Report
-          </a>
-          <a
-            href=""
-            onClick={(e) => {
-              e.preventDefault();
-            }}
-          >
-            Period Report
-          </a>
+          <Link to={"/dashboard/daily-statement"}>Daily Report</Link>
+          <Link to={"/dashboard/period-statement"}>Period Report</Link>
         </div>
 
         <a
