@@ -145,8 +145,8 @@ function Register() {
               <div className="toast-content">
                 <i className="fa-solid fa-circle-check toast-icon"></i>
                 <span>
-                  Your registration has been received successfully. We'll keep
-                  in touch on the next steps
+                  Your request for registration has been received successfully.
+                  We'll keep in touch on the next steps. Good day.
                 </span>
               </div>
             </div>

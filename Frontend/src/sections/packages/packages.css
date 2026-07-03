@@ -1,0 +1,238 @@
+.hotspot-packages {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 30px;
+  background-color: white;
+  height: 90%;
+  border-radius: 12px;
+}
+.hotspot-packages > p {
+  font-size: 20px;
+}
+.hotspot-plans-search {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.hotspot-plans-search > button {
+  outline: none;
+  border: none;
+  background-color: rgb(48, 48, 185);
+  color: white;
+  border-radius: 12px;
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.hotspot-plans-search > button:hover {
+  background-color: rgb(30, 30, 114);
+}
+#package-search-div {
+  display: flex;
+  flex-direction: row;
+  border: solid 1px gray;
+  border-radius: 12px;
+  width: 65%;
+  max-height: 40px;
+}
+#package-search-div input {
+  font-size: 15px;
+  width: 100%;
+  border: none;
+  outline: none;
+}
+#package-search-div > form {
+  width: 100%;
+  height: 100%;
+}
+#package-search-div > form > span {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding-left: 10px;
+}
+#package-search-div button {
+  font-size: 18px;
+  height: 40px;
+  color: white;
+  width: 150px;
+  border-radius: 0;
+  background-color: rgb(8, 172, 123);
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+  border: none;
+  outline: none;
+}
+.hotspot-plans-table {
+  width: 100%;
+}
+#hotspot-plans-table {
+  width: 100%;
+  max-height: 100%;
+}
+#hotspot-plans-table th {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  padding: 15px;
+  border-bottom: 1px solid #ccd1d6;
+}
+#hotspot-plans-table td {
+  padding: 15px;
+  border-bottom: 1px solid #ccd1d6;
+  color: rgb(97, 95, 95);
+}
+#package-delete-btn {
+  border: none;
+  outline: none;
+  color: red;
+  background-color: white;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+  z-index: 999;
+}
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  width: 60%;
+  height: 80%;
+}
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 15px;
+}
+.modal-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.modal-top p {
+  font-size: 20px;
+}
+.modal-top button {
+  height: 30px;
+  width: 30px;
+  border: none;
+  outline: none;
+  background-color: rgb(243, 40, 40);
+  color: white;
+  border-radius: 5px;
+}
+.modal-top button:hover {
+  background-color: rgb(139, 22, 22);
+}
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.plan-form {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.plan-form-span {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+}
+.plan-form label {
+  font-size: 15px;
+}
+.plan-form select {
+  width: 70%;
+  height: 30px;
+  border: solid 1px gray;
+  outline: none;
+  font-size: 15px;
+  padding: 5px;
+}
+.plan-form select:focus {
+  border: solid 1px green;
+}
+#plan-name {
+  width: 70%;
+  height: 30px;
+  border: solid 1px gray;
+  outline: none;
+  font-size: 15px;
+  padding: 5px;
+}
+#plan-name:focus {
+  border: solid 1px green;
+}
+#plan-validity {
+  width: 100%;
+  height: 30px;
+  border: solid 1px gray;
+  outline: none;
+  font-size: 15px;
+  padding: 5px;
+}
+#plan-validity:focus {
+  border: solid 1px green;
+}
+.plan-form > label:first-child {
+  width: 140px;
+  font-size: 15px;
+  font-weight: bold;
+  min-width: 140px;
+  color: black;
+  margin-bottom: 0;
+}
+#validity {
+  width: 50%;
+}
+.modal-form-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-left: 140px;
+}
+.modal-form-buttons button {
+  height: 30px;
+  font-size: 15px;
+  border-radius: 8px;
+  max-width: 120px;
+  width: 100%;
+  border: none;
+  outline: none;
+  color: white;
+}
+#modal-submit {
+  background-color: rgb(8, 172, 123);
+}
+#modal-submit:hover {
+  background-color: rgb(6, 97, 70);
+}
+#modal-cancel {
+  background-color: rgb(243, 40, 40);
+}
+#modal-cancel:hover {
+  background-color: rgb(139, 22, 22);
+}
