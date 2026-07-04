@@ -1,8 +1,7 @@
 .single-sms,
 .bulk-sms {
-  height: 90%;
+  height: 92%;
   background-color: white;
-  border-radius: 12px;
   padding: 10px 30px;
 }
 .single-sms > p,

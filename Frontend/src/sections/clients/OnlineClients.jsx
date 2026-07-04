@@ -96,7 +96,7 @@ function OnlineClients() {
         <span id="online-clients-top">
           <p>Online Clients</p>
           <button>
-            Export<i className="fa-solid fa-download"></i>
+            Export <i className="fa-solid fa-download"></i>
           </button>
         </span>
         <span className="online-clients-table">

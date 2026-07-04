@@ -1,8 +1,8 @@
 .online-clients {
   background-color: white;
-  height: 90%;
+  height: 92%;
   padding: 10px 30px;
-  border-radius: 12px;
+
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -23,10 +23,6 @@
   background-color: rgb(8, 172, 123);
   border-radius: 8px;
   width: 120px;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  justify-content: center;
 }
 #online-clients-top > button:hover {
   background-color: rgb(7, 110, 79);
@@ -55,7 +51,7 @@
   flex-direction: column;
   padding: 10px 30px;
   background-color: white;
-  height: 90%;
+  height: 92%;
   border-radius: 12px;
 }
 .hotspot-clients > p {
