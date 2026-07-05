@@ -153,15 +153,10 @@ const Aside = () => {
           <Link to={"/dashboard/period-statement"}>Period Report</Link>
         </div>
 
-        <a
-          href=""
-          onClick={(e) => {
-            e.preventDefault();
-          }}
-        >
+        <Link to={"/dashboard/payment-method"}>
           <span className="material-symbols-outlined">payments</span>Payment
           Method
-        </a>
+        </Link>
         <a
           href=""
           className="with"
@@ -184,22 +179,8 @@ const Aside = () => {
           id="network-dropdown"
           className={openMenu === "network" ? "open" : ""}
         >
-          <a
-            href=""
-            onClick={(e) => {
-              e.preventDefault();
-            }}
-          >
-            Routers
-          </a>
-          <a
-            href=""
-            onClick={(e) => {
-              e.preventDefault();
-            }}
-          >
-            IP Pool
-          </a>
+          <Link to={"/dashboard/routers"}>Routers</Link>
+          <Link to={"/dashboard/ip-pool"}>Ip Pool</Link>
         </div>
         <a
           href=""
@@ -222,42 +203,14 @@ const Aside = () => {
           id="settings-dropdown"
           className={openMenu === "settings" ? "open" : ""}
         >
+          <Link to={"/dashboard/general-settings"}>General Settings</Link>
+          <Link to={"/dashboard/maintenance-mode"}>Maintenance Mode</Link>
+          <Link to={"/dashboard/user-alerts"}>User Alerts</Link>
           <a
             href=""
             onClick={(e) => {
               e.preventDefault();
-            }}
-          >
-            General Settings
-          </a>
-          <a
-            href=""
-            onClick={(e) => {
-              e.preventDefault();
-            }}
-          >
-            Maintenance Mode
-          </a>
-          <a
-            href=""
-            onClick={(e) => {
-              e.preventDefault();
-            }}
-          >
-            User Alerts
-          </a>
-          <a
-            href=""
-            onClick={(e) => {
-              e.preventDefault();
-            }}
-          >
-            Backup/Restore
-          </a>
-          <a
-            href=""
-            onClick={(e) => {
-              e.preventDefault();
+              window.location.reload();
             }}
           >
             Clear Cache

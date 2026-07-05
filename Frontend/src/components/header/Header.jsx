@@ -20,7 +20,7 @@ const Header = () => {
             <Link to="/dashboard/account-settings">
               <i className="fa-solid fa-user"></i>Account Settings
             </Link>
-            <Link to="/login">
+            <Link to="/">
               <i className="fa-solid fa-arrow-right-from-bracket"></i>Log out
             </Link>
           </span>

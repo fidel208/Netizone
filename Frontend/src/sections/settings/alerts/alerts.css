@@ -1,0 +1,55 @@
+.alerts {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 30px;
+  height: 92%;
+  width: 100%;
+  background-color: white;
+}
+.alerts p {
+  font-size: 20px;
+}
+.alerts form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.alert-div {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.alert-div > label:first-child {
+  width: 200px;
+  font-size: 17px;
+  font-weight: bold;
+  min-width: 140px;
+  color: black;
+  margin-bottom: 0;
+}
+.alert-div textarea {
+  border: solid 1px gray;
+  outline: none;
+  border-radius: 5px;
+  width: 40%;
+  height: 150px;
+  font-size: 15px;
+  padding: 5px;
+}
+.alert-div textarea:focus {
+  border: solid 1px green;
+}
+#save-notifications {
+  margin-left: 210px;
+  width: 150px;
+  border: none;
+  outline: none;
+  color: white;
+  background-color: rgb(8, 172, 123);
+  height: 40px;
+  margin-top: 10px;
+  border-radius: 8px;
+}
+#save-notifications:hover {
+  background-color: rgb(6, 97, 70);
+}

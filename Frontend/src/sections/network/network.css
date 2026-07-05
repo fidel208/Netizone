@@ -1,0 +1,257 @@
+.routers,
+.ip-pool {
+  height: 92%;
+  width: 100%;
+  background-color: white;
+  padding: 10px 30px;
+}
+.routers p,
+.ip-pool p {
+  font-size: 20px;
+}
+.router-search,
+.pool-search {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+.router-search > button,
+.pool-search > button {
+  outline: none;
+  border: none;
+  background-color: rgb(48, 48, 185);
+  color: white;
+  border-radius: 12px;
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.router-search > button:hover,
+.pool-search > button:hover {
+  background-color: rgb(30, 30, 114);
+}
+#router-search-div,
+#pool-search-div {
+  display: flex;
+  flex-direction: row;
+  border: solid 1px gray;
+  border-radius: 12px;
+  width: 65%;
+  max-height: 40px;
+}
+#router-search-div input,
+#pool-search-div input {
+  font-size: 15px;
+  width: 100%;
+  border: none;
+  outline: none;
+}
+#router-search-div > form,
+#pool-search-div > form {
+  width: 100%;
+  height: 100%;
+}
+#router-search-div > form > span,
+#pool-search-div > form > span {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding-left: 10px;
+}
+#router-search-div button,
+#pool-search-div button {
+  font-size: 18px;
+  height: 40px;
+  color: white;
+  width: 150px;
+  border-radius: 0;
+  background-color: rgb(8, 172, 123);
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+  border: none;
+  outline: none;
+}
+.routers-table,
+.pool-table {
+  width: 100%;
+  margin-top: 10px;
+}
+#router-table,
+#pool-table {
+  width: 100%;
+  max-height: 100%;
+}
+#router-table th,
+#pool-table th {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  padding: 15px;
+  border-bottom: 1px solid #ccd1d6;
+}
+#router-table td,
+#pool-table td {
+  padding: 15px;
+  border-bottom: 1px solid #ccd1d6;
+  color: rgb(97, 95, 95);
+}
+#router-download {
+  border: none;
+  outline: none;
+  color: white;
+  background-color: rgb(7, 110, 79);
+  border-radius: 5px;
+  width: 100px;
+}
+.router-modal {
+  width: 40%;
+  height: 45%;
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+.router-modal-top,
+.add-pool-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.router-modal-top p,
+.add-pool-top p {
+  font-size: 20px;
+}
+.router-modal-top button,
+.add-pool-top button {
+  height: 30px;
+  width: 30px;
+  border: none;
+  outline: none;
+  background-color: rgb(243, 40, 40);
+  color: white;
+  border-radius: 5px;
+}
+.router-modal-top button:hover,
+.add-pool-top button:hover {
+  background-color: rgb(139, 22, 22);
+}
+.router-modal form,
+.pool-overlay form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.router-form-div,
+.add-pool-div {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.router-radios {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+}
+.router-form-div > label:first-child,
+.add-pool-div > label:first-child {
+  width: 140px;
+  font-size: 15px;
+  font-weight: bold;
+  min-width: 140px;
+  color: black;
+  margin-bottom: 0;
+}
+.router-form-div input {
+  width: 60%;
+  height: 30px;
+  border: solid 1px gray;
+  outline: none;
+  font-size: 15px;
+  padding: 5px;
+}
+.router-form-div input:focus {
+  border: solid 1px green;
+}
+.router-add-btns,
+.pool-btns {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-left: 150px;
+}
+.router-add-btns button,
+.pool-btns button {
+  height: 30px;
+  font-size: 15px;
+  border-radius: 8px;
+  max-width: 120px;
+  width: 100%;
+  border: none;
+  outline: none;
+  color: white;
+}
+#router-add-btn {
+  background-color: rgb(8, 172, 123);
+}
+#router-add-btn:hover {
+  background-color: rgb(6, 97, 70);
+}
+#router-cancel-btn {
+  background-color: rgb(243, 40, 40);
+}
+#router-cancel-btn:hover {
+  background-color: rgb(139, 22, 22);
+}
+.manage-btns {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.manage-btns button {
+  border: none;
+  outline: none;
+  color: white;
+  width: 80px;
+  border-radius: 5px;
+  height: 30px;
+}
+#pool-edit,
+#pool-save {
+  background-color: rgb(8, 172, 123);
+}
+#pool-edit:hover,
+#pool-save:hover {
+  background-color: rgb(6, 97, 70);
+}
+#pool-delete,
+#pool-cancel {
+  background-color: rgb(243, 40, 40);
+}
+#pool-delete:hover,
+#pool-cancel:hover {
+  background-color: rgb(139, 22, 22);
+}
+.pool-overlay {
+  background-color: white;
+  height: 35%;
+  width: 40%;
+  border-radius: 12px;
+  padding: 20px;
+}
+.add-pool-div input {
+  width: 60%;
+  height: 30px;
+  border: solid 1px gray;
+  outline: none;
+  font-size: 15px;
+  padding: 5px;
+}
+.add-pool-div input:focus {
+  border: solid 1px green;
+}

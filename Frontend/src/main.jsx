@@ -18,6 +18,12 @@ import BulkSms from "./sections/broadcast/BulkSms";
 import Register from "./pages/register/Register";
 import DailyStatement from "./sections/statements/DailyStatement";
 import PeriodStatement from "./sections/statements/PeriodStatement";
+import Routers from "./sections/network/Routers";
+import IpPool from "./sections/network/IpPool";
+import General from "./sections/settings/general/General";
+import Maintenance from "./sections/settings/maintenance/Maintenance";
+import Alerts from "./sections/settings/alerts/Alerts";
+import PaymentMethod from "./sections/payment-method/PaymentMethod";
 
 const router = createBrowserRouter([
   { path: "/", element: <Login /> },
@@ -70,6 +76,30 @@ const router = createBrowserRouter([
       {
         path: "period-statement",
         element: <PeriodStatement />,
+      },
+      {
+        path: "routers",
+        element: <Routers />,
+      },
+      {
+        path: "ip-pool",
+        element: <IpPool />,
+      },
+      {
+        path: "general-settings",
+        element: <General />,
+      },
+      {
+        path: "maintenance-mode",
+        element: <Maintenance />,
+      },
+      {
+        path: "user-alerts",
+        element: <Alerts />,
+      },
+      {
+        path: "payment-method",
+        element: <PaymentMethod />,
       },
     ],
   },

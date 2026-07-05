@@ -1,0 +1,62 @@
+.general-settings {
+  display: flex;
+  flex-direction: column;
+  height: 92%;
+  width: 100%;
+  background-color: white;
+  padding: 10px 30px;
+}
+.general-settings p {
+  font-size: 20px;
+}
+.general-settings form {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  height: 100%;
+}
+.part-1,
+.part-2 {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.general-div {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.general-div > label:first-child {
+  width: 200px;
+  font-size: 18px;
+  font-weight: bold;
+  min-width: 140px;
+  color: black;
+  margin-bottom: 0;
+}
+.general-div select,
+.general-div input {
+  width: 50%;
+  height: 35px;
+  border: solid 1px gray;
+  outline: none;
+  font-size: 15px;
+  padding: 5px;
+}
+.general-div select:focus,
+.general-div input:focus {
+  border: solid 1px green;
+}
+.general-settings button {
+  max-width: 150px;
+  border: none;
+  outline: none;
+  color: white;
+  background-color: rgb(8, 172, 123);
+  height: 40px;
+  border-radius: 8px;
+  margin-left: 210px;
+}
+.general-settings button:hover {
+  background-color: rgb(6, 97, 70);
+}
