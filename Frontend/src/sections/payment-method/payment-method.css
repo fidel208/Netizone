@@ -1,0 +1,153 @@
+.payment-method {
+  height: 92%;
+  background-color: white;
+  width: 100%;
+  padding: 10px 30px;
+}
+.payment-method p {
+  font-size: 20px;
+}
+.payment-method-table {
+  border: solid 1px gray;
+  width: 60%;
+  padding: 10px;
+}
+#payment-method-table {
+  width: 100%;
+}
+#select-cell {
+  width: 5%;
+}
+#select-cell input {
+  width: 15px;
+  height: 15px;
+}
+#payment-method-table button {
+  width: 100%;
+  text-align: start;
+  padding: 5px 10px;
+  border: solid 1px gray;
+  outline: none;
+  border-radius: 2px;
+}
+#payment-method-table button:hover {
+  background-color: rgb(48, 48, 185);
+  color: white;
+}
+#payment-method-table td {
+  padding: 5px;
+}
+#save-payment-method {
+  width: 100%;
+  margin-top: 10px;
+  border: none;
+  outline: none;
+  color: white;
+  background-color: rgb(8, 172, 123);
+  height: 35px;
+  border-radius: 8px;
+}
+#save-payment-method:hover {
+  background-color: rgb(6, 97, 70);
+}
+.mpesa-overlay {
+  background-color: white;
+  width: 40%;
+  height: 40%;
+  padding: 20px;
+  border-radius: 12px;
+}
+.mpesa-overlay-top,
+.bank-overlay-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.mpesa-overlay-top p,
+.bank-overlay-top p {
+  font-size: 20px;
+}
+.mpesa-overlay-top button,
+.bank-overlay-top button {
+  height: 30px;
+  width: 30px;
+  border: none;
+  outline: none;
+  background-color: rgb(243, 40, 40);
+  color: white;
+  border-radius: 5px;
+}
+.mpesa-overlay-top button:hover,
+.bank-overlay-top button:hover {
+  background-color: rgb(139, 22, 22);
+}
+.mpesa-overlay form,
+.bank-overlay form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.mpesa-div,
+.bank-div {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.mpesa-div > label:first-child,
+.bank-div > label:first-child {
+  width: 200px;
+  font-size: 15px;
+  font-weight: bold;
+  min-width: 140px;
+  color: black;
+  margin-bottom: 0;
+}
+.mpesa-div input,
+.bank-div input {
+  width: 60%;
+  height: 30px;
+  border: solid 1px gray;
+  outline: none;
+  font-size: 15px;
+  padding: 5px;
+}
+.mpesa-div input:focus,
+.bank-div input:focus {
+  border: solid 1px green;
+}
+.bank-div select {
+  width: 60%;
+  height: 30px;
+  border: solid 1px gray;
+  outline: none;
+  font-size: 15px;
+  padding: 5px;
+}
+.bank-div select:focus {
+  border: solid 1px green;
+}
+#mpesa-save-btn,
+#bank-save-btn {
+  margin-top: 10px;
+  height: 30px;
+  font-size: 15px;
+  border-radius: 8px;
+  max-width: 150px;
+  width: 100%;
+  border: none;
+  outline: none;
+  color: white;
+  background-color: rgb(8, 172, 123);
+  margin-left: 210px;
+}
+#mpesa-save-btn:hover,
+#bank-save-btn:hover {
+  background-color: rgb(6, 97, 70);
+}
+.bank-overlay {
+  width: 35%;
+  height: 30%;
+  background-color: white;
+  border-radius: 12px;
+  padding: 20px;
+}

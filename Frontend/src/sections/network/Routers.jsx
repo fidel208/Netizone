@@ -60,7 +60,7 @@ function Routers() {
               <div className="router-modal-top">
                 <p>Add a router</p>
                 <button onClick={() => setRouterModay(false)}>
-                  <i class="fa-solid fa-xmark"></i>
+                  <i className="fa-solid fa-xmark"></i>
                 </button>
               </div>
               <form>

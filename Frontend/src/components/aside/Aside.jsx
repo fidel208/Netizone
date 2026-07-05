@@ -3,6 +3,7 @@ import "./aside.css";
 import { Link } from "react-router-dom";
 
 const Aside = () => {
+  const [activeLink, setActiveLink] = useState("dashboard");
   const [openMenu, setOpenMenu] = useState(null);
   const toggleMenu = (menuName) => {
     if (openMenu === menuName) {
@@ -24,7 +25,11 @@ const Aside = () => {
     <div className="aside">
       <h1>INTERNET NAME</h1>
       <nav>
-        <Link to={"/dashboard/my-dashboard"}>
+        <Link
+          to={"/dashboard/my-dashboard"}
+          className={`${activeLink === "dashboard" ? "active" : ""}`}
+          onClick={() => setActiveLink("dashboard")}
+        >
           <span className="material-symbols-outlined">dashboard</span>My
           Dashboard
         </Link>
@@ -48,8 +53,20 @@ const Aside = () => {
           id="clients-dropdown"
           className={openMenu === "clients" ? "open" : ""}
         >
-          <Link to={"/dashboard/online-clients"}>Online Clients</Link>
-          <Link to={"/dashboard/hotspot-clients"}>Hotspot Clients</Link>
+          <Link
+            to={"/dashboard/online-clients"}
+            className={`${activeLink === "online-clients" ? "active" : ""}`}
+            onClick={() => setActiveLink("online-clients")}
+          >
+            Online Clients
+          </Link>
+          <Link
+            to={"/dashboard/hotspot-clients"}
+            className={`${activeLink === "hotspot-clients" ? "active" : ""}`}
+            onClick={() => setActiveLink("hotspot-clients")}
+          >
+            Hotspot Clients
+          </Link>
         </div>
         <a
           href=""
@@ -74,8 +91,20 @@ const Aside = () => {
           id="services-dropdown"
           className={openMenu === "services" ? "open" : ""}
         >
-          <Link to={"/dashboard/recharge-client"}>Recharge Client</Link>
-          <Link to={"/dashboard/refill-client"}>Refill Client</Link>
+          <Link
+            to={"/dashboard/recharge-client"}
+            className={`${activeLink === "recharge-client" ? "active" : ""}`}
+            onClick={() => setActiveLink("recharge-client")}
+          >
+            Recharge Client
+          </Link>
+          <Link
+            to={"/dashboard/refill-client"}
+            className={`${activeLink === "refill-client" ? "active" : ""}`}
+            onClick={() => setActiveLink("refill-client")}
+          >
+            Refill Client
+          </Link>
         </div>
         <a
           href=""
@@ -99,8 +128,20 @@ const Aside = () => {
           id="packages-dropdown"
           className={openMenu === "packages" ? "open" : ""}
         >
-          <Link to={"/dashboard/hotspot-packages"}>Hotspot</Link>
-          <Link to={"/dashboard/pppoe-packages"}>PPPOE</Link>
+          <Link
+            to={"/dashboard/hotspot-packages"}
+            className={`${activeLink === "hotspot-pack" ? "active" : ""}`}
+            onClick={() => setActiveLink("hotspot-pack")}
+          >
+            Hotspot
+          </Link>
+          <Link
+            to={"/dashboard/pppoe-packages"}
+            className={`${activeLink === "pppoe-pack" ? "active" : ""}`}
+            onClick={() => setActiveLink("pppoe-pack")}
+          >
+            PPPOE
+          </Link>
         </div>
 
         <a
@@ -124,8 +165,20 @@ const Aside = () => {
           id="broadcast-dropdown"
           className={openMenu === "broadcast" ? "open" : ""}
         >
-          <Link to={"/dashboard/broadcast-single-sms"}>Single Client</Link>
-          <Link to={"/dashboard/broadcast-bulk-sms"}>Bulk Clients</Link>
+          <Link
+            to={"/dashboard/broadcast-single-sms"}
+            className={`${activeLink === "single-client" ? "active" : ""}`}
+            onClick={() => setActiveLink("single-client")}
+          >
+            Single Client
+          </Link>
+          <Link
+            to={"/dashboard/broadcast-bulk-sms"}
+            className={`${activeLink === "bulk-client" ? "active" : ""}`}
+            onClick={() => setActiveLink("bulk-client")}
+          >
+            Bulk Clients
+          </Link>
         </div>
 
         <a
@@ -149,11 +202,27 @@ const Aside = () => {
           id="statements-dropdown"
           className={openMenu === "statements" ? "open" : ""}
         >
-          <Link to={"/dashboard/daily-statement"}>Daily Report</Link>
-          <Link to={"/dashboard/period-statement"}>Period Report</Link>
+          <Link
+            to={"/dashboard/daily-statement"}
+            className={`${activeLink === "daily" ? "active" : ""}`}
+            onClick={() => setActiveLink("daily")}
+          >
+            Daily Report
+          </Link>
+          <Link
+            to={"/dashboard/period-statement"}
+            className={`${activeLink === "period" ? "active" : ""}`}
+            onClick={() => setActiveLink("period")}
+          >
+            Period Report
+          </Link>
         </div>
 
-        <Link to={"/dashboard/payment-method"}>
+        <Link
+          to={"/dashboard/payment-method"}
+          className={`${activeLink === "payment" ? "active" : ""}`}
+          onClick={() => setActiveLink("payment")}
+        >
           <span className="material-symbols-outlined">payments</span>Payment
           Method
         </Link>
@@ -179,8 +248,20 @@ const Aside = () => {
           id="network-dropdown"
           className={openMenu === "network" ? "open" : ""}
         >
-          <Link to={"/dashboard/routers"}>Routers</Link>
-          <Link to={"/dashboard/ip-pool"}>Ip Pool</Link>
+          <Link
+            to={"/dashboard/routers"}
+            className={`${activeLink === "net-routers" ? "active" : ""}`}
+            onClick={() => setActiveLink("net-routers")}
+          >
+            Routers
+          </Link>
+          <Link
+            to={"/dashboard/ip-pool"}
+            className={`${activeLink === "net-pool" ? "active" : ""}`}
+            onClick={() => setActiveLink("net-pool")}
+          >
+            Ip Pool
+          </Link>
         </div>
         <a
           href=""
@@ -203,9 +284,27 @@ const Aside = () => {
           id="settings-dropdown"
           className={openMenu === "settings" ? "open" : ""}
         >
-          <Link to={"/dashboard/general-settings"}>General Settings</Link>
-          <Link to={"/dashboard/maintenance-mode"}>Maintenance Mode</Link>
-          <Link to={"/dashboard/user-alerts"}>User Alerts</Link>
+          <Link
+            to={"/dashboard/general-settings"}
+            className={`${activeLink === "general" ? "active" : ""}`}
+            onClick={() => setActiveLink("general")}
+          >
+            General Settings
+          </Link>
+          <Link
+            to={"/dashboard/maintenance-mode"}
+            className={`${activeLink === "maintain" ? "active" : ""}`}
+            onClick={() => setActiveLink("maintain")}
+          >
+            Maintenance Mode
+          </Link>
+          <Link
+            to={"/dashboard/user-alerts"}
+            className={`${activeLink === "alerts" ? "active" : ""}`}
+            onClick={() => setActiveLink("alerts")}
+          >
+            User Alerts
+          </Link>
           <a
             href=""
             onClick={(e) => {
