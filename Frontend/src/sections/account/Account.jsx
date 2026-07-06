@@ -71,14 +71,16 @@ function Account() {
           </div>
           {paymentMethod === "mobile" && (
             <div className="pay-for">
-              <form>
-                <label htmlFor="mpesa-number">Mpesa Number</label>
-                <input
-                  type="number"
-                  name="mpesa0number"
-                  id="mpesa-number"
-                  placeholder="eg. 0712345678"
-                />
+              <form id="mobile-pay-form">
+                <span>
+                  <label htmlFor="mpesa-number">Mpesa Number</label>
+                  <input
+                    type="number"
+                    name="mpesa0number"
+                    id="mpesa-number"
+                    placeholder="eg. 0712345678"
+                  />
+                </span>
                 <button id="init">Initialize</button>
               </form>
             </div>

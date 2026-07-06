@@ -145,57 +145,103 @@ sub {
   width: 600px;
   margin-top: 40px;
 }
-.pay-for > form {
+#mobile-pay-form {
   gap: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+#mobile-pay-form span {
+  display: flex;
+  flex-direction: column;
 }
 .pay-for > form > label {
   color: black;
 }
-.pay-for > form > input {
+#mobile-pay-form input {
   border: solid 1px gray;
+  outline: none;
   padding: 10px;
   border-radius: 12px;
+  width: 80%;
 }
 #init {
   background-color: rgb(48, 48, 185);
-  width: 100%;
+  width: 80%;
   margin-top: 10px;
+  height: 40px;
+  color: white;
+  border-radius: 10px;
 }
 #init:hover {
   background-color: rgb(21, 21, 83);
 }
 .edit-details {
-  padding-top: 10px;
+  padding: 50px 0;
   display: flex;
   flex-direction: column;
   gap: 30px;
-  justify-content: center;
+  height: 100%;
 }
-.edit-details > form {
+#edit-form {
   gap: 10px;
+  display: flex;
+  flex-direction: column;
 }
-.edit-details > form p {
+#edit-form p {
   font-size: 20px;
 }
-.edit-details > form label {
+#edit-form span {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+#edit-form label {
   color: black;
 }
-.edit-details > form input {
+#edit-form input,
+#change-form input {
   border: solid 1px gray;
-  padding: 10px;
+  outline: none;
+  padding: 8px;
   border-radius: 12px;
+}
+#edit-form input:focus,
+#change-form input:focus {
+  border: solid 1px green;
 }
 #edit-form > button {
   width: 50%;
   align-self: flex-end;
-  background-color: rgb(32, 59, 92);
+  background-color: rgb(48, 48, 185);
+  height: 40px;
+  color: white;
+  margin-top: 10px;
+  border-radius: 10px;
 }
 #edit-form > button:hover {
-  background-color: rgb(17, 31, 48);
+  background-color: rgb(21, 21, 83);
+}
+#change-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+#change-form p {
+  font-size: 20px;
+}
+#change-form span {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 #change-form > button {
-  background-color: rgb(32, 59, 92);
+  background-color: rgb(48, 48, 185);
+  height: 40px;
+  color: white;
+  border-radius: 10px;
+  margin-top: 10px;
 }
 #change-form > button:hover {
-  background-color: rgb(17, 31, 48);
+  background-color: rgb(21, 21, 83);
 }
