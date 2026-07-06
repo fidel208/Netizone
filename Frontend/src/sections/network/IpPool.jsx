@@ -27,7 +27,7 @@ function IpPool() {
             </form>
           </span>
           <button onClick={() => setPoolOpen(true)}>
-            <i class="fa-solid fa-plus"></i> New Pool
+            <i className="fa-solid fa-plus"></i> New Pool
           </button>
         </div>
         <div className="pool-table">

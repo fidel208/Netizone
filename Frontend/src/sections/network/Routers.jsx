@@ -3,7 +3,7 @@ import "./network.css";
 import { useEffect } from "react";
 
 function Routers() {
-  const [routerModal, setRouterModay] = useState(false);
+  const [routerModal, setRouterModal] = useState(false);
   const [routerList, setRouterList] = useState([]);
   const [error, setError] = useState("");
 
@@ -63,7 +63,6 @@ function Routers() {
     <>
       <div className="routers">
         <p>Routers</p>
-        {error && <p id="error-message">{error}</p>}
         <div className="router-search">
           <span id="router-search-div">
             <form
@@ -83,7 +82,7 @@ function Routers() {
               </span>
             </form>
           </span>
-          <button onClick={() => setRouterModay(true)}>
+          <button onClick={() => setRouterModal(true)}>
             <i className="fa-solid fa-plus"></i> New Router
           </button>
         </div>
@@ -130,7 +129,7 @@ function Routers() {
           </table>
         </div>
         {routerModal && (
-          <div className="modal-overlay" onClick={() => setRouterModay(false)}>
+          <div className="modal-overlay" onClick={() => setRouterModal(false)}>
             <div className="router-modal" onClick={(e) => e.stopPropagation()}>
               <div className="router-modal-top">
                 <p>Add a router</p>
@@ -138,6 +137,7 @@ function Routers() {
                   <i className="fa-solid fa-xmark"></i>
                 </button>
               </div>
+              {error && <p id="error-message">{error}</p>}
               <form onSubmit={handleAddRouter}>
                 <div className="router-form-div">
                   <label htmlFor="status">Status</label>
@@ -189,7 +189,7 @@ function Routers() {
                   <button id="router-add-btn">Add</button>
                   <button
                     id="router-cancel-btn"
-                    onClick={() => setRouterModay(false)}
+                    onClick={() => setRouterModal(false)}
                   >
                     Cancel
                   </button>

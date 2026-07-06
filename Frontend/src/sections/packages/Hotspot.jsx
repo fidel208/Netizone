@@ -1,15 +1,104 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import "./packages.css";
 
 function Hotspot() {
   const [isOpen, setIsOpen] = useState(false);
   const [limitType, setLimitType] = useState("none");
+  const [routersList, setRoutersList] = useState([]);
+  const [packageList, setPackageList] = useState([]);
+  const [error, setError] = useState("");
 
-  const handleLimitChange = (e) => {
-    setLimitType(e.target.value);
+  useEffect(() => {
+    const fetchPackages = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/packages");
+
+        if (response.ok) {
+          const data = await response.json();
+          setPackageList(data.packages || []);
+        }
+      } catch (err) {
+        console.error("Error fetching packages");
+      }
+    };
+    fetchPackages();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const routerResponse = await fetch("http://localhost:3000/api/routers");
+        if (routerResponse.ok) {
+          const routerData = await routerResponse.json();
+          setRoutersList(routerData.routers || []);
+        }
+      } catch (err) {
+        console.error("Error fetching router data:", err);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handleAddPackages = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    const formData = new FormData(e.currentTarget);
+
+    const name = formData.get("plan-name");
+    const statusValue = formData.get("status");
+    const type = formData.get("type");
+    const bandwidth = formData.get("bandwidth-name");
+    const routerId = formData.get("plan-router");
+    const price = formData.get("plan-price");
+
+    let timeLimit = "Unlimited";
+    let dataLimit = "Unlimited";
+
+    const validityValue = formData.get("plan-validity");
+    const validityUnit = formData.get("validity");
+    const validity = `${validityValue} ${validityUnit?.toUpperCase()}`;
+
+    if (limit === "limited") {
+      if (limitType === "time" || limitType === "both") {
+        timeLimit = `${formData.get("time")} ${formData.get("time-unit").replace("time-", "")}`;
+      }
+      if (limitType === "data" || limitType === "both") {
+        dataLimit = `${formData.get("data")} ${formData.get("data-unit").toUpperCase()}`;
+      }
+    }
+
+    try {
+      const response = await fetch("http://localhost:3000/api/packages/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          isActive: statusValue === "active",
+          type,
+          price,
+          limitType: limit,
+          bandwidth,
+          validity,
+          timeLimit,
+          dataLimit,
+          routerId: routerId === "no-router" ? null : routerId,
+        }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to add package");
+      }
+      setPackageList((prev) => [...prev, data.package]);
+      setIsOpen(false);
+      setLimit("unlimited");
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
+  const handleLimitChange = (e) => setLimitType(e.target.value);
   const [limit, setLimit] = useState("none");
   const handleLimit = (e) => {
     setLimit(e.target.value);
@@ -46,11 +135,11 @@ function Hotspot() {
           <table id="hotspot-plans-table">
             <thead>
               <tr>
-                <th>Plan</th>
+                <th>Plan Name</th>
                 <th>Type</th>
                 <th>Bandwidth</th>
-                <th>Category</th>
                 <th>Price</th>
+                <th>Status</th>
                 <th>Time LImit</th>
                 <th>Data Limit</th>
                 <th>Validity</th>
@@ -59,22 +148,38 @@ function Hotspot() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                  <button id="package-delete-btn">
-                    <i className="fa-solid fa-trash"></i>
-                  </button>
-                </td>
-              </tr>
+              {packageList.length === 0 ? (
+                <tr>
+                  <td colSpan="9">No service plans found.</td>
+                </tr>
+              ) : (
+                packageList.map((pkg) => (
+                  <tr key={pkg.id}>
+                    <td>
+                      <strong>{pkg.name}</strong>
+                    </td>
+                    <td>{pkg.type ? pkg.type.toUpperCase() : "PREPAID"}</td>
+                    <td>{pkg.bandwidth}</td>
+                    <td>Kes. {pkg.price?.toFixed(2) || "0.00"}</td>
+                    <td>
+                      <span
+                        className={`status-badge ${pkg.isActive ? "active" : "inactive"}`}
+                      >
+                        {pkg.isActive ? "Active" : "Disabled"}
+                      </span>
+                    </td>
+                    <td>{pkg.timeLimit}</td>
+                    <td>{pkg.dataLimit}</td>
+                    <td>{pkg.validity}</td>
+                    <td>{pkg.router?.name || "All"}</td>
+                    <td>
+                      <button id="package-delete-btn">
+                        <i className="fa-solid fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
@@ -84,29 +189,52 @@ function Hotspot() {
               <div className="modal-top">
                 <p>Add a service plan</p>
                 <button onClick={() => setIsOpen(false)}>
-                  <i class="fa-solid fa-xmark"></i>
+                  <i className="fa-solid fa-xmark"></i>
                 </button>
               </div>
-              <form onSubmit={(e) => e.preventDefault()}>
+              {error && <p id="error-message">{error}</p>}
+              <form onSubmit={handleAddPackages}>
                 <div className="plan-form">
                   <label htmlFor="plan-status">Status</label>
                   <span className="plan-form-span">
-                    <input type="radio" name="status" id="enable" />
+                    <input
+                      type="radio"
+                      name="status"
+                      id="enable"
+                      value="active"
+                      defaultChecked
+                    />
                     <label htmlFor="status">Enable</label>
                   </span>
                   <span className="plan-form-span">
-                    <input type="radio" name="status" id="disable" />
+                    <input
+                      type="radio"
+                      name="status"
+                      id="disable"
+                      value="inactive"
+                    />
                     <label htmlFor="status">Disable</label>
                   </span>
                 </div>
                 <div className="plan-form">
                   <label htmlFor="plan-type">Type</label>
                   <span className="plan-form-span">
-                    <input type="radio" name="type" id="prepaid" />
+                    <input
+                      type="radio"
+                      name="type"
+                      id="prepaid"
+                      value="prepaid"
+                      defaultChecked
+                    />
                     <label htmlFor="type">Prepaid</label>
                   </span>
                   <span className="plan-form-span">
-                    <input type="radio" name="type" id="postpaid" />
+                    <input
+                      type="radio"
+                      name="type"
+                      id="postpaid"
+                      value="postpaid"
+                    />
                     <label htmlFor="type">Postpaid</label>
                   </span>
                 </div>
@@ -215,12 +343,17 @@ function Hotspot() {
                   </select>
                 </div>
                 <div className="plan-form">
+                  <label htmlFor="plan-price">Plan Price</label>
+                  <input type="number" name="plan-price" id="plan-price" />
+                </div>
+                <div className="plan-form">
                   <label htmlFor="plan-validity">Validity</label>
                   <span className="plan-form-span">
                     <input
                       type="number"
                       name="plan-validity"
                       id="plan-validity"
+                      required
                     />
                     <select name="validity" id="validity">
                       <option value="mins">MINS</option>
@@ -234,7 +367,11 @@ function Hotspot() {
                   <label htmlFor="plan-router">Router</label>
                   <select name="plan-router" id="plan-router">
                     <option value="no-router">Select Router</option>
-                    <option value="jeza-router">Jeza</option>
+                    {routersList.map((router) => (
+                      <option key={router.id} value={router.id}>
+                        {router.name}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <div className="modal-form-buttons">

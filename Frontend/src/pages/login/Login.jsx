@@ -38,7 +38,7 @@ function Login() {
         <div className="login-box">
           <p id="internet-name">INTERNET NAME</p>
           <form onSubmit={handleLogin}>
-            {error && <p id="login-error-message">{error}</p>}
+            {error && <p id="error-message">{error}</p>}
             <div className="login-form-row">
               <label htmlFor="login-name">Username</label>
               <span id="login-icon-span">

@@ -3,6 +3,8 @@ import prisma from "./config/db.js";
 import cors from "cors";
 
 const app = express();
+
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.json());
 
@@ -92,6 +94,77 @@ app.post("/api/routers/add", async (req, res) => {
   res.status(500).json({
     error: "An internal server error occurred while saving the router",
   });
+});
+
+app.get("/api/routers", async (req, res) => {
+  try {
+    const packages = await prisma.package.findMany({
+      include: {
+        router: {
+          select: { name: true },
+        },
+      },
+      orderBy: { createdAt: "desc" },
+    });
+    return res.status(200).json({ packages });
+  } catch (err) {
+    console.error("Error fetching packages:", err);
+    return res.status(500).json({ error: "Failed to get package list" });
+  }
+});
+
+app.post("/api/packages/add", async (req, res) => {
+  const {
+    name,
+    isActive,
+    type,
+    price,
+    limitType,
+    bandwidth,
+    validity,
+    timeLimit,
+    dataLimit,
+    routerId,
+  } = req.body;
+
+  if (!name || !bandwidth || !validity) {
+    return res
+      .status(400)
+      .json({ error: "Please fill in the required fields" });
+  }
+
+  try {
+    const newPackage = await prisma.package.create({
+      data: {
+        name,
+        isActive: isActive ?? true,
+        type: type || "prepaid",
+        price: price ? parseFloat(price) : 0.0,
+        limitType: limitType || "unlimited",
+        bandwidth,
+        validity,
+        timeLimit: timeLimit || "Unlimited",
+        dataLimit: dataLimit || "Unlimited",
+        routerId: routerId === "no-router" || !routerId ? null : routerId,
+      },
+      include: {
+        router: {
+          select: { name: true },
+        },
+      },
+    });
+    return res.status(201).json({
+      success: true,
+      message: "Hotspot package created successfully",
+      package: newPackage,
+      packages: newPackage,
+    });
+  } catch (err) {
+    console.error("Error adding package:", err);
+    return res.status(500).json({
+      error: "An internal server error occurred while saving the package",
+    });
+  }
 });
 
 app.get("/", (req, res) => {

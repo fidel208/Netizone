@@ -36,6 +36,24 @@ model Router {
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
 
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId   String
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  packages Package[]
+}
+
+model Package {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  isActive  Boolean  @default(true)
+  type      String   @default("prepaid")
+  price     Float    @default(0.0)
+  limitType String   @default("unlimited")
+  bandwidth String
+  validity  String
+  timeLimit String   @default("Unlimited")
+  dataLimit String   @default("Unlimited")
+  router    Router?  @relation(fields: [routerId], references: [id])
+  routerId  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

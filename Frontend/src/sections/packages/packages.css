@@ -182,8 +182,17 @@
   font-size: 15px;
   padding: 5px;
 }
-#plan-name:focus {
+#plan-name:focus,
+#plan-price:focus {
   border: solid 1px green;
+}
+#plan-price {
+  width: 70%;
+  height: 30px;
+  border: solid 1px gray;
+  outline: none;
+  font-size: 15px;
+  padding: 5px;
 }
 #plan-validity {
   width: 100%;
