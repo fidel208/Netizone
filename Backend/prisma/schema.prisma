@@ -29,12 +29,11 @@ model User {
 
 model Router {
   id        String   @id @default(uuid())
-  status    Boolean  @default(false)
-  name      String
-  ipAddress String
-  apiPort   Int      @default(8728)
+  name      String   @unique
+  ipAddress String   @unique
   username  String
   secret    String
+  isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
 
   userId String

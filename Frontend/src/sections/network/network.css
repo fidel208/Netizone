@@ -107,7 +107,18 @@
   background-color: rgb(7, 110, 79);
   border-radius: 5px;
   width: 100px;
+  height: 30px;
 }
+.btn-manage {
+  border: none;
+  outline: none;
+  color: white;
+  background-color: rgb(48, 48, 185);
+  height: 30px;
+  border-radius: 5px;
+  width: 100px;
+}
+
 .router-modal {
   width: 40%;
   height: 45%;
