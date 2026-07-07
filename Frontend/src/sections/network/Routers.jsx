@@ -54,7 +54,7 @@ function Routers() {
       }
       setRouterList((prev) => [...prev, data.router]);
 
-      setRouterModay(false);
+      setRouterModal(false);
     } catch (err) {
       setError(err.message);
     }
@@ -133,7 +133,7 @@ function Routers() {
             <div className="router-modal" onClick={(e) => e.stopPropagation()}>
               <div className="router-modal-top">
                 <p>Add a router</p>
-                <button onClick={() => setRouterModay(false)}>
+                <button onClick={() => setRouterModal(false)}>
                   <i className="fa-solid fa-xmark"></i>
                 </button>
               </div>

@@ -26,7 +26,7 @@ function Hotspot() {
   }, []);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchRouterData = async () => {
       try {
         const routerResponse = await fetch("http://localhost:3000/api/routers");
         if (routerResponse.ok) {
@@ -37,7 +37,7 @@ function Hotspot() {
         console.error("Error fetching router data:", err);
       }
     };
-    fetchData();
+    fetchRouterData();
   }, []);
 
   const handleAddPackages = async (e) => {
@@ -156,9 +156,9 @@ function Hotspot() {
                 packageList.map((pkg) => (
                   <tr key={pkg.id}>
                     <td>
-                      <strong>{pkg.name}</strong>
+                      <b>{pkg.name}</b>
                     </td>
-                    <td>{pkg.type ? pkg.type.toUpperCase() : "PREPAID"}</td>
+                    <td>{pkg.type ? pkg.type : "PREPAID"}</td>
                     <td>{pkg.bandwidth}</td>
                     <td>Kes. {pkg.price?.toFixed(2) || "0.00"}</td>
                     <td>

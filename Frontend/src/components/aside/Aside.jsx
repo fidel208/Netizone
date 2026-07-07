@@ -1,10 +1,49 @@
 import React, { useState } from "react";
 import "./aside.css";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 const Aside = () => {
-  const [activeLink, setActiveLink] = useState("dashboard");
+  const location = useLocation();
+  const currentPath = location.pathname;
+
   const [openMenu, setOpenMenu] = useState(null);
+
+  useEffect(() => {
+    if (
+      currentPath.includes("online-clients") ||
+      currentPath.includes("hotspot-clients")
+    ) {
+      setOpenMenu("clients");
+    } else if (
+      currentPath.includes("recharge-client") ||
+      currentPath.includes("refill-client")
+    ) {
+      setOpenMenu("services");
+    } else if (
+      currentPath.includes("hotspot-packages") ||
+      currentPath.includes("pppoe-packages")
+    ) {
+      setOpenMenu("packages");
+    } else if (currentPath.includes("broadcast")) {
+      setOpenMenu("broadcast");
+    } else if (currentPath.includes("statement")) {
+      setOpenMenu("statements");
+    } else if (
+      currentPath.includes("routers") ||
+      currentPath.includes("ip-pool")
+    ) {
+      setOpenMenu("network");
+    } else if (
+      currentPath.includes("settings") ||
+      currentPath.includes("maintenance") ||
+      currentPath.includes("alerts")
+    ) {
+      setOpenMenu("settings");
+    }
+  }, [currentPath]);
+
   const toggleMenu = (menuName) => {
     if (openMenu === menuName) {
       setOpenMenu(null);
@@ -13,26 +52,18 @@ const Aside = () => {
     }
   };
 
-  const [active, setActive] = useState(null);
-  const toggleActive = (navName) => {
-    if (active === navName) {
-      setActive(null);
-    } else {
-      setActive(navName);
-    }
-  };
   return (
     <div className="aside">
       <h1>INTERNET NAME</h1>
       <nav>
         <Link
           to={"/dashboard/my-dashboard"}
-          className={`${activeLink === "dashboard" ? "active" : ""}`}
-          onClick={() => setActiveLink("dashboard")}
+          className={currentPath === "/dashboard/my-dashboard" ? "active" : ""}
         >
           <span className="material-symbols-outlined">dashboard</span>My
           Dashboard
         </Link>
+
         <a
           href=""
           className="with"
@@ -55,19 +86,22 @@ const Aside = () => {
         >
           <Link
             to={"/dashboard/online-clients"}
-            className={`${activeLink === "online-clients" ? "active" : ""}`}
-            onClick={() => setActiveLink("online-clients")}
+            className={
+              currentPath === "/dashboard/online-clients" ? "active" : ""
+            }
           >
             Online Clients
           </Link>
           <Link
             to={"/dashboard/hotspot-clients"}
-            className={`${activeLink === "hotspot-clients" ? "active" : ""}`}
-            onClick={() => setActiveLink("hotspot-clients")}
+            className={
+              currentPath === "/dashboard/hotspot-clients" ? "active" : ""
+            }
           >
             Hotspot Clients
           </Link>
         </div>
+
         <a
           href=""
           className="with"
@@ -93,19 +127,22 @@ const Aside = () => {
         >
           <Link
             to={"/dashboard/recharge-client"}
-            className={`${activeLink === "recharge-client" ? "active" : ""}`}
-            onClick={() => setActiveLink("recharge-client")}
+            className={
+              currentPath === "/dashboard/recharge-client" ? "active" : ""
+            }
           >
             Recharge Client
           </Link>
           <Link
             to={"/dashboard/refill-client"}
-            className={`${activeLink === "refill-client" ? "active" : ""}`}
-            onClick={() => setActiveLink("refill-client")}
+            className={
+              currentPath === "/dashboard/refill-client" ? "active" : ""
+            }
           >
             Refill Client
           </Link>
         </div>
+
         <a
           href=""
           className="with"
@@ -123,22 +160,23 @@ const Aside = () => {
             id={openMenu === "packages" ? "i-active" : ""}
           ></i>
         </a>
-
         <div
           id="packages-dropdown"
           className={openMenu === "packages" ? "open" : ""}
         >
           <Link
             to={"/dashboard/hotspot-packages"}
-            className={`${activeLink === "hotspot-pack" ? "active" : ""}`}
-            onClick={() => setActiveLink("hotspot-pack")}
+            className={
+              currentPath === "/dashboard/hotspot-packages" ? "active" : ""
+            }
           >
             Hotspot
           </Link>
           <Link
             to={"/dashboard/pppoe-packages"}
-            className={`${activeLink === "pppoe-pack" ? "active" : ""}`}
-            onClick={() => setActiveLink("pppoe-pack")}
+            className={
+              currentPath === "/dashboard/pppoe-packages" ? "active" : ""
+            }
           >
             PPPOE
           </Link>
@@ -160,22 +198,23 @@ const Aside = () => {
             id={openMenu === "broadcast" ? "i-active" : ""}
           ></i>
         </a>
-
         <div
           id="broadcast-dropdown"
           className={openMenu === "broadcast" ? "open" : ""}
         >
           <Link
             to={"/dashboard/broadcast-single-sms"}
-            className={`${activeLink === "single-client" ? "active" : ""}`}
-            onClick={() => setActiveLink("single-client")}
+            className={
+              currentPath === "/dashboard/broadcast-single-sms" ? "active" : ""
+            }
           >
             Single Client
           </Link>
           <Link
             to={"/dashboard/broadcast-bulk-sms"}
-            className={`${activeLink === "bulk-client" ? "active" : ""}`}
-            onClick={() => setActiveLink("bulk-client")}
+            className={
+              currentPath === "/dashboard/broadcast-bulk-sms" ? "active" : ""
+            }
           >
             Bulk Clients
           </Link>
@@ -204,15 +243,17 @@ const Aside = () => {
         >
           <Link
             to={"/dashboard/daily-statement"}
-            className={`${activeLink === "daily" ? "active" : ""}`}
-            onClick={() => setActiveLink("daily")}
+            className={
+              currentPath === "/dashboard/daily-statement" ? "active" : ""
+            }
           >
             Daily Report
           </Link>
           <Link
             to={"/dashboard/period-statement"}
-            className={`${activeLink === "period" ? "active" : ""}`}
-            onClick={() => setActiveLink("period")}
+            className={
+              currentPath === "/dashboard/period-statement" ? "active" : ""
+            }
           >
             Period Report
           </Link>
@@ -220,12 +261,14 @@ const Aside = () => {
 
         <Link
           to={"/dashboard/payment-method"}
-          className={`${activeLink === "payment" ? "active" : ""}`}
-          onClick={() => setActiveLink("payment")}
+          className={
+            currentPath === "/dashboard/payment-method" ? "active" : ""
+          }
         >
           <span className="material-symbols-outlined">payments</span>Payment
           Method
         </Link>
+
         <a
           href=""
           className="with"
@@ -243,26 +286,24 @@ const Aside = () => {
             id={openMenu === "network" ? "i-active" : ""}
           ></i>
         </a>
-
         <div
           id="network-dropdown"
           className={openMenu === "network" ? "open" : ""}
         >
           <Link
             to={"/dashboard/routers"}
-            className={`${activeLink === "net-routers" ? "active" : ""}`}
-            onClick={() => setActiveLink("net-routers")}
+            className={currentPath === "/dashboard/routers" ? "active" : ""}
           >
             Routers
           </Link>
           <Link
             to={"/dashboard/ip-pool"}
-            className={`${activeLink === "net-pool" ? "active" : ""}`}
-            onClick={() => setActiveLink("net-pool")}
+            className={currentPath === "/dashboard/ip-pool" ? "active" : ""}
           >
             Ip Pool
           </Link>
         </div>
+
         <a
           href=""
           className="with"
@@ -279,29 +320,29 @@ const Aside = () => {
             id={openMenu === "settings" ? "i-active" : ""}
           ></i>
         </a>
-
         <div
           id="settings-dropdown"
           className={openMenu === "settings" ? "open" : ""}
         >
           <Link
             to={"/dashboard/general-settings"}
-            className={`${activeLink === "general" ? "active" : ""}`}
-            onClick={() => setActiveLink("general")}
+            className={
+              currentPath === "/dashboard/general-settings" ? "active" : ""
+            }
           >
             General Settings
           </Link>
           <Link
             to={"/dashboard/maintenance-mode"}
-            className={`${activeLink === "maintain" ? "active" : ""}`}
-            onClick={() => setActiveLink("maintain")}
+            className={
+              currentPath === "/dashboard/maintenance-mode" ? "active" : ""
+            }
           >
             Maintenance Mode
           </Link>
           <Link
             to={"/dashboard/user-alerts"}
-            className={`${activeLink === "alerts" ? "active" : ""}`}
-            onClick={() => setActiveLink("alerts")}
+            className={currentPath === "/dashboard/user-alerts" ? "active" : ""}
           >
             User Alerts
           </Link>

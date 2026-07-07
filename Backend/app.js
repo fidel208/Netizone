@@ -96,7 +96,7 @@ app.post("/api/routers/add", async (req, res) => {
   });
 });
 
-app.get("/api/routers", async (req, res) => {
+app.get("/api/packages", async (req, res) => {
   try {
     const packages = await prisma.package.findMany({
       include: {

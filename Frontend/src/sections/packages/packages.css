@@ -1,4 +1,5 @@
-.hotspot-packages {
+.hotspot-packages,
+.pppoe {
   display: flex;
   flex-direction: column;
   padding: 10px 30px;
@@ -243,4 +244,33 @@
 }
 #modal-cancel:hover {
   background-color: rgb(139, 22, 22);
+}
+
+.pppoe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.pppoe-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.pppoe-message p {
+  color: red;
+  font-size: 20px;
+}
+.pppoe-message button {
+  border: none;
+  outline: none;
+  color: white;
+  background-color: rgb(48, 48, 185);
+  border-radius: 8px;
+  height: 40px;
+  width: 200px;
+}
+.pppoe-message button:hover {
+  background-color: rgb(33, 33, 131);
 }

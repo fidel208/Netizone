@@ -1,7 +1,50 @@
 import React from "react";
 import "./recharge.css";
+import { useEffect, useState } from "react";
 
 function Recharge() {
+  const [routersList, setRoutersList] = useState([]);
+  const [packageList, setPackageList] = useState([]);
+
+  useEffect(() => {
+    const fetchRouterData = async () => {
+      try {
+        const routerResponse = await fetch("http://localhost:3000/api/routers");
+        if (routerResponse.ok) {
+          const routerData = await routerResponse.json();
+          setRoutersList(routerData.routers || []);
+        }
+      } catch (err) {
+        console.error("Error fetching router data:", err);
+      }
+    };
+    fetchRouterData();
+  }, []);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    const fetchPackageData = async () => {
+      try {
+        const packageResponse = await fetch(
+          "http://localhost:3000/api/packages",
+          {
+            signal: controller.signal,
+          },
+        );
+
+        if (packageResponse.ok) {
+          const packageData = await packageResponse.json();
+          setPackageList(packageData.packages || []);
+        }
+      } catch (err) {
+        if (err.name !== "Abortion Error") {
+          console.error("Error fetching packages data:", err);
+        }
+      }
+    };
+    fetchPackageData();
+    return;
+  }, []);
   return (
     <>
       <div className="recharge-client">
@@ -32,20 +75,22 @@ function Recharge() {
             <label htmlFor="router">Router</label>
             <select name="router" id="router">
               <option value="no-router">Select Router</option>
-              <option value="router-1">Jeza</option>
+              {routersList.map((router) => (
+                <option key={router.id} value={router.id}>
+                  {router.name}
+                </option>
+              ))}
             </select>
           </span>
           <span className="form-row">
             <label htmlFor="plan">Plan</label>
             <select name="plans" id="plans">
               <option value="no-plan">Select Plan</option>
-              <option value="2h">Bazu 2hrs - Kes. 10</option>
-              <option value="4h">Bazu 4hrs - Kes. 20</option>
-              <option value="6h">Bazu 6hrs - Kes. 60</option>
-              <option value="12h">Bazu 12hrs - Kes. 80</option>
-              <option value="24h">Bazu 24hrs - Kes. 100</option>
-              <option value="7d">Bazu 7days - Kes. 300</option>
-              <option value="1m">Bazu 1 month - Kes. 500</option>
+              {packageList.map((pkg) => (
+                <option key={pkg.id} value={pkg.id}>
+                  {pkg.name} - Kes. {pkg.price}
+                </option>
+              ))}
             </select>
           </span>
           <span id="radio-group" className="form-row">
