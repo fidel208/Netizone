@@ -100,29 +100,50 @@
   border-bottom: 1px solid #ccd1d6;
   color: rgb(97, 95, 95);
 }
+.manage-btn {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.manage-btn button {
+  border: none;
+  outline: none;
+  height: 30px;
+  border-radius: 5px;
+  width: 30px;
+}
 #router-download {
   border: none;
   outline: none;
   color: white;
-  background-color: rgb(7, 110, 79);
+  background-color: rgb(8, 172, 123);
   border-radius: 5px;
-  width: 100px;
+  width: 130px;
   height: 30px;
 }
 #router-download:hover {
-  background-color: rgb(16, 70, 54);
+  background-color: rgb(24, 97, 75);
 }
-.btn-manage {
+#delete-router-btn {
   border: none;
   outline: none;
   color: white;
-  background-color: rgb(48, 48, 185);
+  background-color: rgb(243, 40, 40);
   height: 30px;
   border-radius: 5px;
-  width: 100px;
+  width: 30px;
 }
-.btn-manage:hover {
-  background-color: rgb(28, 28, 110);
+#delete-router-btn:hover {
+  background-color: rgb(139, 22, 22);
+}
+#reboot-btn {
+  border: none;
+  outline: none;
+  color: white;
+  background-color: rgb(40, 73, 114);
+  height: 30px;
+  border-radius: 5px;
+  width: 80px;
 }
 .router-modal {
   width: 40%;
@@ -245,7 +266,7 @@
   border: none;
   outline: none;
   color: white;
-  width: 80px;
+  width: 50px;
   border-radius: 5px;
   height: 30px;
 }
@@ -282,4 +303,7 @@
 }
 .add-pool-div input:focus {
   border: solid 1px green;
+}
+#pool-delete {
+  width: 30px;
 }

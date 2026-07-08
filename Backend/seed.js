@@ -4,10 +4,10 @@ async function main() {
   console.log("Starting manual user injection...");
 
   const testUser = await prisma.user.upsert({
-    where: { username: "fidel" },
+    where: { username: "Fidel" },
     update: {},
     create: {
-      username: "Fidel",
+      username: "fidel",
       password: "1234five",
       email: "dempafidel@gmail.com",
       phoneNumber: "0789455874",

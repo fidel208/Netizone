@@ -102,7 +102,7 @@ app.get("/api/routers", verifyToken, async (req, res) => {
   try {
     const userRouters = await prisma.router.findMany({
       where: { userId: activeUserId },
-      orderBy: { createdAt: "desc" },
+      orderBy: { createdAt: "asc" },
     });
 
     res.status(200).json({
@@ -148,6 +148,65 @@ app.post("/api/routers/add", verifyToken, async (req, res) => {
   }
 });
 
+app.get("/api/routers/:id/status", verifyToken, async (req, res) => {
+  const { id } = req.params;
+  const activeUserId = req.user.id;
+
+  try {
+    const router = await prisma.router.findFirst({
+      where: { id, userId: activeUserId },
+    });
+
+    if (!router) {
+      return res
+        .status(404)
+        .json({ error: "Router configuration record not found." });
+    }
+
+    const conn = await connectToRouter(router);
+
+    const resourceData = await conn.menu("/system/resource").print();
+
+    return res.status(200).json({
+      success: true,
+      status: "Connected",
+      metrics: resourceData[0],
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      status: "Disconnected",
+      error: err.message,
+    });
+  }
+});
+
+app.delete("/api/routers/:id/delete", verifyToken, async (req, res) => {
+  const routerId = req.params.id;
+  const activeUserId = req.user.id;
+
+  try {
+    const existingRouter = await prisma.router.findUnique({
+      where: { id: routerId },
+    });
+    if (!existingRouter) {
+      return res.status(400).json({ error: "Router not found" });
+    }
+
+    await prisma.router.delete({ where: { id: routerId } });
+
+    res.status(200).json({
+      success: true,
+      message: "Router deleted successfully",
+    });
+  } catch (error) {
+    console.error("Error deleting router:", error);
+    res.status(500).json({
+      error: "Internal server occured during deletion process",
+    });
+  }
+});
+
 app.get("/api/packages", verifyToken, async (req, res) => {
   const activeUserId = req.user.id;
   try {
@@ -162,7 +221,7 @@ app.get("/api/packages", verifyToken, async (req, res) => {
           select: { name: true },
         },
       },
-      orderBy: { createdAt: "desc" },
+      orderBy: { createdAt: "asc" },
     });
     return res.status(200).json({ packages });
   } catch (err) {
@@ -236,35 +295,30 @@ app.post("/api/packages/add", verifyToken, async (req, res) => {
   }
 });
 
-app.get("/api/routers/:id/status", verifyToken, async (req, res) => {
-  const { id } = req.params;
+app.delete("/api/packages/:id/delete", verifyToken, async (req, res) => {
+  const packageId = req.params.id;
   const activeUserId = req.user.id;
 
   try {
-    const router = await prisma.router.findFirst({
-      where: { id, userId: activeUserId },
+    const existingPackage = await prisma.package.findUnique({
+      where: { id: packageId },
     });
-
-    if (!router) {
-      return res
-        .status(404)
-        .json({ error: "Router configuration record not found." });
+    if (!existingPackage) {
+      return res.status(404).json({ error: "Service plan not found" });
     }
 
-    const conn = await connectToRouter(router);
-
-    const resourceData = await conn.menu("/system/resource").print();
-
-    return res.status(200).json({
-      success: true,
-      status: "Connected",
-      metrics: resourceData[0],
+    await prisma.package.delete({
+      where: { id: packageId },
     });
-  } catch (err) {
-    return res.status(500).json({
-      success: false,
-      status: "Disconnected",
-      error: err.message,
+
+    res.status(200).json({
+      success: true,
+      message: "Package deleted from system listings successfully",
+    });
+  } catch (error) {
+    console.error("Error deleting service package:", error);
+    res.status(500).json({
+      error: "Internal server error occured during deletion processing",
     });
   }
 });
@@ -352,45 +406,60 @@ app.post("/api/pools/add", verifyToken, async (req, res) => {
   }
 });
 
-app.get("/api/routers/:id/download-redirect", verifyToken, async (req, res) => {
-  const { id } = req.params;
+app.delete("/api/pools/:id/delete", verifyToken, async (req, res) => {
+  const poolId = req.params.id;
   const activeUserId = req.user.id;
 
   try {
-    const router = await prisma.router.findFirst({
-      where: { id, userId: activeUserId },
+    const existingPool = await prisma.pool.findUnique({
+      where: { id: poolId },
     });
-
-    if (!router) {
-      return res
-        .status(404)
-        .json({ error: "Router configuration record not found." });
+    if (!existingPool) {
+      return res.status(404).json({ error: "IP pool not found" });
     }
-    const customHtml = `<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="0; url=http://192.168.0.1:5173/portal?mac=\$(mac)&ip=\$(ip)&linkorig=\$(link-orig)&gateway=${router.ipAddress}">
-    <title>Netizone Redirecting...</title>
-</head>
-<body>
-    <div style="padding: 40px; text-align: center; font-family: system-ui, -apple-system, sans-serif;">
-        <h2>Connecting to Netizone Wi-Fi...</h2>
-        <p>If you are not automatically redirected, <a href="http://192.168.0.1:5173/portal?mac=\$(mac)&ip=\$(ip)&linkorig=\$(link-orig)&gateway=${router.ipAddress}">click here to view packages</a>.</p>
-    </div>
-</body>
-</html>`;
 
-    res.setHeader("Content-Type", "text/html");
-    res.setHeader("Content-Disposition", `attachment; filename="login.html"`);
-
-    return res.status(200).send(customHtml);
-  } catch (err) {
-    console.error("Failed compiling configuration download stream:", err);
-    return res.status(500).json({
-      error: "An internal server error occurred generating the file asset.",
+    await prisma.pool.delete({
+      where: { id: poolId },
     });
+
+    res.status(200).json({
+      success: true,
+      message: "IP pool successfully deleted",
+    });
+  } catch (error) {
+    console.error("Error deleting pool:", error);
+    res.status(500).json({
+      error: "Internal server occured during deletion process",
+    });
+  }
+});
+
+app.get("/api/public/routers/:routerId/packages", async (req, res) => {
+  const { routerId } = req.params;
+
+  try {
+    const publicPackages = await prisma.package.findMany({
+      where: {
+        OR: [{ routerId: parseInt(routerId) }, { routerId: null }],
+      },
+      select: {
+        id: true,
+        name: true,
+        bandwidth: true,
+        price: true,
+        timeLimit: true,
+        dataLimit: true,
+        validity: true,
+      },
+    });
+
+    res.status(200).json({
+      success: true,
+      packages: publicPackages,
+    });
+  } catch (error) {
+    console.error("Error fetching router packages:", error);
+    res.status(500).json({ error: "Failed to load router packages" });
   }
 });
 

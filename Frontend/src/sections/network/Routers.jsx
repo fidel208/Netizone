@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./network.css";
 import { useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.css";
 
 function Routers() {
   const [routerModal, setRouterModal] = useState(false);
@@ -79,40 +80,40 @@ function Routers() {
       setError(err.message);
     }
   };
-  const handleDownloadRedirect = async (routerId, routerName) => {
-    try {
-      const token = localStorage.getItem("netizone_token");
 
+  const handleDelete = async (routerId) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to remove this router?",
+    );
+    if (!confirmDelete) return;
+
+    const token = localStorage.getItem("netizone_token");
+    if (!token) return;
+
+    try {
       const response = await fetch(
-        `http://localhost:3000/api/routers/${routerId}/download-redirect`,
+        `http://localhost:3000/api/routers/${routerId}/delete`,
         {
-          method: "GET",
+          method: "DELETE",
           headers: {
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         },
       );
 
-      if (!response.ok)
-        throw new Error(
-          "Failed to compile target file asset asset download stream pipeline.",
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setRouterList((prevList) =>
+          prevList.filter((router) => router.id !== routerId),
         );
-
-      const blob = await response.blob();
-      const downloadUrl = window.URL.createObjectURL(blob);
-      const linkElement = document.createElement("a");
-
-      linkElement.href = downloadUrl;
-      linkElement.setAttribute("download", "login.html");
-      document.body.appendChild(linkElement);
-      linkElement.click();
-
-      linkElement.parentNode.removeChild(linkElement);
-      window.URL.revokeObjectURL(downloadUrl);
+      }
     } catch (err) {
-      alert(`Download execution failed: ${err.message}`);
+      console.error("An error occured during router deletion:", err);
     }
   };
+
   return (
     <>
       <div className="routers">
@@ -169,20 +170,23 @@ function Routers() {
                       <span
                         className={`status-badge ${router.isActive ? "active" : "inactive"}`}
                       >
-                        {router.isActive ? "Enabled" : "Disabled"}
+                        {router.isActive ? "Online" : "Offline"}
                       </span>
                     </td>
                     <td>
-                      <button className="btn-manage">Configure</button>
+                      <span className="manage-btn">
+                        <button
+                          id="delete-router-btn"
+                          onClick={() => handleDelete(router.id)}
+                        >
+                          <i className="fa-solid fa-trash"></i>
+                        </button>
+                        <button id="reboot-btn">Reboot</button>
+                      </span>
                     </td>
                     <td>
-                      <button
-                        id="router-download"
-                        onClick={() =>
-                          handleDownloadRedirect(router.id, router.name)
-                        }
-                      >
-                        Download
+                      <button id="router-download" type="button">
+                        <i className="fa-solid fa-download"></i> Download
                       </button>
                     </td>
                   </tr>

@@ -153,6 +153,39 @@ function Hotspot() {
     }
   };
 
+  const handleDelete = async (packageId) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to remove this package?",
+    );
+    if (!confirmDelete) return;
+
+    const token = localStorage.getItem("netizone_token");
+    if (!token) return;
+
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/packages/${packageId}/delete`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setPackageList((prevList) =>
+          prevList.filter((pkg) => pkg.id !== packageId),
+        );
+      }
+    } catch (err) {
+      console.error("An error occured during package deletion:", err);
+    }
+  };
+
   return (
     <>
       <div className="hotspot-packages">
@@ -224,7 +257,10 @@ function Hotspot() {
                     <td>{pkg.validity}</td>
                     <td>{pkg.router?.name || "All"}</td>
                     <td>
-                      <button id="package-delete-btn">
+                      <button
+                        id="package-delete-btn"
+                        onClick={() => handleDelete(pkg.id)}
+                      >
                         <i className="fa-solid fa-trash"></i>
                       </button>
                     </td>
@@ -386,10 +422,10 @@ function Hotspot() {
                 <div className="plan-form">
                   <label htmlFor="bandwidth-name">Bandwidth</label>
                   <select name="bandwidth-name" id="bandwidth-name">
-                    <option value="100mbps">20MBPS</option>
-                    <option value="50mbps">10MBPS</option>
-                    <option value="30mbps">5MBPS</option>
-                    <option value="20mbps">2MBPS</option>
+                    <option value="20mbps">20MBPS</option>
+                    <option value="10mbps">10MBPS</option>
+                    <option value="5mbps">5MBPS</option>
+                    <option value="2mbps">2MBPS</option>
                   </select>
                 </div>
                 <div className="plan-form">

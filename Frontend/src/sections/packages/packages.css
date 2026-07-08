@@ -92,6 +92,9 @@
   color: red;
   background-color: white;
 }
+#package-delete-btn:hover {
+  color: rgb(122, 22, 22);
+}
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -276,4 +279,7 @@
 }
 #nothing-found {
   text-align: center;
+}
+.status-badge {
+  color: rgb(8, 172, 123);
 }

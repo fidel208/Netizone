@@ -113,6 +113,38 @@ function IpPool() {
       setError(err.message);
     }
   };
+
+  const handleDelete = async (poolId) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this IP pool?",
+    );
+    if (!confirmDelete) return;
+
+    const token = localStorage.getItem("netizone_token");
+    if (!token) return;
+
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/pools/${poolId}/delete`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setPoolList((prevList) => prevList.filter((pl) => pl.id !== poolId));
+      }
+    } catch (err) {
+      console.error("An error occured during pool deletion:", err);
+    }
+  };
+
   return (
     <>
       <div className="ip-pool">
@@ -168,7 +200,12 @@ function IpPool() {
                     <td>
                       <span className="manage-btns">
                         <button id="pool-edit">Edit</button>
-                        <button id="pool-delete">Delete</button>
+                        <button
+                          id="pool-delete"
+                          onClick={() => handleDelete(pl.id)}
+                        >
+                          <i className="fa-solid fa-trash"></i>
+                        </button>
                       </span>
                     </td>
                   </tr>
