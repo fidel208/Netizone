@@ -3,12 +3,16 @@ import "./login.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setError("");
+
     const formData = new FormData(e.currentTarget);
     const username = formData.get("login-name");
     const password = formData.get("login-pass");
@@ -22,21 +26,22 @@ function Login() {
 
       const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.error || "Login failed");
+      if (response.ok) {
+        localStorage.setItem("netizone_token", data.token);
+        localStorage.setItem("netizone_username", data.user.username);
+        navigate("/dashboard/my-dashboard");
+      } else {
+        setError(data.error || "Login failed");
       }
-
-      localStorage.setItem("netizone-user", JSON.stringify(data.user));
-      window.location.href = "/dashboard/my-dashboard";
     } catch (err) {
-      setError(err.message);
+      setError("Could not connect to authentication server");
     }
   };
   return (
     <>
       <div className="login">
         <div className="login-box">
-          <p id="internet-name">INTERNET NAME</p>
+          <p id="internet-name">NETIZONE</p>
           <form onSubmit={handleLogin}>
             {error && <p id="error-message">{error}</p>}
             <div className="login-form-row">

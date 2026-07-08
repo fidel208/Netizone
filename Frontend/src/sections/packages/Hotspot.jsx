@@ -8,11 +8,32 @@ function Hotspot() {
   const [routersList, setRoutersList] = useState([]);
   const [packageList, setPackageList] = useState([]);
   const [error, setError] = useState("");
+  const [limit, setLimit] = useState("unlimited");
+
+  const handleLimit = (e) => {
+    setLimit(e.target.value);
+  };
+
+  const handleLimitChange = (e) => {
+    setLimitType(e.target.value);
+  };
 
   useEffect(() => {
+    const token = localStorage.getItem("netizone_token");
+
+    if (!token) {
+      console.error("No token found, redirecting to login...");
+      return;
+    }
     const fetchPackages = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/packages");
+        const response = await fetch("http://localhost:3000/api/packages", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
 
         if (response.ok) {
           const data = await response.json();
@@ -26,23 +47,51 @@ function Hotspot() {
   }, []);
 
   useEffect(() => {
+    const token = localStorage.getItem("netizone_token");
+    if (!token) {
+      console.error("No token found, redirecting to login...");
+      return;
+    }
+
     const fetchRouterData = async () => {
       try {
-        const routerResponse = await fetch("http://localhost:3000/api/routers");
+        const routerResponse = await fetch(
+          "http://localhost:3000/api/routers",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          },
+        );
+
         if (routerResponse.ok) {
           const routerData = await routerResponse.json();
           setRoutersList(routerData.routers || []);
+        } else {
+          console.error(
+            "Failed to fetch tenant routers. Status:",
+            routerResponse.status,
+          );
         }
       } catch (err) {
         console.error("Error fetching router data:", err);
       }
     };
+
     fetchRouterData();
   }, []);
 
   const handleAddPackages = async (e) => {
     e.preventDefault();
     setError("");
+
+    const token = localStorage.getItem("netizone_token");
+    if (!token) {
+      setError("Your session has expired. Please log in again.");
+      return;
+    }
 
     const formData = new FormData(e.currentTarget);
 
@@ -72,7 +121,10 @@ function Hotspot() {
     try {
       const response = await fetch("http://localhost:3000/api/packages/add", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify({
           name,
           isActive: statusValue === "active",
@@ -86,22 +138,19 @@ function Hotspot() {
           routerId: routerId === "no-router" ? null : routerId,
         }),
       });
+
       const data = await response.json();
+
       if (!response.ok) {
         throw new Error(data.error || "Failed to add package");
       }
+
       setPackageList((prev) => [...prev, data.package]);
       setIsOpen(false);
       setLimit("unlimited");
     } catch (err) {
       setError(err.message);
     }
-  };
-
-  const handleLimitChange = (e) => setLimitType(e.target.value);
-  const [limit, setLimit] = useState("none");
-  const handleLimit = (e) => {
-    setLimit(e.target.value);
   };
 
   return (
@@ -375,8 +424,14 @@ function Hotspot() {
                   </select>
                 </div>
                 <div className="modal-form-buttons">
-                  <button id="modal-submit">Submit</button>
-                  <button id="modal-cancel" onClick={() => setIsOpen(false)}>
+                  <button id="modal-submit" type="submit">
+                    Submit
+                  </button>
+                  <button
+                    id="modal-cancel"
+                    type="button"
+                    onClick={() => setIsOpen(false)}
+                  >
                     Cancel
                   </button>
                 </div>

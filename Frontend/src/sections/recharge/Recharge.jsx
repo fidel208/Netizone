@@ -7,21 +7,48 @@ function Recharge() {
   const [packageList, setPackageList] = useState([]);
 
   useEffect(() => {
+    const token = localStorage.getItem("netizone_token");
+    if (!token) {
+      console.error("No token found, redirecting to login...");
+      return;
+    }
+
     const fetchRouterData = async () => {
       try {
-        const routerResponse = await fetch("http://localhost:3000/api/routers");
+        const routerResponse = await fetch(
+          "http://localhost:3000/api/routers",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          },
+        );
+
         if (routerResponse.ok) {
           const routerData = await routerResponse.json();
           setRoutersList(routerData.routers || []);
+        } else {
+          console.error(
+            "Failed to fetch tenant routers. Status:",
+            routerResponse.status,
+          );
         }
       } catch (err) {
         console.error("Error fetching router data:", err);
       }
     };
+
     fetchRouterData();
   }, []);
 
   useEffect(() => {
+    const token = localStorage.getItem("netizone_token");
+    if (!token) {
+      console.error("No token found, redirecting to login...");
+      return;
+    }
     const controller = new AbortController();
     const fetchPackageData = async () => {
       try {
@@ -29,6 +56,11 @@ function Recharge() {
           "http://localhost:3000/api/packages",
           {
             signal: controller.signal,
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
           },
         );
 

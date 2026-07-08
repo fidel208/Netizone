@@ -8,9 +8,20 @@ function Routers() {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    const token = localStorage.getItem("netizone_token");
+    if (!token) {
+      console.error("No token found, redirecting to login...");
+      return;
+    }
     const fetchRouters = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/routers");
+        const response = await fetch("http://localhost:3000/api/routers", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         if (response.ok) {
           const data = await response.json();
@@ -27,6 +38,12 @@ function Routers() {
     e.preventDefault();
     setError("");
 
+    const token = localStorage.getItem("netizone_token");
+    if (!token) {
+      setError("Your session has expired. Please log in again.");
+      return;
+    }
+
     const formData = new FormData(e.currentTarget);
 
     const name = formData.get("router-name");
@@ -38,7 +55,10 @@ function Routers() {
     try {
       const response = await fetch("http://localhost:3000/api/routers/add", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify({
           name,
           ipAddress,
@@ -57,6 +77,41 @@ function Routers() {
       setRouterModal(false);
     } catch (err) {
       setError(err.message);
+    }
+  };
+  const handleDownloadRedirect = async (routerId, routerName) => {
+    try {
+      const token = localStorage.getItem("netizone_token");
+
+      const response = await fetch(
+        `http://localhost:3000/api/routers/${routerId}/download-redirect`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      if (!response.ok)
+        throw new Error(
+          "Failed to compile target file asset asset download stream pipeline.",
+        );
+
+      const blob = await response.blob();
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const linkElement = document.createElement("a");
+
+      linkElement.href = downloadUrl;
+      linkElement.setAttribute("download", "login.html");
+      document.body.appendChild(linkElement);
+      linkElement.click();
+
+      // Clean up memory resources
+      linkElement.parentNode.removeChild(linkElement);
+      window.URL.revokeObjectURL(downloadUrl);
+    } catch (err) {
+      alert(`Download execution failed: ${err.message}`);
     }
   };
   return (
@@ -100,14 +155,14 @@ function Routers() {
             <tbody>
               {routerList.length === 0 ? (
                 <tr>
-                  <td colSpan="5">
-                    No routers found. Click "New Router" to add one.
-                  </td>
+                  <td colSpan="5">No routers found.</td>
                 </tr>
               ) : (
                 routerList.map((router) => (
                   <tr key={router.id}>
-                    <td>{router.name}</td>
+                    <td>
+                      <b>{router.name}</b>
+                    </td>
                     <td>{router.ipAddress}</td>
                     <td>
                       <span
@@ -120,7 +175,14 @@ function Routers() {
                       <button className="btn-manage">Configure</button>
                     </td>
                     <td>
-                      <button id="router-download">Download</button>
+                      <button
+                        id="router-download"
+                        onClick={() =>
+                          handleDownloadRedirect(router.id, router.name)
+                        }
+                      >
+                        Download
+                      </button>
                     </td>
                   </tr>
                 ))
@@ -186,9 +248,12 @@ function Routers() {
                   />
                 </div>
                 <div className="router-add-btns">
-                  <button id="router-add-btn">Add</button>
+                  <button id="router-add-btn" type="submit">
+                    Add
+                  </button>
                   <button
                     id="router-cancel-btn"
+                    type="button"
                     onClick={() => setRouterModal(false)}
                   >
                     Cancel

@@ -109,6 +109,9 @@
   width: 100px;
   height: 30px;
 }
+#router-download:hover {
+  background-color: rgb(16, 70, 54);
+}
 .btn-manage {
   border: none;
   outline: none;
@@ -118,7 +121,9 @@
   border-radius: 5px;
   width: 100px;
 }
-
+.btn-manage:hover {
+  background-color: rgb(28, 28, 110);
+}
 .router-modal {
   width: 40%;
   height: 45%;
@@ -186,6 +191,17 @@
   outline: none;
   font-size: 15px;
   padding: 5px;
+}
+.add-pool-div select {
+  width: 60%;
+  height: 30px;
+  border: solid 1px gray;
+  outline: none;
+  font-size: 15px;
+  padding: 5px;
+}
+.add-pool-div select:focus {
+  border: solid 1px green;
 }
 .router-form-div input:focus {
   border: solid 1px green;
