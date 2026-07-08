@@ -274,3 +274,6 @@
 .pppoe-message button:hover {
   background-color: rgb(33, 33, 131);
 }
+#nothing-found {
+  text-align: center;
+}

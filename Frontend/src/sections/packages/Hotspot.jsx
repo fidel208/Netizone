@@ -199,7 +199,9 @@ function Hotspot() {
             <tbody>
               {packageList.length === 0 ? (
                 <tr>
-                  <td colSpan="9">No service plans found.</td>
+                  <td colSpan="9" id="nothing-found">
+                    No service plans found.
+                  </td>
                 </tr>
               ) : (
                 packageList.map((pkg) => (
@@ -384,11 +386,10 @@ function Hotspot() {
                 <div className="plan-form">
                   <label htmlFor="bandwidth-name">Bandwidth</label>
                   <select name="bandwidth-name" id="bandwidth-name">
-                    <option value="100mbps">100MBPS</option>
-                    <option value="50mbps">50MBPS</option>
-                    <option value="30mbps">30MBPS</option>
-                    <option value="20mbps">20MBPS</option>
-                    <option value="10mbps">10MBPS</option>
+                    <option value="100mbps">20MBPS</option>
+                    <option value="50mbps">10MBPS</option>
+                    <option value="30mbps">5MBPS</option>
+                    <option value="20mbps">2MBPS</option>
                   </select>
                 </div>
                 <div className="plan-form">

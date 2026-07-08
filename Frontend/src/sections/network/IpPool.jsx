@@ -153,7 +153,9 @@ function IpPool() {
             <tbody>
               {poolList.length === 0 ? (
                 <tr>
-                  <td colSpan="4">No IP pool found</td>
+                  <td colSpan="4" id="nothing-found">
+                    No IP pool found
+                  </td>
                 </tr>
               ) : (
                 poolList.map((pl) => (

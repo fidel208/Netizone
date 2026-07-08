@@ -52,9 +52,34 @@ const Aside = () => {
     }
   };
 
+  const [internetName, setInternetName] = useState("internet name");
+
+  useEffect(() => {
+    const fetchInternet = async () => {
+      const token = localStorage.getItem("netizone_token");
+      if (!token) return;
+      try {
+        const response = await fetch("http://localhost:3000/api/internetname", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const data = await response.json();
+        if (data.success) {
+          setInternetName(data.internetName);
+        }
+      } catch (err) {
+        console.error("Failed to get the internet name", err);
+      }
+    };
+    fetchInternet();
+  }, []);
+
   return (
     <div className="aside">
-      <h1>INTERNET NAME</h1>
+      <h1>{internetName.toUpperCase()}</h1>
       <nav>
         <Link
           to={"/dashboard/my-dashboard"}

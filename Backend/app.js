@@ -25,11 +25,11 @@ app.post("/api/auth/login", async (req, res) => {
       where: { username: username },
     });
     if (!user) {
-      return res.status(400).json({ error: "Invalid username or password" });
+      return res.status(400).json({ error: "Invalid username" });
     }
 
     if (password !== user.password) {
-      return res.status(400).json({ error: "Invalid username or password" });
+      return res.status(400).json({ error: "Invalid password" });
     }
 
     const token = jwt.sign(
@@ -52,6 +52,48 @@ app.post("/api/auth/login", async (req, res) => {
     res.status(500).json({
       error: "An internal server error occured",
     });
+  }
+});
+
+app.get("/api/username", verifyToken, async (req, res) => {
+  const activeUserId = req.user.id;
+  try {
+    const userRow = await prisma.user.findUnique({
+      where: { id: activeUserId },
+      select: { username: true },
+    });
+    if (!userRow) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.status(200).json({
+      success: true,
+      username: userRow.username,
+    });
+  } catch (error) {
+    console.error("Error getting the username", error);
+    res.status(500).json({ error: "Failed to get the username" });
+  }
+});
+
+app.get("/api/internetname", verifyToken, async (req, res) => {
+  const activeUserId = req.user.id;
+  try {
+    const internetRow = await prisma.user.findUnique({
+      where: { id: activeUserId },
+      select: { internetName: true },
+    });
+    if (!internetRow) {
+      return res.status(404).json({
+        error: "Internet name not found",
+      });
+    }
+    res.status(200).json({
+      success: true,
+      internetName: internetRow.internetName,
+    });
+  } catch (error) {
+    console.error("Error getting the internet name", error);
+    res.status(500).json({ error: "Failed to get internet name" });
   }
 });
 

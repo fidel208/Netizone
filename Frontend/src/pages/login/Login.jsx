@@ -1,13 +1,24 @@
 import React from "react";
 import "./login.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const [error, setError] = useState("");
+  const location = useLocation();
+  const [toastMessage, setToastMessage] = useState("");
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (location.state?.showToast) {
+      setToastMessage("Your session has expired. Kindly login.");
+
+      const timer = setTimeout(() => setToastMessage(""), 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [location]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -53,7 +64,6 @@ function Login() {
                   name="login-name"
                   id="login-name"
                   placeholder="Enter your username"
-                  required
                 />
               </span>
             </div>
@@ -66,7 +76,6 @@ function Login() {
                   name="login-pass"
                   id="login-pass"
                   placeholder="Enter your password"
-                  required
                 />
               </span>
             </div>
@@ -83,6 +92,14 @@ function Login() {
             Don't have an account? <Link to={"/register"}>Register</Link>
           </p>
         </div>
+        {toastMessage && (
+          <div className="custom-toast animate-slide-in">
+            <div className="toast-content">
+              <i className="fa-solid fa-circle-check toast-icon"></i>
+              <span>{toastMessage}</span>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

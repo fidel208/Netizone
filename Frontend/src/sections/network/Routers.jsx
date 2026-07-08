@@ -107,7 +107,6 @@ function Routers() {
       document.body.appendChild(linkElement);
       linkElement.click();
 
-      // Clean up memory resources
       linkElement.parentNode.removeChild(linkElement);
       window.URL.revokeObjectURL(downloadUrl);
     } catch (err) {
@@ -155,7 +154,9 @@ function Routers() {
             <tbody>
               {routerList.length === 0 ? (
                 <tr>
-                  <td colSpan="5">No routers found.</td>
+                  <td colSpan="5" id="nothing-found">
+                    No routers found.
+                  </td>
                 </tr>
               ) : (
                 routerList.map((router) => (

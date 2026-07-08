@@ -114,8 +114,7 @@ function Register() {
               <>
                 {!isPasswordValid && (
                   <p id="valid-pass" style={{ color: "#dc3545" }}>
-                    Password must be at least 8 characters long and containing
-                    letters and numbers
+                    Password must be at least 6 characters long
                   </p>
                 )}
 
