@@ -8,6 +8,8 @@ function Routers() {
   const [routerModal, setRouterModal] = useState(false);
   const [routerList, setRouterList] = useState([]);
   const [error, setError] = useState("");
+  const [internetName, setInternetName] = useState("INTERNET NAME");
+  const [userPhone, setUserPhone] = useState("phone number");
 
   useEffect(() => {
     const token = localStorage.getItem("netizone_token");
@@ -82,6 +84,57 @@ function Routers() {
     }
   };
 
+  useEffect(() => {
+    const token = localStorage.getItem("netizone_token");
+    if (!token) return;
+
+    const fetchUserPhone = async () => {
+      const token = localStorage.getItem("netizone_token");
+      if (!token) {
+        return;
+      }
+      try {
+        const response = await fetch("http://localhost:3000/api/phone-number", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const data = await response.json();
+        if (data.success) {
+          setUserPhone(data.phoneNumber);
+        }
+      } catch (err) {
+        console.error("Failed to get the phone number", err);
+      }
+    };
+    fetchUserPhone();
+  }, []);
+
+  useEffect(() => {
+    const fetchInternetName = async () => {
+      const token = localStorage.getItem("netizone_token");
+      if (!token) return;
+      try {
+        const response = await fetch("http://localhost:3000/api/internetname", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const data = await response.json();
+        if (data.success) {
+          setInternetName(data.internetName);
+        }
+      } catch (err) {
+        console.error("Failed to get the internet name", err);
+      }
+    };
+    fetchInternetName();
+  }, []);
+
   const handleDelete = async (routerId) => {
     const confirmDelete = window.confirm(
       "Are you sure you want to remove this router?",
@@ -129,7 +182,12 @@ function Routers() {
         return;
       }
 
-      const fullHtmlString = generateMikrotikHtml(routerName, data.packages);
+      const fullHtmlString = generateMikrotikHtml(
+        routerName,
+        data.packages,
+        userPhone,
+        internetName,
+      );
 
       const blob = new Blob([fullHtmlString], { type: "text/html" });
       const temporaryFileUrl = URL.createObjectURL(blob);

@@ -75,6 +75,26 @@ app.get("/api/username", verifyToken, async (req, res) => {
   }
 });
 
+app.get("/api/phone-number", verifyToken, async (req, res) => {
+  const activeUserId = req.user.id;
+  try {
+    const phoneRow = await prisma.user.findUnique({
+      where: { id: activeUserId },
+      select: { phoneNumber: true },
+    });
+    if (!phoneRow) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.status(200).json({
+      success: true,
+      phoneNumber: phoneRow.phoneNumber,
+    });
+  } catch (error) {
+    console.error("Error getting the username", error);
+    res.status(500).json({ error: "Failed to get the phone number" });
+  }
+});
+
 app.get("/api/internetname", verifyToken, async (req, res) => {
   const activeUserId = req.user.id;
   try {

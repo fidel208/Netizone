@@ -1,4 +1,9 @@
-export const generateMikrotikHtml = (routerName, packages) => {
+export const generateMikrotikHtml = (
+  routerName,
+  packages,
+  phoneNumber,
+  internetName,
+) => {
   const packageCards = packages
     .map(
       (pkg) => `
@@ -165,6 +170,10 @@ input:focus {
 #mpesa-message-form button:hover {
   background-color: rgb(24, 24, 97);
 }
+  #no-package {
+  text-align: center;
+  color: white;
+  }
 .packages {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -276,8 +285,8 @@ footer {
   <body>
     <div class="body-container">
       <div class="body-top">
-        <h1>INTERNET NAME</h1>
-        <p>+254789455874</p>
+        <h1>${internetName.toUpperCase()}</h1>
+        <p>${phoneNumber}</p>
       </div>
       <div class="message-login">
         <button id="toggle-mpesa-login">Login With Mpesa Message</button>
@@ -309,7 +318,7 @@ footer {
         </form>
       </div>
       <div class="packages">
-      ${packageCards.length > 0 ? packageCards : "<p>No access to the packages</p>"}
+      ${packageCards.length > 0 ? packageCards : "<p id='no-package'>No packages found</p>"}
       </div>
       <button type="button" id="redeem-btn">
         <span class="material-symbols-outlined"> redeem </span> Redeem Voucher
@@ -317,7 +326,7 @@ footer {
       <hr />
       <footer>
         <p>&copy; All rights reserved</p>
-        <p>@2026. Powered by Finora Technologies</p>
+        <p>@2026. Powered by Netizone</p>
       </footer>
     </div>
     <script>

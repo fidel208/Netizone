@@ -45,7 +45,7 @@ function Login() {
         setError(data.error || "Login failed");
       }
     } catch (err) {
-      setError("Could not connect to authentication server");
+      setError("Could not connect to the server");
     }
   };
   return (
