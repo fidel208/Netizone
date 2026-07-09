@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./network.css";
 import { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.css";
+import { generateMikrotikHtml } from "../../utils/microtik";
 
 function Routers() {
   const [routerModal, setRouterModal] = useState(false);
@@ -114,6 +115,40 @@ function Routers() {
     }
   };
 
+  const handleDownloadHotspotPage = async (routerId, routerName) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/public/routers/${routerId}/packages`,
+      );
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        alert(
+          "Failed to get service plans for this specific router configuration.",
+        );
+        return;
+      }
+
+      const fullHtmlString = generateMikrotikHtml(routerName, data.packages);
+
+      const blob = new Blob([fullHtmlString], { type: "text/html" });
+      const temporaryFileUrl = URL.createObjectURL(blob);
+
+      const invisibleLink = document.createElement("a");
+      invisibleLink.href = temporaryFileUrl;
+      invisibleLink.download = `login.html`;
+
+      document.body.appendChild(invisibleLink);
+      invisibleLink.click();
+
+      document.body.removeChild(invisibleLink);
+      URL.revokeObjectURL(temporaryFileUrl);
+    } catch (err) {
+      console.error("AN error has accured during compiling:", err);
+      alert("An unexpected exception occurred generating the template file.");
+    }
+  };
+
   return (
     <>
       <div className="routers">
@@ -185,7 +220,13 @@ function Routers() {
                       </span>
                     </td>
                     <td>
-                      <button id="router-download" type="button">
+                      <button
+                        id="router-download"
+                        type="button"
+                        onClick={() =>
+                          handleDownloadHotspotPage(router.id, router.name)
+                        }
+                      >
                         <i className="fa-solid fa-download"></i> Download
                       </button>
                     </td>

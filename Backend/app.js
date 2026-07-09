@@ -440,7 +440,7 @@ app.get("/api/public/routers/:routerId/packages", async (req, res) => {
   try {
     const publicPackages = await prisma.package.findMany({
       where: {
-        OR: [{ routerId: parseInt(routerId) }, { routerId: null }],
+        OR: [{ routerId: routerId }, { routerId: null }],
       },
       select: {
         id: true,

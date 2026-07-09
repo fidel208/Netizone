@@ -107,7 +107,7 @@ function Hotspot() {
 
     const validityValue = formData.get("plan-validity");
     const validityUnit = formData.get("validity");
-    const validity = `${validityValue} ${validityUnit?.toUpperCase()}`;
+    const validity = `${validityValue} ${validityUnit}`;
 
     if (limit === "limited") {
       if (limitType === "time" || limitType === "both") {
@@ -442,10 +442,10 @@ function Hotspot() {
                       required
                     />
                     <select name="validity" id="validity">
-                      <option value="mins">MINS</option>
-                      <option value="hrs">HRS</option>
-                      <option value="days">DAYS</option>
-                      <option value="months">MONTHS</option>
+                      <option value="Mins">MINS</option>
+                      <option value="Hrs">HRS</option>
+                      <option value="Days">DAYS</option>
+                      <option value="Months">MONTHS</option>
                     </select>
                   </span>
                 </div>

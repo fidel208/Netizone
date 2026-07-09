@@ -7,7 +7,7 @@ function Pppoe() {
     <>
       <div className="pppoe">
         <div className="pppoe-message">
-          <p>Sorry, this servcie is not yet enabled</p>
+          <p>Sorry, this servcie is not available</p>
           <Link to={"/dashboard/hotspot-packages"}>
             <button>Hotspot Packages</button>
           </Link>
