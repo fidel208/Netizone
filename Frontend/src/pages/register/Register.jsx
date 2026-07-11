@@ -27,6 +27,11 @@ function Register() {
     <div className="register">
       <div className="registration-box">
         <div className="registration-words">
+          <img
+            src="src/assets/Netizone logo.png"
+            alt="netizone-logo"
+            id="netizone-logo"
+          />
           <h1>Netizone</h1>
           <div className="reg-words">
             <p>Register to access all features and services</p>

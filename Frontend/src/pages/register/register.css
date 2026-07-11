@@ -28,6 +28,10 @@
   align-items: center;
   padding: 15px 0;
 }
+#netizone-logo {
+  width: 50px;
+  margin-bottom: 10px;
+}
 .registration-words h1 {
   font-size: 35px;
 }
