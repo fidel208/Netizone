@@ -17,7 +17,7 @@ app.post("/api/auth/login", async (req, res) => {
   if (!username || !password) {
     return res
       .status(400)
-      .json({ error: "Username and password are required" });
+      .json({ error: "Please input your username and password" });
   }
 
   try {
@@ -114,6 +114,141 @@ app.get("/api/internetname", verifyToken, async (req, res) => {
   } catch (error) {
     console.error("Error getting the internet name", error);
     res.status(500).json({ error: "Failed to get internet name" });
+  }
+});
+
+app.get("/api/general", verifyToken, async (req, res) => {
+  const activeUserId = req.user.id;
+
+  try {
+    const userRow = await prisma.user.findUnique({
+      where: { id: activeUserId },
+      select: {
+        internetName: true,
+        phoneNumber: true,
+        address: true,
+        isSystemEnabled: true,
+        expiredNotification: true,
+        paymentNotification: true,
+        reminderNotification: true,
+      },
+    });
+
+    if (!userRow) {
+      return res.status(404).json({ error: "Account user not found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      settings: {
+        internetName: userRow.internetName,
+        address: userRow.address,
+        phoneNumber: userRow.phoneNumber,
+        isSystemEnabled: userRow.isSystemEnabled,
+        expiredNotification: userRow.expiredNotification,
+        paymentNotification: userRow.paymentNotification,
+        reminderNotification: userRow.reminderNotification,
+      },
+    });
+  } catch (error) {
+    console.error("Unexpected Error occured:", error);
+    res.status(500).json({ error: "Failed to load the general settings" });
+  }
+});
+
+app.put("/api/user/settings", verifyToken, async (req, res) => {
+  const activeUserId = req.user.id;
+
+  const {
+    internet,
+    phone,
+    address,
+    enable,
+    "payment-not": paymentNot,
+    "expired-not": expiredNot,
+    "reminder-not": reminderNot,
+  } = req.body;
+
+  try {
+    const updatedUser = await prisma.user.update({
+      where: { id: activeUserId },
+      data: {
+        internetName: internet,
+        phoneNumber: phone,
+        address: address,
+        isSystemEnabled: enable === "yes",
+        paymentNotification: paymentNot,
+        expiredNotification: expiredNot,
+        reminderNotification: reminderNot,
+      },
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "User details updated successfully",
+      settings: updatedUser,
+    });
+  } catch (error) {
+    console.error("Error occured while updating", error);
+    res.status(500).json({ error: "Failed to update user general settings" });
+  }
+});
+
+app.get("/api/account", verifyToken, async (req, res) => {
+  const activeUserId = req.user.id;
+
+  try {
+    const userRow = await prisma.user.findUnique({
+      where: { id: activeUserId },
+      select: {
+        username: true,
+        email: true,
+      },
+    });
+
+    if (!userRow) {
+      return res.status(404).json({
+        error: "Account user not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      account: {
+        username: userRow.username,
+        email: userRow.email,
+      },
+    });
+  } catch (error) {
+    console.error("Unexpected error occured:", error);
+    res.status(500).json({
+      error: "Failed to load account details",
+    });
+  }
+});
+
+app.put("/api/user/details", verifyToken, async (req, res) => {
+  const activeUserId = req.user.id;
+
+  const { username, email } = req.body;
+
+  try {
+    const updatedUser = await prisma.user.update({
+      where: { id: activeUserId },
+      data: {
+        username: username,
+        email: email,
+      },
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "Account details updated successfully",
+      account: updatedUser,
+    });
+  } catch (error) {
+    console.error("An error occured during updating");
+    res.status(500).json({ error: "Failed to update account details" });
   }
 });
 
@@ -480,6 +615,97 @@ app.get("/api/public/routers/:routerId/packages", async (req, res) => {
   } catch (error) {
     console.error("Error fetching router packages:", error);
     res.status(500).json({ error: "Failed to load router packages" });
+  }
+});
+
+const generateDarajaToken = async (req, res, next) => {
+  const consumerKey = process.env.MPESA_CONSUMER_KEY;
+  const consumerSecret = process.env.MPESA_CONSUMER_SECRET;
+
+  const auth = Buffer.from(`${consumerKey}:${consumerSecret}`).toString(
+    "base64",
+  );
+
+  try {
+    const response = await fetch(
+      "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Basic ${auth}`,
+        },
+      },
+    );
+    const data = await response.json();
+    req.daraja_token = data.access_token;
+    next();
+  } catch (error) {
+    console.error("Token generation failed", error);
+    res
+      .status(500)
+      .json({ error: "Authentication failed with safaricon gateway" });
+  }
+};
+
+app.post("/api/payment/stkpush", generateDarajaToken, async (req, res) => {
+  const { phone, amount } = req.body;
+
+  const LNM_SHORTCODE = process.env.MPESA_SHORTCODE;
+  const LNM_PASSKEY = process.env.MPESA_PASSKEY;
+  const webhookUrl = process.env.CALLBACK_URL;
+
+  let formattedPhone = phone.trim().replace(/^0/, "254").replace(/^\+/, "");
+  if (phone === "0708374149" || phone === "254708374149") {
+    formattedPhone = "254708374149";
+  }
+
+  const date = new Date();
+  const timestamp =
+    date.getFullYear() +
+    ("0" + (date.getMonth() + 1)).slice(-2) +
+    ("0" + date.getDate()).slice(-2) +
+    ("0" + date.getHours()).slice(-2) +
+    ("0" + date.getMinutes()).slice(-2) +
+    ("0" + date.getSeconds()).slice(-2);
+
+  const password = Buffer.from(
+    `${LNM_SHORTCODE}${LNM_PASSKEY}${timestamp}`,
+  ).toString("base64");
+
+  const stkPayload = {
+    BusinessShortCode: LNM_SHORTCODE,
+    Password: password,
+    Timestamp: timestamp,
+    TransactionType: "CustomerPayBillOnline",
+    Amount: Math.round(amount).toString(),
+    PartyA: formattedPhone,
+    PartyB: LNM_SHORTCODE,
+    PhoneNumber: formattedPhone,
+    CallBackURL: webhookUrl,
+    AccountReference: "",
+    TransactionDesc: "WiFi Access Voucher Payment",
+  };
+
+  try {
+    const response = await fetch(
+      "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${req.daraja_token}`,
+        },
+        body: JSON.stringify(stkPayload),
+      },
+    );
+
+    const data = await response.json();
+    res.status(200).json({ success: true, data });
+  } catch (error) {
+    console.error("STK Push Request Exception Caught:", error);
+    res
+      .status(500)
+      .json({ error: "Failed to dispatch transaction payload package." });
   }
 });
 

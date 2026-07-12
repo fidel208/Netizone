@@ -7,13 +7,14 @@ async function main() {
     where: { username: "Fidel" },
     update: {},
     create: {
-      username: "fidel",
+      username: "Fidel",
       password: "1234five",
       email: "dempafidel@gmail.com",
       phoneNumber: "0789455874",
       internetName: "fidelnet",
-      isApproved: true,
+      address: "Jeza",
       isActive: true,
+      address: "",
     },
   });
 

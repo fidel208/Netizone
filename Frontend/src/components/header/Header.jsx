@@ -60,7 +60,12 @@ const Header = () => {
         </span>
         {isOpen && (
           <span className="dropdown">
-            <Link to="/dashboard/account-settings">
+            <Link
+              to="/dashboard/account-settings"
+              onClick={() => {
+                setIsOpen(false);
+              }}
+            >
               <i className="fa-solid fa-user"></i>Account Settings
             </Link>
             <a

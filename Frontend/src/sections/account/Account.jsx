@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./account.css";
 
 function Account() {
@@ -8,6 +8,76 @@ function Account() {
   };
 
   const [paymentMethod, setPaymentMethod] = useState("mobile");
+
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("netizone_token");
+    if (!token) return;
+
+    const fetchCurrentDetails = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/account", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const result = await response.json();
+        if (response.ok && result.success) {
+          setFormData({
+            username: result.account.username || "",
+            email: result.account.email || "",
+          });
+        }
+      } catch (err) {
+        console.error("Failed to get the account details:", err);
+      }
+    };
+    fetchCurrentDetails();
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    const token = localStorage.getItem("netizone_token");
+    if (!token) return;
+
+    try {
+      const response = await fetch("http://localhost:3000/api/user/details", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        alert("Account details updated successfully");
+      } else {
+        alert("Failed to update details");
+      }
+    } catch (err) {
+      console.error("Failde to update account details:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="account">
       <div className="account-payment">
@@ -94,19 +164,38 @@ function Account() {
         </div>
       </div>
       <div className="edit-details">
-        <form id="edit-form">
+        <form id="edit-form" onSubmit={handleSubmit}>
           <p>Update Profile:</p>
           <span>
-            <label htmlFor="edit-name">Username</label>
-            <input type="text" name="edit-name" id="edit-name" />
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              value={formData.username}
+              onChange={handleChange}
+            />
           </span>
           <span>
-            <label htmlFor="edit-email">Email Address</label>
-            <input type="email" name="edit-email" id="edit-email" />
+            <label htmlFor="email">Email Address</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              value={formData.email}
+              onChange={handleChange}
+            />
           </span>
-          <button>Update</button>
+          <button type="submit" disabled={loading}>
+            {loading ? "Updating" : "Update"}
+          </button>
         </form>
-        <form id="change-form">
+        <form
+          id="change-form"
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
           <p>Change Password:</p>
           <span>
             <label htmlFor="new-pass">New Password</label>
