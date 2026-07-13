@@ -665,94 +665,62 @@ app.get("/api/public/routers/:routerId/packages", async (req, res) => {
   }
 });
 
-const generateDarajaToken = async (req, res, next) => {
-  const consumerKey = process.env.MPESA_CONSUMER_KEY;
-  const consumerSecret = process.env.MPESA_CONSUMER_SECRET;
-
-  const auth = Buffer.from(`${consumerKey}:${consumerSecret}`).toString(
-    "base64",
-  );
+app.put("/api/user/notifications", verifyToken, async (req, res) => {
+  const { expiredMessage, paymentMessage, balanceMessage } = req.body;
+  const activeUserId = req.user.id;
 
   try {
-    const response = await fetch(
-      "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials",
+    const dataToSave = [
       {
-        method: "GET",
-        headers: {
-          Authorization: `Basic ${auth}`,
-        },
+        type: "expired",
+        message: expiredMessage,
       },
+      {
+        type: "payment",
+        message: paymentMessage,
+      },
+      {
+        type: "balance",
+        message: balanceMessage,
+      },
+    ];
+
+    await prisma.$transaction(
+      dataToSave.map((item) =>
+        prisma.notifications.upsert({
+          where: {
+            userId_type: { userId: activeUserId, type: item.type },
+          },
+          update: { message: item.message },
+          create: {
+            type: item.type,
+            message: item.message,
+            userId: activeUserId,
+          },
+        }),
+      ),
     );
-    const data = await response.json();
-    req.daraja_token = data.access_token;
-    next();
+
+    res.status(200).json({
+      success: true,
+      message: "Notifications updated successfully!",
+    });
   } catch (error) {
-    console.error("Token generation failed", error);
-    res
-      .status(500)
-      .json({ error: "Authentication failed with safaricon gateway" });
+    console.error("Failed to save add notifications:", error);
+    res.status(500).json({ error: "Internal server error saving templates" });
   }
-};
+});
 
-app.post("/api/payment/stkpush", generateDarajaToken, async (req, res) => {
-  const { phone, amount } = req.body;
-
-  const LNM_SHORTCODE = process.env.MPESA_SHORTCODE;
-  const LNM_PASSKEY = process.env.MPESA_PASSKEY;
-  const webhookUrl = process.env.CALLBACK_URL;
-
-  let formattedPhone = phone.trim().replace(/^0/, "254").replace(/^\+/, "");
-  if (phone === "0708374149" || phone === "254708374149") {
-    formattedPhone = "254708374149";
-  }
-
-  const date = new Date();
-  const timestamp =
-    date.getFullYear() +
-    ("0" + (date.getMonth() + 1)).slice(-2) +
-    ("0" + date.getDate()).slice(-2) +
-    ("0" + date.getHours()).slice(-2) +
-    ("0" + date.getMinutes()).slice(-2) +
-    ("0" + date.getSeconds()).slice(-2);
-
-  const password = Buffer.from(
-    `${LNM_SHORTCODE}${LNM_PASSKEY}${timestamp}`,
-  ).toString("base64");
-
-  const stkPayload = {
-    BusinessShortCode: LNM_SHORTCODE,
-    Password: password,
-    Timestamp: timestamp,
-    TransactionType: "CustomerPayBillOnline",
-    Amount: Math.round(amount).toString(),
-    PartyA: formattedPhone,
-    PartyB: LNM_SHORTCODE,
-    PhoneNumber: formattedPhone,
-    CallBackURL: webhookUrl,
-    AccountReference: "",
-    TransactionDesc: "WiFi Access Voucher Payment",
-  };
-
+app.get("/api/user/notifications", verifyToken, async (req, res) => {
   try {
-    const response = await fetch(
-      "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${req.daraja_token}`,
-        },
-        body: JSON.stringify(stkPayload),
-      },
-    );
+    const notifications = await prisma.notifications.findMany({
+      where: { userId: req.user.id },
+    });
 
-    const data = await response.json();
-    res.status(200).json({ success: true, data });
+    res.status(200).json({ success: true, notifications });
   } catch (error) {
-    console.error("STK Push Request Exception Caught:", error);
-    res
-      .status(500)
-      .json({ error: "Failed to dispatch transaction payload package." });
+    console.error("Failed to get notifications:", error);
+    res.status(500).json({ error: "Failed to load notifications" });
   }
 });
 

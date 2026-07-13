@@ -10,6 +10,27 @@ const Aside = () => {
 
   const [openMenu, setOpenMenu] = useState(null);
 
+  const handleClearBrowserCache = async () => {
+    try {
+      if (window.caches) {
+        const cacheNames = await window.cache.keys();
+
+        await Promise.all(cacheNames.map((name) => cache.delete(name)));
+      }
+
+      sessionStorage.clear();
+      const activeToken = localStorage.getItem("netizone_token");
+      localStorage.clear();
+
+      if (activeToken) {
+        localStorage.setItem("netizone_token", activeToken);
+      }
+      window.location.reload();
+    } catch (err) {
+      console.error("Failed to clear cache:", err);
+    }
+  };
+
   useEffect(() => {
     if (
       currentPath.includes("online-clients") ||
@@ -371,13 +392,7 @@ const Aside = () => {
           >
             User Alerts
           </Link>
-          <a
-            href=""
-            onClick={(e) => {
-              e.preventDefault();
-              window.location.reload();
-            }}
-          >
+          <a href="" onClick={(e) => handleClearBrowserCache(e)}>
             Clear Cache
           </a>
         </div>
