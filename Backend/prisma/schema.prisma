@@ -13,20 +13,21 @@ datasource db {
 }
 
 model User {
-  id                   String   @id @default(uuid())
-  username             String   @unique
-  password             String
-  email                String   @unique
-  phoneNumber          String
-  internetName         String   @unique @default("Wifi Hotspot")
-  address              String   @default("")
-  isSystemEnabled      Boolean  @default(true)
-  expiredNotification  String   @default("whatsapp")
-  paymentNotification  String   @default("whatsapp")
-  reminderNotification String   @default("whatsapp")
-  isActive             Boolean  @default(false)
-  createdAt            DateTime @default(now())
-  updatedAt            DateTime @updatedAt
+  id                    String    @id @default(uuid())
+  username              String    @unique
+  password              String
+  email                 String    @unique
+  phoneNumber           String
+  internetName          String    @unique @default("Wifi Hotspot")
+  address               String    @default("")
+  isSystemEnabled       Boolean   @default(true)
+  expiredNotification   String    @default("whatsapp")
+  paymentNotification   String    @default("whatsapp")
+  reminderNotification  String    @default("whatsapp")
+  isActive              Boolean   @default(false)
+  subscriptionExpiresAt DateTime?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
 
   routers Router[]
   pools   Pool[]

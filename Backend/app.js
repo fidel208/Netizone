@@ -11,6 +11,53 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
+app.post("/api/admin/activate-user/:userId", verifyToken, async (req, res) => {
+  const { userId } = req.params;
+
+  const thirtyDaysFromNow = new Date();
+  thirtyDaysFromNow.setDate(thirtyDaysFromNow.getDate() + 30);
+
+  try {
+    const updatedUser = await prisma.user.update({
+      where: { id: userId },
+      data: {
+        isActive: true,
+        subscriptionExpiresAt: thirtyDaysFromNow,
+      },
+    });
+    res.status(200).json({
+      success: true,
+      message: "Account activated for 30 days",
+      expiresAt: updatedUser.subscriptionExpiresAt,
+    });
+  } catch (error) {
+    console.error("Manual activation error:", error);
+    res.status(500).json({ error: "Failed to activate user" });
+  }
+});
+
+app.get("/api/account/status", verifyToken, async (req, res) => {
+  const activeUserId = req.user.id;
+
+  try {
+    const userRow = await prisma.user.findUnique({
+      where: { id: activeUserId },
+      select: { isActive: true },
+    });
+    if (!userRow) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      isActive: userRow.isActive,
+    });
+  } catch (error) {
+    console.error("Error getting the account status:", error);
+    res.status(500).json({ error: "Failed to get the account status" });
+  }
+});
+
 app.post("/api/auth/login", async (req, res) => {
   const { username, password } = req.body;
 

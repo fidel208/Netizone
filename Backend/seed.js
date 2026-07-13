@@ -3,6 +3,9 @@ import prisma from "./config/db.js";
 async function main() {
   console.log("Starting manual user injection...");
 
+  const thirtyDaysFromNow = new Date();
+  thirtyDaysFromNow.setDate(thirtyDaysFromNow.getDate() + 30);
+
   const testUser = await prisma.user.upsert({
     where: { username: "Fidel" },
     update: {},
@@ -14,6 +17,7 @@ async function main() {
       internetName: "fidelnet",
       address: "Jeza",
       isActive: true,
+      subscriptionExpiresAt: thirtyDaysFromNow,
       address: "",
     },
   });

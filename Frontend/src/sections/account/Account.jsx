@@ -78,11 +78,48 @@ function Account() {
       setLoading(false);
     }
   };
+
+  const [status, setStatus] = useState("Inactive");
+
+  useEffect(() => {
+    const fetchStatus = async () => {
+      const token = localStorage.getItem("netizone_token");
+      if (!token) return;
+
+      try {
+        const response = await fetch(
+          "http://localhost:3000/api/account/status",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+        const data = await response.json();
+        if (data.success) {
+          if (data.isActive === true) {
+            setStatus("Active");
+          } else {
+            setStatus("Inactive");
+          }
+        }
+      } catch (err) {
+        console.error("Failed to get account status", err);
+      }
+    };
+    fetchStatus();
+  }, []);
+
   return (
     <div className="account">
       <div className="account-payment">
         <p>
-          Status : <span id="active-state">Active</span>
+          Status :{" "}
+          <span id={status === "Active" ? "active-state" : "inactive-state"}>
+            {status}
+          </span>
         </p>
         <div className="plan">
           <span id="plan-title">

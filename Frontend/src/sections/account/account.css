@@ -18,6 +18,9 @@
 #active-state {
   color: green;
 }
+#inactive-state {
+  color: red;
+}
 .plan {
   display: flex;
   flex-direction: column;
