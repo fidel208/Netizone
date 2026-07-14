@@ -4,12 +4,60 @@ import cors from "cors";
 import jwt from "jsonwebtoken";
 import { verifyToken } from "./middleware/auth.js";
 import { connectToRouter } from "./config/microtik.js";
+import nodemailer from "nodemailer";
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "fidelmuthomi007@gmail.com",
+    pass: "figbkidiylfxqtrz",
+  },
+});
+
+app.post("/api/register", async (req, res) => {
+  const { userEmail, username, userPhone, password } = req.body;
+
+  const userMailOptions = {
+    from: '"Netizone" <fidelmuthomi007@gmail.com>',
+    to: userEmail,
+    subject: "Successful registration",
+    html: `<h1 style="font-size: 20px">Hello ${username}</h1>
+    <p>
+      Thank you for reistering to netizone. Your registration has been received
+      successfully. We will keep in touch on the steps to follow. Good day
+    </p>`,
+  };
+
+  const adminMailOptions = {
+    from: '"Netizone Registration Form" <fidelmuthomi007@gmail.com>',
+    to: "fidelmuthomi007@gmail.com",
+    subject: "Netizone user registration",
+    html: `<h1 style="font-size: 20px">New user registration details</h1>
+    <p><b>Email:</b> ${userEmail}</p>
+    <p><b>Phone Number:</b> ${userPhone}</p>
+    <p><b>Username:</b> ${username}</p>
+    <p><b>Password:</b> ${password}</p>
+  </body>`,
+  };
+
+  try {
+    await Promise.all([
+      transporter.sendMail(userMailOptions),
+      transporter.sendMail(adminMailOptions),
+    ]);
+
+    res.status(200).json({ message: "Registration received" });
+  } catch (error) {
+    console.error("Nodemailer error:", error);
+    res.status(500).json({ error: "Failed to send emails" });
+  }
+});
 
 app.post("/api/admin/activate-user/:userId", verifyToken, async (req, res) => {
   const { userId } = req.params;

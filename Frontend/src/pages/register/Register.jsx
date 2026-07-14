@@ -1,26 +1,58 @@
 import React from "react";
 import { useState } from "react";
 import "./register.css";
+import { useAsyncError } from "react-router-dom";
 
 function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isDirty, setIsDirty] = useState(false);
 
-  const isPasswordValid = /^[A-Za-z0-9]{8,}$/.test(password);
+  const isPasswordValid = /^[A-Za-z0-9]{6,}$/.test(password);
   const doPasswordsMatch = password === confirmPassword;
 
   const [showToast, setShowToast] = useState(false);
 
-  const handleRegisterSubmit = (e) => {
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [phone, setPhone] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleRegisterSubmit = async (e) => {
     e.preventDefault();
-
     setShowToast(true);
+    setIsSubmitting(true);
 
-    setTimeout(() => {
-      setShowToast(false);
-      window.location.reload();
-    }, 3000);
+    try {
+      const response = await fetch("http://localhost:3000/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
+          userEmail: email,
+          userPhone: phone,
+          password: password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setEmail("");
+        setUsername("");
+        setPassword("");
+        setPhone("");
+      }
+    } catch (error) {
+      console.error("Could not connect to the backend server:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+
+    window.location.reload();
+    setShowToast(false);
   };
 
   return (
@@ -60,6 +92,8 @@ function Register() {
                 type="email"
                 name="register-email"
                 id="register-email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
@@ -71,6 +105,8 @@ function Register() {
                 type="text"
                 name="register-username"
                 id="register-username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 required
               />
             </div>
@@ -82,6 +118,8 @@ function Register() {
                 type="tel"
                 name="register-number"
                 id="register-number"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
                 required
               />
             </div>
@@ -93,6 +131,7 @@ function Register() {
                 type="password"
                 name="register-password"
                 id="register-password"
+                value={password}
                 required
                 onChange={(e) => {
                   setPassword(e.target.value);
@@ -130,9 +169,7 @@ function Register() {
                 )}
 
                 {isPasswordValid && doPasswordsMatch && (
-                  <p id="valid-pass" style={{ color: "rgb(8, 172, 123)" }}>
-                    Password criteria met successfully
-                  </p>
+                  <p id="valid-pass" style={{ color: "rgb(8, 172, 123)" }}></p>
                 )}
               </>
             )}
@@ -141,7 +178,7 @@ function Register() {
               <label htmlFor="agree">Agree to the terms and conditions</label>
             </div>
             <button data-bs-dismiss="toast" aria-label="Close">
-              Register
+              {isSubmitting ? "Registering" : "Register"}
             </button>
           </form>
           {showToast && (
