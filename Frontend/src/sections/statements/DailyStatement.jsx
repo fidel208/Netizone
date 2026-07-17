@@ -19,8 +19,8 @@ function DailyStatement() {
                 <th>Username</th>
                 <th>Type</th>
                 <th>Plan</th>
-                <th>Created on</th>
-                <th>Payment Mode</th>
+                <th>Created</th>
+                <th>Payment mode</th>
                 <th>Router</th>
               </tr>
             </thead>

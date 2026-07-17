@@ -71,11 +71,11 @@ function PaymentMethod() {
               </div>
               <form>
                 <div className="mpesa-div">
-                  <label htmlFor="consumer-key">Consumer Key</label>
+                  <label htmlFor="consumer-key">Consumer key</label>
                   <input type="text" name="consumer-key" id="consumer-key" />
                 </div>
                 <div className="mpesa-div">
-                  <label htmlFor="consumer-secret">Consumer Secret</label>
+                  <label htmlFor="consumer-secret">Consumer secret</label>
                   <input
                     type="password"
                     name="consumer-secret"
@@ -84,7 +84,7 @@ function PaymentMethod() {
                 </div>
                 <div className="mpesa-div">
                   <label htmlFor="business-short-code">
-                    Business Short Code
+                    Business short code
                   </label>
                   <input
                     type="text"
@@ -93,11 +93,11 @@ function PaymentMethod() {
                   />
                 </div>
                 <div className="mpesa-div">
-                  <label htmlFor="business-till">Business Till</label>
+                  <label htmlFor="business-till">Business till</label>
                   <input type="text" name="business-till" id="business-till" />
                 </div>
                 <div className="mpesa-div">
-                  <label htmlFor="pass-key">Pass Key</label>
+                  <label htmlFor="pass-key">Pass key</label>
                   <input type="text" name="pass-key" id="pass-key" />
                 </div>
                 <button id="mpesa-save-btn">Save</button>
@@ -121,11 +121,11 @@ function PaymentMethod() {
               </div>
               <form>
                 <div className="bank-div">
-                  <label htmlFor="bank-acc">Bank Account Number</label>
+                  <label htmlFor="bank-acc">Bank account number</label>
                   <input type="text" name="bank-acc" id="bank-acc" />
                 </div>
                 <div className="bank-div">
-                  <label htmlFor="bank-name">Bank Name</label>
+                  <label htmlFor="bank-name">Bank name</label>
                   <select name="bank-name" id="bank-name">
                     <option value="kcb">Kenya Commercial Bank</option>
                     <option value="equity">Equity Bank Kenya</option>

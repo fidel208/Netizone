@@ -53,3 +53,14 @@
 #save-notifications:hover {
   background-color: rgb(6, 97, 70);
 }
+
+@media (max-width: 768px) {
+  .alert-div > label:first-child {
+    width: 100px;
+    min-width: 0;
+    font-size: 15px;
+  }
+  .alert-div textarea {
+    width: 70%;
+  }
+}

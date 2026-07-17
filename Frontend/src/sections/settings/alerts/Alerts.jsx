@@ -92,7 +92,7 @@ function Alerts() {
         <p>User Alerts</p>
         <form onSubmit={handleSubmit}>
           <div className="alert-div">
-            <label htmlFor="payment-notification">Payment Notification</label>
+            <label htmlFor="payment-notification">Payment notification</label>
             <textarea
               name="paymentMessage"
               id="paymentMessage"
@@ -102,7 +102,7 @@ function Alerts() {
             ></textarea>
           </div>
           <div className="alert-div">
-            <label htmlFor="balance-notification">Balance Notification</label>
+            <label htmlFor="balance-notification">Balance notification</label>
             <textarea
               name="balanceMessage"
               id="balanceMessage"
@@ -112,7 +112,7 @@ function Alerts() {
             ></textarea>
           </div>
           <div className="alert-div">
-            <label htmlFor="expired-notification">Expired Notification</label>
+            <label htmlFor="expired-notification">Expired notification</label>
             <textarea
               name="expiredMessage"
               id="expiredMessage"

@@ -150,3 +150,25 @@
 .page-btn:hover {
   color: rgb(30, 30, 114);
 }
+
+@media (max-width: 768px) {
+  .hotspot-clients {
+    padding: 10px;
+  }
+  .hotspot-user-search > button {
+    font-size: 13px;
+    gap: 5px;
+  }
+  #hotspot-table {
+    width: 100px;
+    border-collapse: collapse;
+  }
+  #hotspot-table th {
+    padding: 10px;
+    font-size: 15px;
+  }
+  #hotspot-table td {
+    padding: 10px;
+    font-size: 15px;
+  }
+}

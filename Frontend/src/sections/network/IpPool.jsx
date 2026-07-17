@@ -169,7 +169,7 @@ function IpPool() {
             </form>
           </span>
           <button onClick={() => setPoolOpen(true)}>
-            <i className="fa-solid fa-plus"></i> New Pool
+            <i className="fa-solid fa-plus"></i> New pool
           </button>
         </div>
         <div className="pool-table">
@@ -226,7 +226,7 @@ function IpPool() {
               {error && <p id="error-message">{error}</p>}
               <form onSubmit={handleAddIppool}>
                 <div className="add-pool-div">
-                  <label htmlFor="pool-name">Pool Name</label>
+                  <label htmlFor="pool-name">Pool name</label>
                   <input type="text" name="pool-name" id="pool-name" />
                 </div>
                 <div className="add-pool-div">

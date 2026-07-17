@@ -5,12 +5,12 @@ function Refill() {
   return (
     <>
       <div className="refill-client">
-        <p>Refill Client</p>
+        <p>Refill client</p>
         <form>
           <span className="form-row">
-            <label htmlFor="ref-acc">Select Account</label>
+            <label htmlFor="ref-acc">Select account</label>
             <select name="ref-acc" id="ref-acc">
-              <option value="none">Select Account</option>
+              <option value="none">Select account</option>
               <option value="acc1">ACC00001 - 0789455874</option>
               <option value="acc2">ACC00002 - 0789455874</option>
               <option value="acc3">ACC00003 - 0789455874</option>
@@ -18,7 +18,7 @@ function Refill() {
             </select>
           </span>
           <span className="form-row">
-            <label htmlFor="voucher">Code Voucher</label>
+            <label htmlFor="voucher">Code voucher</label>
             <input
               type="text"
               name="voucher"

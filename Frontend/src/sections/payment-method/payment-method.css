@@ -52,8 +52,8 @@
 }
 .mpesa-overlay {
   background-color: white;
-  width: 40%;
-  height: 40%;
+  height: 350px;
+  width: 550px;
   padding: 20px;
   border-radius: 12px;
 }
@@ -145,9 +145,39 @@
   background-color: rgb(6, 97, 70);
 }
 .bank-overlay {
-  width: 35%;
-  height: 30%;
+  height: 250px;
+  width: 550px;
   background-color: white;
   border-radius: 12px;
   padding: 20px;
+}
+
+@media (max-width: 768px) {
+  .payment-method-table {
+    width: 90%;
+  }
+  #payment-method-table button {
+    font-size: 15px;
+  }
+  .mpesa-overlay {
+    width: 380px;
+    height: 400px;
+  }
+  .mpesa-div > label:first-child,
+  .bank-div > label:first-child {
+    width: 100px;
+    min-width: 0;
+  }
+  .mpesa-div input,
+  .bank-div input {
+    width: 70%;
+  }
+  .bank-div select {
+    width: 70%;
+  }
+  #mpesa-save-btn,
+  #bank-save-btn {
+    margin-left: 105px;
+    width: 100px;
+  }
 }

@@ -114,8 +114,8 @@
   border-radius: 8px;
   width: 300px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  width: 60%;
-  height: 80%;
+  width: 800px;
+  height: 600px;
 }
 .modal-content form {
   display: flex;
@@ -282,4 +282,51 @@
 }
 .status-badge {
   color: rgb(8, 172, 123);
+}
+
+@media (max-width: 768px) {
+  .pppoe {
+    height: 90dvh;
+  }
+  .hotspot-plans-search > button {
+    width: 33%;
+    font-size: 13px;
+    gap: 5px;
+  }
+  .hotspot-packages {
+    padding: 10px;
+  }
+  #package-search-div button {
+    font-size: 15px;
+  }
+  #hotspot-plans-table {
+    height: auto;
+    width: 100%;
+    overflow-x: scroll;
+  }
+  #hotspot-plans-table th {
+    padding: 10px;
+    font-size: 12px;
+    overflow: scroll;
+  }
+  #hotspot-plans-table td {
+    padding: 10px;
+    font-size: 12px;
+    overflow: scroll;
+  }
+  .modal-content {
+    width: 350px;
+  }
+  .plan-form > label:first-child {
+    width: 100px;
+    min-width: 100px;
+    font-size: 13px;
+  }
+  .modal-form-buttons {
+    margin-left: 110px;
+  }
+  .modal-form-buttons button {
+    font-size: 13px;
+    max-width: 80px;
+  }
 }

@@ -10,14 +10,14 @@ function BulkSms() {
           <span className="form-row">
             <label htmlFor="group">Group</label>
             <select name="group" id="group">
-              <option value="all">All Customers</option>
-              <option value="new">New Customers</option>
-              <option value="active">Active Customers</option>
-              <option value="expired">Expired Customers</option>
+              <option value="all">All customers</option>
+              <option value="new">New customers</option>
+              <option value="active">Active customers</option>
+              <option value="expired">Expired customers</option>
             </select>
           </span>
           <span className="form-row" id="radio-group">
-            <label htmlFor="via">Send Via</label>
+            <label htmlFor="via">Send via</label>
             <span id="radio-item">
               <input type="radio" name="via" id="sms" />
               <label htmlFor="sms">Sms</label>
@@ -36,7 +36,7 @@ function BulkSms() {
             ></textarea>
           </span>
           <div className="bulk-message-btns">
-            <button id="send-bulk-sms">Send Message</button>
+            <button id="send-bulk-sms">Send message</button>
             <button id="cancel-bulk-sms">Cancel</button>
           </div>
         </form>

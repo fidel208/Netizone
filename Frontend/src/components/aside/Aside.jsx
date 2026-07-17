@@ -3,8 +3,9 @@ import "./aside.css";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import Header from "../header/Header";
 
-const Aside = () => {
+const Aside = ({ setOpenAside }) => {
   const location = useLocation();
   const currentPath = location.pathname;
 
@@ -100,7 +101,14 @@ const Aside = () => {
 
   return (
     <div className="aside">
-      <h1>{internetName.toUpperCase()}</h1>
+      <h1>
+        {internetName.toUpperCase()}{" "}
+        <i
+          className="fa-solid fa-xmark"
+          id="close-icon"
+          onClick={() => setOpenAside(false)}
+        ></i>
+      </h1>
       <nav>
         <Link
           to={"/dashboard/my-dashboard"}

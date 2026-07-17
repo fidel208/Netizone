@@ -82,3 +82,33 @@
 #cancel-bulk-sms:hover {
   background-color: rgb(139, 22, 22);
 }
+
+@media (max-width: 768px) {
+  .single-sms form,
+  .bulk-sms form {
+    padding: 10px;
+  }
+  .form-row > label:first-child {
+    width: 100px;
+    min-width: 100px;
+    text-align: left;
+    font-size: 15px;
+  }
+  .single-sms select,
+  .bulk-sms select {
+    width: 90%;
+  }
+  .single-sms textarea,
+  .bulk-sms textarea {
+    width: 90%;
+  }
+  .single-message-btns,
+  .bulk-message-btns {
+    margin-left: 90px;
+    font-size: 14px;
+  }
+  .single-message-btns button,
+  .bulk-message-btns button {
+    height: 30px;
+  }
+}

@@ -100,7 +100,7 @@ function General() {
         <form onSubmit={handleSubmit}>
           <div className="part-1">
             <div className="general-div">
-              <label htmlFor="internet">Internet Name</label>
+              <label htmlFor="internet">Internet name</label>
               <input
                 type="text"
                 name="internet"
@@ -120,7 +120,7 @@ function General() {
               />
             </div>
             <div className="general-div">
-              <label htmlFor="phone">Phone Number</label>
+              <label htmlFor="phone">Phone number</label>
               <input
                 type="tel"
                 name="phone"
@@ -130,7 +130,7 @@ function General() {
               />
             </div>
             <div className="general-div">
-              <label htmlFor="enable">Enable System</label>
+              <label htmlFor="enable">Enable system</label>
               <select
                 name="enable"
                 id="enable"
@@ -144,7 +144,7 @@ function General() {
           </div>
           <div className="part-2">
             <div className="general-div">
-              <label htmlFor="expired-not">Expired Notification</label>
+              <label htmlFor="expired-not">Expired notification</label>
               <select
                 name="expired-not"
                 id="expired-not"
@@ -156,7 +156,7 @@ function General() {
               </select>
             </div>
             <div className="general-div">
-              <label htmlFor="payment-not">Payment Notification</label>
+              <label htmlFor="payment-not">Payment notification</label>
               <select
                 name="payment-not"
                 id="payment-not"
@@ -168,7 +168,7 @@ function General() {
               </select>
             </div>
             <div className="general-div">
-              <label htmlFor="reminder-not">Reminder Notification</label>
+              <label htmlFor="reminder-not">Reminder notification</label>
               <select
                 name="reminder-not"
                 id="reminder-not"

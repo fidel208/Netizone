@@ -1,10 +1,5 @@
 .login {
-  background: linear-gradient(
-    to right,
-    rgb(22, 129, 97),
-    rgb(48, 48, 185),
-    rgb(32, 59, 92)
-  );
+  background: linear-gradient(to right, rgb(23, 42, 66), rgb(18, 34, 53));
   height: 100dvh;
   width: 100%;
   display: flex;
@@ -96,4 +91,20 @@
   color: red;
   margin: 0;
   font-size: 15px;
+}
+
+@media (max-width: 1024px) {
+  .login-box {
+    height: 450px;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-box {
+    height: 450px;
+    width: 90%;
+  }
+  .login-form-row label {
+    font-size: 18px;
+  }
 }

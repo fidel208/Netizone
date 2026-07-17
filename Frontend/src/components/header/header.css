@@ -19,6 +19,9 @@
   background-color: rgb(23, 42, 66);
   height: 100%;
 }
+#menu-icon {
+  display: none;
+}
 .others > p {
   font-size: 18px;
 }
@@ -40,6 +43,14 @@
   height: 15px;
   width: 15px;
   background-color: rgb(53, 247, 79);
+  border: solid 1px white;
+  border-radius: 50%;
+  display: flex;
+}
+#offline {
+  height: 15px;
+  width: 15px;
+  background-color: rgb(236, 46, 46);
   border: solid 1px white;
   border-radius: 50%;
   display: flex;
@@ -71,4 +82,66 @@
 }
 .dropdown > a:hover {
   color: rgb(233, 54, 54);
+}
+.aside-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 15, 15, 0.5);
+  display: none;
+  backdrop-filter: blur(1px);
+  z-index: 999;
+}
+
+@media (max-width: 1024px) {
+  .header {
+    height: 6dvh;
+  }
+  .dropdown {
+    top: 6%;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+  }
+  .others {
+    padding: 0 15px;
+    align-items: center;
+  }
+  .others p {
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-top: 15px;
+    gap: 30px;
+  }
+  .dropdown > a {
+    font-size: 15px;
+  }
+  #menu-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    background-color: rgb(28, 53, 83);
+    width: 25px;
+    height: 25px;
+  }
+  #dp {
+    width: 30px;
+    height: 30px;
+  }
+  .aside-overlay {
+    display: flex;
+  }
+  .aside-modal {
+    width: 50%;
+  }
 }

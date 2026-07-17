@@ -60,3 +60,17 @@
 .general-settings button:hover {
   background-color: rgb(6, 97, 70);
 }
+
+@media (max-width: 768px) {
+  .general-div > label:first-child {
+    font-size: 15px;
+    width: 100px;
+  }
+  .general-div select,
+  .general-div input {
+    width: 70%;
+  }
+  .general-settings button {
+    margin-left: 150px;
+  }
+}

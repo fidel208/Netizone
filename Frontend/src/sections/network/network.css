@@ -288,8 +288,8 @@
 }
 .pool-overlay {
   background-color: white;
-  height: 35%;
-  width: 40%;
+  height: 350px;
+  width: 550px;
   border-radius: 12px;
   padding: 20px;
 }
@@ -306,4 +306,49 @@
 }
 #pool-delete {
   width: 30px;
+}
+
+@media (max-width: 768px) {
+  .router-search > button {
+    width: 33%;
+  }
+  #router-search-div button,
+  #pool-search-div button {
+    font-size: 15px;
+  }
+  .router-search > button,
+  .pool-search > button {
+    font-size: 15px;
+    gap: 5px;
+  }
+  #router-table th,
+  #pool-table th {
+    font-size: 14px;
+    padding: 10px;
+  }
+  #router-table td,
+  #pool-table td {
+    font-size: 14px;
+    padding: 10px;
+  }
+  .manage-btns button {
+    height: 25px;
+  }
+  .router-modal,
+  .pool-overlay {
+    width: 380px;
+  }
+  .router-form-div > label:first-child,
+  .add-pool-div > label:first-child {
+    width: 100px;
+    min-width: 0;
+  }
+  .router-add-btns,
+  .pool-btns {
+    margin-left: 110px;
+  }
+  .router-add-btns button,
+  .pool-btns button {
+    max-width: 80px;
+  }
 }

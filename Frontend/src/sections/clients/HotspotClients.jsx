@@ -100,7 +100,7 @@ function HotspotClients() {
   return (
     <>
       <div className="hotspot-clients">
-        <p>Hotspot Clients</p>
+        <p>Hotspot clients</p>
         <div className="hotspot-user-search">
           <span id="search-div">
             <form
@@ -121,7 +121,7 @@ function HotspotClients() {
             </form>
           </span>
           <button>
-            <i className="fa-solid fa-plus"></i>New Hotspot User
+            <i className="fa-solid fa-plus"></i>New user
           </button>
         </div>
         <div className="hotspot-clients-table">
@@ -129,10 +129,10 @@ function HotspotClients() {
             <thead>
               <tr>
                 <th>Username</th>
-                <th>Phone Number</th>
-                <th>Service Type</th>
+                <th>Phone number</th>
+                <th>Service</th>
                 <th>Status</th>
-                <th>Created On</th>
+                <th>Created</th>
               </tr>
             </thead>
             <tbody>

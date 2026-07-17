@@ -102,3 +102,13 @@ input:checked + .slider-pill::before {
 #start-btn:hover {
   background-color: rgb(6, 97, 70);
 }
+
+@media (max-width: 768px) {
+  .maintain-div > label:first-child {
+    font-size: 15px;
+    width: 100px;
+  }
+  .maintain-div input {
+    width: 70%;
+  }
+}

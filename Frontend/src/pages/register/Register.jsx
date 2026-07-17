@@ -49,10 +49,9 @@ function Register() {
       console.error("Could not connect to the backend server:", error);
     } finally {
       setIsSubmitting(false);
+      setShowToast(false);
+      window.location.reload();
     }
-
-    window.location.reload();
-    setShowToast(false);
   };
 
   return (

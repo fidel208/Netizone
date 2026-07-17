@@ -64,10 +64,10 @@ function OnlineClients() {
         <thead>
           <tr>
             <th>Username</th>
-            <th>Phone Number</th>
+            <th>Phone number</th>
             <th>Created</th>
             <th>Plan</th>
-            <th>Mac Address</th>
+            <th>Mac address</th>
             <th>Router</th>
             <th>Data usage</th>
           </tr>
@@ -94,7 +94,7 @@ function OnlineClients() {
     <>
       <div className="online-clients">
         <span id="online-clients-top">
-          <p>Online Clients</p>
+          <p>Online clients</p>
           <button>
             Export <i className="fa-solid fa-download"></i>
           </button>

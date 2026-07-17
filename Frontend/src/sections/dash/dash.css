@@ -165,9 +165,30 @@
   z-index: 5;
   padding: 15px;
 }
-
 #day-table td {
   padding: 15px;
   border-bottom: 1px solid #ccd1d6;
   color: rgb(97, 95, 95);
+}
+
+@media (max-width: 768px) {
+  .my-dashboard {
+    display: flex;
+    flex-direction: column;
+  }
+  .my-dash-top {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .my-dash-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  .graph {
+    height: 500px;
+    width: 100%;
+    padding: 10px;
+  }
 }

@@ -99,3 +99,28 @@
 .refill-client input:focus {
   border: solid 1px green;
 }
+
+@media (max-width: 768px) {
+  .recharge-client > form,
+  .refill-client > form {
+    padding: 10px;
+  }
+
+  .recharge-client select,
+  .refill-client select {
+    font-size: 15px;
+    width: 60%;
+  }
+  .refill-client input {
+    font-size: 15px;
+    width: 60%;
+  }
+  .recharge-btns,
+  .refill-btns {
+    margin-left: 110px;
+  }
+  .recharge-btns button,
+  .refill-btns button {
+    max-width: 80px;
+  }
+}

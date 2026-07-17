@@ -80,12 +80,12 @@ function Recharge() {
   return (
     <>
       <div className="recharge-client">
-        <p>Recharge Client</p>
+        <p>Recharge client</p>
         <form>
           <span className="form-row">
-            <label htmlFor="select-acc">Select Account</label>
+            <label htmlFor="select-acc">Select account</label>
             <select name="select-acc" id="select-acc">
-              <option value="none">Select Account</option>
+              <option value="none">Select account</option>
               <option value="acc1">ACC00001 - 0789455874</option>
               <option value="acc2">ACC00002 - 0789455874</option>
               <option value="acc3">ACC00003 - 0789455874</option>
@@ -106,7 +106,7 @@ function Recharge() {
           <span className="form-row">
             <label htmlFor="router">Router</label>
             <select name="router" id="router">
-              <option value="no-router">Select Router</option>
+              <option value="no-router">Select router</option>
               {routersList.map((router) => (
                 <option key={router.id} value={router.id}>
                   {router.name}
@@ -126,10 +126,10 @@ function Recharge() {
             </select>
           </span>
           <span id="radio-group" className="form-row">
-            <label htmlFor="using">Payment Mode</label>
+            <label htmlFor="using">Payment mode</label>
             <span id="radio-item">
               <input type="radio" name="p-mode" id="cash" />
-              <label htmlFor="cash">Cash</label>
+              <label htmlFor="cash">cash</label>
             </span>
             <span id="radio-item">
               <input type="radio" name="p-mode" id="zero" />

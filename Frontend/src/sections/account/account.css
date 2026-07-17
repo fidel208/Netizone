@@ -149,7 +149,6 @@ sub {
   margin-top: 40px;
 }
 #mobile-pay-form {
-  gap: 8px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -247,4 +246,38 @@ sub {
 }
 #change-form > button:hover {
   background-color: rgb(21, 21, 83);
+}
+
+@media (max-width: 1024px) {
+  .account {
+    grid-template-columns: 55% 40%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+  }
+  .plan-box {
+    height: 300px;
+    padding: 10px;
+  }
+  #pay-btn {
+    height: 35px;
+    max-width: 100%;
+    font-size: 18px;
+  }
+  #mobile-pay-form {
+    width: 60%;
+  }
+  .edit-details {
+    gap: 150px;
+  }
+}
+
+@media (max-width: 768px) {
+  .account {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
+  .edit-details {
+    gap: 50px;
+  }
 }

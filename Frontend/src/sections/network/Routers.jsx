@@ -231,7 +231,7 @@ function Routers() {
             </form>
           </span>
           <button onClick={() => setRouterModal(true)}>
-            <i className="fa-solid fa-plus"></i> New Router
+            <i className="fa-solid fa-plus"></i> New router
           </button>
         </div>
         <div className="routers-table">
@@ -328,11 +328,11 @@ function Routers() {
                   </span>
                 </div>
                 <div className="router-form-div">
-                  <label htmlFor="router-name">Router Name</label>
+                  <label htmlFor="router-name">Router name</label>
                   <input type="text" name="router-name" id="router-name" />
                 </div>
                 <div className="router-form-div">
-                  <label htmlFor="ip-address">IP Address</label>
+                  <label htmlFor="ip-address">IP address</label>
                   <input type="text" name="ip-address" id="ip-address" />
                 </div>
                 <div className="router-form-div">
@@ -344,7 +344,7 @@ function Routers() {
                   />
                 </div>
                 <div className="router-form-div">
-                  <label htmlFor="router-secret">Router Secret</label>
+                  <label htmlFor="router-secret">Router secret</label>
                   <input
                     type="password"
                     name="router-secret"

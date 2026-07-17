@@ -23,7 +23,7 @@ function Maintenance() {
             </span>
           </div>
           <div className="maintain-div">
-            <label htmlFor="end-date">End Date</label>
+            <label htmlFor="end-date">End date</label>
             <input type="date" name="end-date" id="end-date" />
           </div>
           <button id="start-btn">Start</button>

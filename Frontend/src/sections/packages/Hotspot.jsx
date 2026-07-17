@@ -189,7 +189,7 @@ function Hotspot() {
   return (
     <>
       <div className="hotspot-packages">
-        <p>Hotspot Packages</p>
+        <p>Hotspot packages</p>
         <div className="hotspot-plans-search">
           <span id="package-search-div">
             <form
@@ -210,20 +210,20 @@ function Hotspot() {
             </form>
           </span>
           <button onClick={() => setIsOpen(true)}>
-            <i className="fa-solid fa-plus"></i>New Package
+            <i className="fa-solid fa-plus"></i>New package
           </button>
         </div>
         <div className="hotspot-plans-table">
           <table id="hotspot-plans-table">
             <thead>
               <tr>
-                <th>Plan Name</th>
+                <th>Plan name</th>
                 <th>Type</th>
                 <th>Bandwidth</th>
                 <th>Price</th>
                 <th>Status</th>
-                <th>Time LImit</th>
-                <th>Data Limit</th>
+                <th>Time lImit</th>
+                <th>Data limit</th>
                 <th>Validity</th>
                 <th>Routers</th>
                 <th>Manage</th>
@@ -326,7 +326,7 @@ function Hotspot() {
                   </span>
                 </div>
                 <div className="plan-form">
-                  <label htmlFor="plan-name">Plan Name</label>
+                  <label htmlFor="plan-name">Plan name</label>
                   <input type="text" name="plan-name" id="plan-name" />
                 </div>
                 <div className="plan-form">
@@ -357,7 +357,7 @@ function Hotspot() {
                 {limit === "limited" && (
                   <>
                     <div className="plan-form">
-                      <label htmlFor="limit-type">Limit Type</label>
+                      <label htmlFor="limit-type">Limit type</label>
                       <span className="plan-form-span">
                         <input
                           type="radio"
@@ -367,7 +367,7 @@ function Hotspot() {
                           checked={limitType === "time"}
                           onChange={handleLimitChange}
                         />
-                        <label htmlFor="limit-type">Time Limit</label>
+                        <label htmlFor="limit-type">Time limit</label>
                       </span>
                       <span className="plan-form-span">
                         <input
@@ -378,7 +378,7 @@ function Hotspot() {
                           checked={limitType === "data"}
                           onChange={handleLimitChange}
                         />
-                        <label htmlFor="limit-type">Data Limit</label>
+                        <label htmlFor="limit-type">Data limit</label>
                       </span>
                       <span className="plan-form-span">
                         <input
@@ -394,7 +394,7 @@ function Hotspot() {
                     </div>
                     {(limitType === "time" || limitType === "both") && (
                       <div className="plan-form">
-                        <label htmlFor="time-input">Time Limit Value</label>
+                        <label htmlFor="time-input">Time limit value</label>
                         <span className="plan-form-span">
                           <input type="number" name="time" id="time-input" />
                           <select name="time-unit" id="time-unit">
@@ -406,7 +406,7 @@ function Hotspot() {
                     )}
                     {(limitType === "data" || limitType === "both") && (
                       <div className="plan-form">
-                        <label htmlFor="data-input">Data Limit Value</label>
+                        <label htmlFor="data-input">Data limit value</label>
                         <span className="plan-form-span">
                           <input type="number" name="data" id="data-input" />
                           <select name="data-unit" id="data-unit">
@@ -429,7 +429,7 @@ function Hotspot() {
                   </select>
                 </div>
                 <div className="plan-form">
-                  <label htmlFor="plan-price">Plan Price</label>
+                  <label htmlFor="plan-price">Plan price</label>
                   <input type="number" name="plan-price" id="plan-price" />
                 </div>
                 <div className="plan-form">
@@ -452,7 +452,7 @@ function Hotspot() {
                 <div className="plan-form">
                   <label htmlFor="plan-router">Router</label>
                   <select name="plan-router" id="plan-router">
-                    <option value="no-router">Select Router</option>
+                    <option value="no-router">Select router</option>
                     {routersList.map((router) => (
                       <option key={router.id} value={router.id}>
                         {router.name}

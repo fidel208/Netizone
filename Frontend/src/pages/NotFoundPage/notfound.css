@@ -26,3 +26,13 @@
 .not-found button:hover {
   background-color: rgb(26, 26, 102);
 }
+
+@media (max-width: 768px) {
+  .not-found h1 {
+    font-size: 24px;
+  }
+  .not-found button {
+    height: 30px;
+    font-size: 15px;
+  }
+}

@@ -108,3 +108,32 @@
 .period-statement button:hover {
   background-color: rgb(6, 97, 70);
 }
+
+@media (max-width: 768px) {
+  #day-report-table th {
+    padding: 5px;
+    font-size: 14px;
+  }
+  #day-report-table td {
+    padding: 5px;
+    font-size: 14px;
+  }
+  .period-form-row > label:first-child {
+    width: 100px;
+    min-width: 0;
+    text-align: left;
+  }
+  .period-form-row input {
+    width: 80%;
+  }
+  .period-form-row select {
+    width: 80%;
+  }
+  .period-statement button {
+    margin-left: 95px;
+  }
+  #day-report-table {
+    width: 100%;
+    overflow-x: auto;
+  }
+}
