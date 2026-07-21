@@ -31,9 +31,9 @@ function General() {
         const result = await response.json();
         if (response.ok && result.success) {
           setFormData({
-            internet: result.settings.internetName || "",
-            address: result.settings.address || "",
-            phone: result.settings.phoneNumber || "",
+            internet: result.settings.internetName,
+            address: result.settings.address,
+            phone: result.settings.phoneNumber,
             enable: result.settings.isSystemEnabled ? "yes" : "no",
             "expired-not": result.settings.expiredNotification || "sms",
             "payment-not": result.settings.paymentNotification || "sms",
@@ -83,9 +83,7 @@ function General() {
       if (response.ok && data.success) {
         alert("User settings successfully updated");
       } else {
-        alert(
-          "Failed to update user settigns: " + (data.error || "Unknown error"),
-        );
+        alert("Failed to update user settings: " + data.error);
       }
     } catch (err) {
       console.error("Failed to commit updates:", err);
@@ -181,7 +179,7 @@ function General() {
             </div>
           </div>
           <button type="submit" disabled={loading}>
-            {loading ? "Saving Changes..." : "Save Changes"}
+            {loading ? "Saving changes..." : "Save changes"}
           </button>
         </form>
       </div>

@@ -9,7 +9,7 @@ function DailyStatement() {
         <div className="report-top">
           <p>All transactions today</p>
           <button>
-            Export <i class="fa-solid fa-download"></i>
+            Export <i className="fa-solid fa-download"></i>
           </button>
         </div>
         <div className="daily-report-table">

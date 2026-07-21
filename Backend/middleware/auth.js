@@ -38,19 +38,24 @@ export const verifyToken = async (req, res, next) => {
           data: { isActive: false },
         });
       }
-      return res.status(403).json({
-        error: "Account inactive",
-        message:
-          "Your 30 days of active access are over. Kindly renew your subscription",
-      });
+      userRow.isActive = false;
     }
-    if (!userRow.isActive) {
-      return res.status(403).json({ error: "Account inactive" });
-    }
+    req.user.isActive = userRow.isActive;
     next();
   } catch (err) {
     return res
       .status(403)
       .json({ error: "Session expired. Please login again" });
   }
+};
+
+export const checkAccountActive = (req, res, next) => {
+  if (!req.user || !req.user.isActive) {
+    return res.status(403).json({
+      error: "Account inactive",
+      message:
+        "Your 30 days of active access are over. Kindly renew your subscription",
+    });
+  }
+  next();
 };

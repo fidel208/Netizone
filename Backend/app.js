@@ -2,7 +2,7 @@ import express from "express";
 import prisma from "./config/db.js";
 import cors from "cors";
 import jwt from "jsonwebtoken";
-import { verifyToken } from "./middleware/auth.js";
+import { verifyToken, checkAccountActive } from "./middleware/auth.js";
 import { connectToRouter } from "./config/microtik.js";
 import nodemailer from "nodemailer";
 
@@ -251,43 +251,48 @@ app.get("/api/general", verifyToken, async (req, res) => {
   }
 });
 
-app.put("/api/user/settings", verifyToken, async (req, res) => {
-  const activeUserId = req.user.id;
+app.put(
+  "/api/user/settings",
+  verifyToken,
+  checkAccountActive,
+  async (req, res) => {
+    const activeUserId = req.user.id;
 
-  const {
-    internet,
-    phone,
-    address,
-    enable,
-    "payment-not": paymentNot,
-    "expired-not": expiredNot,
-    "reminder-not": reminderNot,
-  } = req.body;
+    const {
+      internet,
+      phone,
+      address,
+      enable,
+      "payment-not": paymentNot,
+      "expired-not": expiredNot,
+      "reminder-not": reminderNot,
+    } = req.body;
 
-  try {
-    const updatedUser = await prisma.user.update({
-      where: { id: activeUserId },
-      data: {
-        internetName: internet,
-        phoneNumber: phone,
-        address: address,
-        isSystemEnabled: enable === "yes",
-        paymentNotification: paymentNot,
-        expiredNotification: expiredNot,
-        reminderNotification: reminderNot,
-      },
-    });
+    try {
+      const updatedUser = await prisma.user.update({
+        where: { id: activeUserId },
+        data: {
+          internetName: internet,
+          phoneNumber: phone,
+          address: address,
+          isSystemEnabled: enable === "yes",
+          paymentNotification: paymentNot,
+          expiredNotification: expiredNot,
+          reminderNotification: reminderNot,
+        },
+      });
 
-    res.status(200).json({
-      success: true,
-      message: "User details updated successfully",
-      settings: updatedUser,
-    });
-  } catch (error) {
-    console.error("Error occured while updating", error);
-    res.status(500).json({ error: "Failed to update user general settings" });
-  }
-});
+      res.status(200).json({
+        success: true,
+        message: "User details updated successfully",
+        settings: updatedUser,
+      });
+    } catch (error) {
+      console.error("Error occured while updating", error);
+      res.status(500).json({ error: "Failed to update user general settings" });
+    }
+  },
+);
 
 app.get("/api/account", verifyToken, async (req, res) => {
   const activeUserId = req.user.id;
@@ -322,32 +327,37 @@ app.get("/api/account", verifyToken, async (req, res) => {
   }
 });
 
-app.put("/api/user/details", verifyToken, async (req, res) => {
-  const activeUserId = req.user.id;
+app.put(
+  "/api/user/details",
+  verifyToken,
+  checkAccountActive,
+  async (req, res) => {
+    const activeUserId = req.user.id;
 
-  const { username, email } = req.body;
+    const { username, email } = req.body;
 
-  try {
-    const updatedUser = await prisma.user.update({
-      where: { id: activeUserId },
-      data: {
-        username: username,
-        email: email,
-      },
-    });
+    try {
+      const updatedUser = await prisma.user.update({
+        where: { id: activeUserId },
+        data: {
+          username: username,
+          email: email,
+        },
+      });
 
-    res.status(200).json({
-      success: true,
-      message: "Account details updated successfully",
-      account: updatedUser,
-    });
-  } catch (error) {
-    console.error("An error occured during updating");
-    res.status(500).json({ error: "Failed to update account details" });
-  }
-});
+      res.status(200).json({
+        success: true,
+        message: "Account details updated successfully",
+        account: updatedUser,
+      });
+    } catch (error) {
+      console.error("An error occured during updating");
+      res.status(500).json({ error: "Failed to update account details" });
+    }
+  },
+);
 
-app.get("/api/routers", verifyToken, async (req, res) => {
+app.get("/api/routers", verifyToken, checkAccountActive, async (req, res) => {
   const activeUserId = req.user.id;
   try {
     const userRouters = await prisma.router.findMany({
@@ -365,99 +375,114 @@ app.get("/api/routers", verifyToken, async (req, res) => {
   }
 });
 
-app.post("/api/routers/add", verifyToken, async (req, res) => {
-  const { name, ipAddress, username, secret, isActive } = req.body;
+app.post(
+  "/api/routers/add",
+  verifyToken,
+  checkAccountActive,
+  async (req, res) => {
+    const { name, ipAddress, username, secret, isActive } = req.body;
 
-  if (!name || !ipAddress || !username || !secret) {
-    return res.status(400).json({ error: "All fields are required" });
-  }
+    if (!name || !ipAddress || !username || !secret) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
 
-  try {
+    try {
+      const activeUserId = req.user.id;
+
+      const newRouter = await prisma.router.create({
+        data: {
+          name,
+          ipAddress,
+          username,
+          secret,
+          isActive: isActive ?? true,
+          userId: activeUserId,
+        },
+      });
+      res.status(201).json({
+        success: true,
+        message: "Router added successfully",
+        router: newRouter,
+      });
+    } catch (err) {
+      console.error("Error adding a router:", err);
+      return res.status(500).json({
+        error: "An internal server error occurred while saving the router",
+      });
+    }
+  },
+);
+
+app.get(
+  "/api/routers/:id/status",
+  verifyToken,
+  checkAccountActive,
+  async (req, res) => {
+    const { id } = req.params;
     const activeUserId = req.user.id;
 
-    const newRouter = await prisma.router.create({
-      data: {
-        name,
-        ipAddress,
-        username,
-        secret,
-        isActive: isActive ?? true,
-        userId: activeUserId,
-      },
-    });
-    res.status(201).json({
-      success: true,
-      message: "Router added successfully",
-      router: newRouter,
-    });
-  } catch (err) {
-    console.error("Error adding a router:", err);
-    return res.status(500).json({
-      error: "An internal server error occurred while saving the router",
-    });
-  }
-});
+    try {
+      const router = await prisma.router.findFirst({
+        where: { id, userId: activeUserId },
+      });
 
-app.get("/api/routers/:id/status", verifyToken, async (req, res) => {
-  const { id } = req.params;
-  const activeUserId = req.user.id;
+      if (!router) {
+        return res
+          .status(404)
+          .json({ error: "Router configuration record not found." });
+      }
 
-  try {
-    const router = await prisma.router.findFirst({
-      where: { id, userId: activeUserId },
-    });
+      const conn = await connectToRouter(router);
 
-    if (!router) {
-      return res
-        .status(404)
-        .json({ error: "Router configuration record not found." });
+      const resourceData = await conn.menu("/system/resource").print();
+
+      return res.status(200).json({
+        success: true,
+        status: "Connected",
+        metrics: resourceData[0],
+      });
+    } catch (err) {
+      return res.status(500).json({
+        success: false,
+        status: "Disconnected",
+        error: err.message,
+      });
     }
+  },
+);
 
-    const conn = await connectToRouter(router);
+app.delete(
+  "/api/routers/:id/delete",
+  verifyToken,
+  checkAccountActive,
+  async (req, res) => {
+    const routerId = req.params.id;
+    const activeUserId = req.user.id;
 
-    const resourceData = await conn.menu("/system/resource").print();
+    try {
+      const existingRouter = await prisma.router.findUnique({
+        where: { id: routerId },
+      });
+      if (!existingRouter) {
+        return res.status(400).json({ error: "Router not found" });
+      }
 
-    return res.status(200).json({
-      success: true,
-      status: "Connected",
-      metrics: resourceData[0],
-    });
-  } catch (err) {
-    return res.status(500).json({
-      success: false,
-      status: "Disconnected",
-      error: err.message,
-    });
-  }
-});
+      await prisma.router.delete({ where: { id: routerId } });
 
-app.delete("/api/routers/:id/delete", verifyToken, async (req, res) => {
-  const routerId = req.params.id;
-  const activeUserId = req.user.id;
-
-  try {
-    const existingRouter = await prisma.router.findUnique({
-      where: { id: routerId },
-    });
-    if (!existingRouter) {
-      return res.status(400).json({ error: "Router not found" });
+      res.status(200).json({
+        success: true,
+        message: "Router deleted successfully",
+      });
+    } catch (error) {
+      console.error("Error deleting router:", error);
+      res.status(500).json({
+        error: "Internal server occured during deletion process",
+      });
     }
+  },
+);
 
-    await prisma.router.delete({ where: { id: routerId } });
-
-    res.status(200).json({
-      success: true,
-      message: "Router deleted successfully",
-    });
-  } catch (error) {
-    console.error("Error deleting router:", error);
-    res.status(500).json({
-      error: "Internal server occured during deletion process",
-    });
-  }
-});
-
-app.get("/api/packages", verifyToken, async (req, res) => {
+app.get("/api/packages", verifyToken, checkAccountActive, async (req, res) => {
   const activeUserId = req.user.id;
   try {
     const packages = await prisma.package.findMany({
@@ -480,100 +505,110 @@ app.get("/api/packages", verifyToken, async (req, res) => {
   }
 });
 
-app.post("/api/packages/add", verifyToken, async (req, res) => {
-  const {
-    name,
-    isActive,
-    type,
-    price,
-    limitType,
-    bandwidth,
-    validity,
-    timeLimit,
-    dataLimit,
-    routerId,
-  } = req.body;
+app.post(
+  "/api/packages/add",
+  verifyToken,
+  checkAccountActive,
+  async (req, res) => {
+    const {
+      name,
+      isActive,
+      type,
+      price,
+      limitType,
+      bandwidth,
+      validity,
+      timeLimit,
+      dataLimit,
+      routerId,
+    } = req.body;
 
-  if (!name || !bandwidth || !validity) {
-    return res
-      .status(400)
-      .json({ error: "Please fill in the required fields" });
-  }
+    if (!name || !bandwidth || !validity) {
+      return res
+        .status(400)
+        .json({ error: "Please fill in the required fields" });
+    }
 
-  try {
-    const activeUserId = req.user.id;
-    if (routerId && routerId !== "no-router") {
-      const routerOwnershipCheck = await prisma.router.findFirst({
-        where: { id: routerId, userId: activeUserId },
-      });
-      if (!routerOwnershipCheck) {
-        return res
-          .status(403)
-          .json({ error: "Unauthorized target configuration route mapping" });
+    try {
+      const activeUserId = req.user.id;
+      if (routerId && routerId !== "no-router") {
+        const routerOwnershipCheck = await prisma.router.findFirst({
+          where: { id: routerId, userId: activeUserId },
+        });
+        if (!routerOwnershipCheck) {
+          return res
+            .status(403)
+            .json({ error: "Unauthorized target configuration route mapping" });
+        }
       }
-    }
-    const newPackage = await prisma.package.create({
-      data: {
-        name,
-        isActive: isActive ?? true,
-        type: type || "prepaid",
-        price: price ? parseFloat(price) : 0.0,
-        limitType: limitType || "unlimited",
-        bandwidth,
-        validity,
-        timeLimit: timeLimit || "Unlimited",
-        dataLimit: dataLimit || "Unlimited",
-        routerId: routerId === "no-router" || !routerId ? null : routerId,
-      },
-      include: {
-        router: {
-          select: { name: true },
+      const newPackage = await prisma.package.create({
+        data: {
+          name,
+          isActive: isActive ?? true,
+          type: type || "prepaid",
+          price: price ? parseFloat(price) : 0.0,
+          limitType: limitType || "unlimited",
+          bandwidth,
+          validity,
+          timeLimit: timeLimit || "Unlimited",
+          dataLimit: dataLimit || "Unlimited",
+          routerId: routerId === "no-router" || !routerId ? null : routerId,
         },
-      },
-    });
-    return res.status(201).json({
-      success: true,
-      message: "Hotspot package created successfully",
-      package: newPackage,
-      packages: newPackage,
-    });
-  } catch (err) {
-    console.error("Error adding package:", err);
-    return res.status(500).json({
-      error: "An internal server error occurred while saving the package",
-    });
-  }
-});
-
-app.delete("/api/packages/:id/delete", verifyToken, async (req, res) => {
-  const packageId = req.params.id;
-  const activeUserId = req.user.id;
-
-  try {
-    const existingPackage = await prisma.package.findUnique({
-      where: { id: packageId },
-    });
-    if (!existingPackage) {
-      return res.status(404).json({ error: "Service plan not found" });
+        include: {
+          router: {
+            select: { name: true },
+          },
+        },
+      });
+      return res.status(201).json({
+        success: true,
+        message: "Hotspot package created successfully",
+        package: newPackage,
+        packages: newPackage,
+      });
+    } catch (err) {
+      console.error("Error adding package:", err);
+      return res.status(500).json({
+        error: "An internal server error occurred while saving the package",
+      });
     }
+  },
+);
 
-    await prisma.package.delete({
-      where: { id: packageId },
-    });
+app.delete(
+  "/api/packages/:id/delete",
+  verifyToken,
+  checkAccountActive,
+  async (req, res) => {
+    const packageId = req.params.id;
+    const activeUserId = req.user.id;
 
-    res.status(200).json({
-      success: true,
-      message: "Package deleted from system listings successfully",
-    });
-  } catch (error) {
-    console.error("Error deleting service package:", error);
-    res.status(500).json({
-      error: "Internal server error occured during deletion processing",
-    });
-  }
-});
+    try {
+      const existingPackage = await prisma.package.findUnique({
+        where: { id: packageId },
+      });
+      if (!existingPackage) {
+        return res.status(404).json({ error: "Service plan not found" });
+      }
 
-app.get("/api/pools", verifyToken, async (req, res) => {
+      await prisma.package.delete({
+        where: { id: packageId },
+      });
+
+      res.status(200).json({
+        success: true,
+        message: "Package deleted from system listings successfully",
+      });
+    } catch (error) {
+      console.error("Error deleting service package:", error);
+      res.status(500).json({
+        error: "Internal server error occured during deletion processing",
+      });
+    }
+  },
+);
+
+app.get("/api/pools", verifyToken, checkAccountActive, async (req, res) => {
   const activeUserId = req.user.id;
 
   try {
@@ -604,85 +639,95 @@ app.get("/api/pools", verifyToken, async (req, res) => {
   }
 });
 
-app.post("/api/pools/add", verifyToken, async (req, res) => {
-  const { name, rangeIp, routerId } = req.body;
+app.post(
+  "/api/pools/add",
+  verifyToken,
+  checkAccountActive,
+  async (req, res) => {
+    const { name, rangeIp, routerId } = req.body;
 
-  if (!name || !rangeIp) {
-    return res
-      .status(400)
-      .json({ error: "Pool name and Range IP are required" });
-  }
+    if (!name || !rangeIp) {
+      return res
+        .status(400)
+        .json({ error: "Pool name and Range IP are required" });
+    }
 
-  try {
+    try {
+      const activeUserId = req.user.id;
+
+      if (routerId) {
+        const routerOwnershipCheck = await prisma.router.findFirst({
+          where: { id: routerId, userId: activeUserId },
+        });
+        if (!routerOwnershipCheck) {
+          return res.status(403).json({ error: "Unauthorized router mapping" });
+        }
+      }
+
+      const newPool = await prisma.pool.create({
+        data: {
+          name,
+          rangeIp,
+          routerId: routerId || null,
+          userId: activeUserId,
+        },
+        include: {
+          router: {
+            select: { name: true },
+          },
+        },
+      });
+      return res.status(201).json({
+        success: true,
+        message: "IP Pool created successfully",
+        pool: {
+          id: newPool.id,
+          name: newPool.name,
+          rangeIp: newPool.rangeIp,
+          router: newPool.router ? newPool.router.name : "None",
+        },
+      });
+    } catch (err) {
+      console.error("Error adding IP pool", err);
+      return res.status(500).json({
+        error: "An internal server error occurred while saving the IP pool",
+      });
+    }
+  },
+);
+
+app.delete(
+  "/api/pools/:id/delete",
+  verifyToken,
+  checkAccountActive,
+  async (req, res) => {
+    const poolId = req.params.id;
     const activeUserId = req.user.id;
 
-    if (routerId) {
-      const routerOwnershipCheck = await prisma.router.findFirst({
-        where: { id: routerId, userId: activeUserId },
+    try {
+      const existingPool = await prisma.pool.findUnique({
+        where: { id: poolId },
       });
-      if (!routerOwnershipCheck) {
-        return res.status(403).json({ error: "Unauthorized router mapping" });
+      if (!existingPool) {
+        return res.status(404).json({ error: "IP pool not found" });
       }
+
+      await prisma.pool.delete({
+        where: { id: poolId },
+      });
+
+      res.status(200).json({
+        success: true,
+        message: "IP pool successfully deleted",
+      });
+    } catch (error) {
+      console.error("Error deleting pool:", error);
+      res.status(500).json({
+        error: "Internal server occured during deletion process",
+      });
     }
-
-    const newPool = await prisma.pool.create({
-      data: {
-        name,
-        rangeIp,
-        routerId: routerId || null,
-        userId: activeUserId,
-      },
-      include: {
-        router: {
-          select: { name: true },
-        },
-      },
-    });
-    return res.status(201).json({
-      success: true,
-      message: "IP Pool created successfully",
-      pool: {
-        id: newPool.id,
-        name: newPool.name,
-        rangeIp: newPool.rangeIp,
-        router: newPool.router ? newPool.router.name : "None",
-      },
-    });
-  } catch (err) {
-    console.error("Error adding IP pool", err);
-    return res.status(500).json({
-      error: "An internal server error occurred while saving the IP pool",
-    });
-  }
-});
-
-app.delete("/api/pools/:id/delete", verifyToken, async (req, res) => {
-  const poolId = req.params.id;
-  const activeUserId = req.user.id;
-
-  try {
-    const existingPool = await prisma.pool.findUnique({
-      where: { id: poolId },
-    });
-    if (!existingPool) {
-      return res.status(404).json({ error: "IP pool not found" });
-    }
-
-    await prisma.pool.delete({
-      where: { id: poolId },
-    });
-
-    res.status(200).json({
-      success: true,
-      message: "IP pool successfully deleted",
-    });
-  } catch (error) {
-    console.error("Error deleting pool:", error);
-    res.status(500).json({
-      error: "Internal server occured during deletion process",
-    });
-  }
-});
+  },
+);
 
 app.get("/api/public/routers/:routerId/packages", async (req, res) => {
   const { routerId } = req.params;
@@ -713,51 +758,56 @@ app.get("/api/public/routers/:routerId/packages", async (req, res) => {
   }
 });
 
-app.put("/api/user/notifications", verifyToken, async (req, res) => {
-  const { expiredMessage, paymentMessage, balanceMessage } = req.body;
-  const activeUserId = req.user.id;
+app.put(
+  "/api/user/notifications",
+  verifyToken,
+  checkAccountActive,
+  async (req, res) => {
+    const { expiredMessage, paymentMessage, balanceMessage } = req.body;
+    const activeUserId = req.user.id;
 
-  try {
-    const dataToSave = [
-      {
-        type: "expired",
-        message: expiredMessage,
-      },
-      {
-        type: "payment",
-        message: paymentMessage,
-      },
-      {
-        type: "balance",
-        message: balanceMessage,
-      },
-    ];
+    try {
+      const dataToSave = [
+        {
+          type: "expired",
+          message: expiredMessage,
+        },
+        {
+          type: "payment",
+          message: paymentMessage,
+        },
+        {
+          type: "balance",
+          message: balanceMessage,
+        },
+      ];
 
-    await prisma.$transaction(
-      dataToSave.map((item) =>
-        prisma.notifications.upsert({
-          where: {
-            userId_type: { userId: activeUserId, type: item.type },
-          },
-          update: { message: item.message },
-          create: {
-            type: item.type,
-            message: item.message,
-            userId: activeUserId,
-          },
-        }),
-      ),
-    );
+      await prisma.$transaction(
+        dataToSave.map((item) =>
+          prisma.notifications.upsert({
+            where: {
+              userId_type: { userId: activeUserId, type: item.type },
+            },
+            update: { message: item.message },
+            create: {
+              type: item.type,
+              message: item.message,
+              userId: activeUserId,
+            },
+          }),
+        ),
+      );
 
-    res.status(200).json({
-      success: true,
-      message: "Notifications updated successfully!",
-    });
-  } catch (error) {
-    console.error("Failed to save add notifications:", error);
-    res.status(500).json({ error: "Internal server error saving templates" });
-  }
-});
+      res.status(200).json({
+        success: true,
+        message: "Notifications updated successfully!",
+      });
+    } catch (error) {
+      console.error("Failed to save add notifications:", error);
+      res.status(500).json({ error: "Internal server error saving templates" });
+    }
+  },
+);
 
 app.get("/api/user/notifications", verifyToken, async (req, res) => {
   try {
@@ -771,6 +821,213 @@ app.get("/api/user/notifications", verifyToken, async (req, res) => {
     res.status(500).json({ error: "Failed to load notifications" });
   }
 });
+
+app.put(
+  "/api/payment/mpesa",
+  verifyToken,
+  checkAccountActive,
+  async (req, res) => {
+    const activeUserId = req.user.id;
+    const { consumerKey, consumerSecret, shortCode, till, passkey } = req.body;
+
+    try {
+      const addedMpesa = await prisma.mpesaDetails.upsert({
+        where: { userId: activeUserId },
+        update: {
+          consumerKey,
+          consumerSecret,
+          shortCode,
+          till,
+          passkey,
+        },
+        create: {
+          consumerKey,
+          consumerSecret,
+          shortCode,
+          till,
+          passkey,
+          userId: activeUserId,
+        },
+      });
+      res.status(200).json({
+        success: true,
+        message: "Mpesa details added successfully",
+      });
+    } catch (error) {
+      console.error("Error occured while adding mpesa details:", error);
+      res.status(500).json({ error: "Faied to add mpesa details" });
+    }
+  },
+);
+
+app.get(
+  "/api/payment/mpesa-details",
+  verifyToken,
+  checkAccountActive,
+  async (req, res) => {
+    const activeUserId = req.user.id;
+
+    try {
+      const userRow = await prisma.mpesaDetails.findUnique({
+        where: { userId: activeUserId },
+        select: {
+          consumerKey: true,
+          consumerSecret: true,
+          shortCode: true,
+          till: true,
+          passkey: true,
+        },
+      });
+
+      if (!userRow) {
+        return res.status(404).json({ error: "Account not found" });
+      }
+
+      res.status(200).json({
+        success: true,
+        mpesa: {
+          consumerKey: userRow.consumerKey,
+          consumerSecret: userRow.consumerSecret,
+          shortCode: userRow.shortCode,
+          till: userRow.till,
+          passkey: userRow.passkey,
+        },
+      });
+    } catch (error) {
+      console.error("Unexpected error occured:", error);
+      res
+        .status(500)
+        .json({ error: "Failed to get the mpesa payment details" });
+    }
+  },
+);
+
+app.put(
+  "/api/payment/bank",
+  verifyToken,
+  checkAccountActive,
+  async (req, res) => {
+    const activeUserId = req.user.id;
+    const { accountNumber, bankName } = req.body;
+
+    try {
+      const bankDetails = await prisma.bankDetails.upsert({
+        where: { userId: activeUserId },
+        update: {
+          accountNumber,
+          bankName,
+        },
+        create: {
+          accountNumber,
+          bankName,
+          userId: activeUserId,
+        },
+      });
+      res.status(200).json({
+        success: true,
+        message: "Bank details added successfully",
+      });
+    } catch (error) {
+      console.error("Error occures while adding bank details:", error);
+      res.status(500).json({ error: "Failed to add bank details" });
+    }
+  },
+);
+
+app.get(
+  "/api/payment/bank-details",
+  verifyToken,
+  checkAccountActive,
+  async (req, res) => {
+    const activeUserId = req.user.id;
+
+    try {
+      const userRow = await prisma.bankDetails.findUnique({
+        where: { userId: activeUserId },
+        select: {
+          accountNumber: true,
+          bankName: true,
+        },
+      });
+
+      if (!userRow) {
+        return res.status(404).json({ error: "Account not found" });
+      }
+
+      res.status(200).json({
+        success: true,
+        bank: {
+          accountNumber: userRow.accountNumber,
+          bankName: userRow.bankName,
+        },
+      });
+    } catch (error) {
+      console.error("Unexpected error occured:", error);
+      res.status(500).json({ error: "Failed to get the bank details" });
+    }
+  },
+);
+
+app.get(
+  "/api/payment-method",
+  verifyToken,
+  checkAccountActive,
+  async (req, res) => {
+    const activeUserId = req.user.id;
+
+    try {
+      const userRow = await prisma.user.findUnique({
+        where: { id: activeUserId },
+        select: {
+          paymentMethod: true,
+        },
+      });
+
+      if (!userRow) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      res.status(200).json({
+        success: true,
+        payment: {
+          paymentMethod: userRow.paymentMethod,
+        },
+      });
+    } catch (error) {
+      console.error("Unexpected error occured:", error);
+      res.status(500).json({ error: "Failed to get the payment method" });
+    }
+  },
+);
+
+app.put(
+  "/api/payment/method",
+  verifyToken,
+  checkAccountActive,
+  async (req, res) => {
+    const activeUserId = req.user.id;
+
+    const { paymentMethod } = req.body;
+
+    try {
+      const updatedUser = await prisma.user.update({
+        where: { id: activeUserId },
+        data: {
+          paymentMethod: paymentMethod,
+        },
+      });
+
+      res.status(200).json({
+        success: true,
+        message: "Payment method updated successfully",
+        payment: { paymentMethod: updatedUser.paymentMethod },
+      });
+    } catch (error) {
+      console.error("Error occured while updating:", error);
+      res.status(500).json({ error: "Failed to change the payment method" });
+    }
+  },
+);
 
 app.get("/", (req, res) => {
   res.send("Server is ready");
